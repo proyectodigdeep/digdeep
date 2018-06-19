@@ -1,0 +1,39 @@
+<!-- Form5 Confirmación de pago del contrato del servicio-->
+<div class="modal-header modalHeaderCS" >
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Confirmamos tu compra</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS" >
+    <div style="padding:10px">
+        <img class="img-responsive imgCardservice" src="{{service.pictures[0]}}">
+    </div>
+    <div class="text-center" style="color:white;overflow:auto;height:100px;">
+        <p>
+            <strong><span class="titleModalInfo">{{service.title}}</span></strong><br>
+            <span class="text1ModalInfo">Descripción</span><br>
+            <span class="text2ModalInfo">{{service.description}}</span><br>
+        </p>
+    </div>
+    <div class="text-center" style="color:white;padding-top:15px">
+        <p>
+            <strong><span class="titleModalInfo">Precio Total: {{orderService.total | currency}}</span></strong><br>
+            <span class="text2ModalInfo">Horario: {{orderService.hourInit | date:"hh:mm a"}} - {{orderService.hourFinal | date:"hh:mm a"}}</span><br>
+            <span class="text2ModalInfo">Fecha: {{orderService.dateInit | date:'dd-MM-yyyy'}} - {{orderService.dateFinal  | date:'dd-MM-yyyy'}}</span><br>
+            <span class="text2ModalInfo">Servicio
+                <span ng-if="orderService.placeService === 'athome'">
+                    a domicilio <i class="fa fa-home" style="color: white;font-size: 14px"></i>
+                </span>
+                <span ng-if="orderService.placeService === 'presencial'">
+                    en establecimiento <i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i>
+                </span>        
+            </span><br>
+        </p>
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">Confirmación</button>
+    </div>
+</div>

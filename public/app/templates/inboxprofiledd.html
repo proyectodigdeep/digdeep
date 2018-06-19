@@ -1,0 +1,78 @@
+<div ng-include="'app/templates/topnav.html'"></div>
+
+<header class="divHeader2">
+	<a ui-sref="home">
+		<img src="img/logoBarDD.png" class="logoBar" style="float: left;">	
+	</a>
+	<span class="colorBlueTitle" style="float: right;"><i class="fa fa-download" aria-hidden="true" style="color: #1D75B6;"></i> BANDEJA DE PEDIDOS</span>
+</header>
+
+<div class="container containerDDMenu">
+	<div class="row">
+		<div class="col-md-1 col-md-offset-2 col-sm-2 col-sm-offset-1 col-xs-12 text-right" ng-include="'app/templates/menuDigdeeperProfile.html'" >
+		</div>
+		<div class="col-md-8 col-sm-8 col-xs-12" style="height: 450px;overflow: auto;">
+			<div class="row" style="margin-top:20px" ng-if="numPendingOrders == 0">
+				<h4 class="titleSorry">Lo sentimos :( no tienes pedidos nuevos.</h4>
+			</div>
+			<!-- inbox -->
+			<div  class="row inboxContent" ng-repeat="order in orders | orderBy:'-requestedDate'" ng-if="order.digdeeper === user._id && order.status === 1">
+				<div class="col-md-1 col-sm-4 col-xs-3 divImgInbox" >
+					<img src="{{order.dataService.imgUser}}" class="img-responsive digdeperImg">
+				</div>
+				<div class="col-md-3 col-sm-8 col-xs-9 contencInb1">
+					<p>
+						<span class="inboxText1">{{order.dataService.title}}</span>
+					</p>
+					<p>
+						<span class="inboxText2">
+							Cliente: {{order.dataService.nameUser}}
+						</span><br>
+						<span class="inboxText3">
+							Fecha de solicitud: {{order.requestedDate | date:'dd-MM-yyyy'}}
+						</span>
+					</p>
+				</div>
+				<div class="col-md-3 col-sm-8 col-xs-6 contencInb2">
+					<p>
+						<i class="fa fa-calendar fa-2x" style="color: #04456b;font-size: 15px" aria-hidden="true"></i> 
+						<span class="inboxText4">
+							{{order.dataService.dateInit | date:'dd-MM-yyyy'}} - {{order.dataService.dateFinish | date:'dd-MM-yyyy'}}
+						</span>
+					</p>
+					<p>
+						<i class="fa fa-clock-o fa-2x" style="color: #04456b;font-size: 15px" aria-hidden="true"></i>
+						<span class="inboxText4">
+							{{order.dataService.hourInit | date:"hh:mm a"}} - {{order.dataService.hourFinish | date:"hh:mm a"}}
+						</span>
+					</p>
+					<p ng-if="order.placeService === 'presencial'">
+						<i class="fa fa-location-arrow" style="color: #04456b;font-size: 15px"></i>
+						<span class="inboxText4">
+							En establecimiento
+						</span>
+					</p>
+					<p ng-if="order.placeService === 'athome'">
+						<i class="fa fa-home" style="color: #04456b;font-size: 15px"></i>
+						<span class="inboxText4">
+							A domicilio
+						</span>
+					</p>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 imgServiceInbox contencInb3">
+					<img src="{{order.dataService.picture}}" class="img-responsive" style="margin: 0 auto">
+				</div>
+				<div class="col-md-3 col-sm-4 col-xs-12 btnDivInbox  text-center">
+					<button class="btn btnEditProfile" title="Aceptar la orden" ng-click="openConfirmOrderModal(order._id)">
+						<i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+					</button>
+					<button class="btn btn-warning" title="Cancelar la orden" ng-click="openCancelOrderModal(order._id, user.fullname,'digdeeper')">
+						<i class="fa fa-window-close" aria-hidden="true" style="color: white"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-include="'app/templates/footerPage.html'"></div>

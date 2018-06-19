@@ -1,0 +1,36 @@
+<!-- Form5 Confirmación de pago del contrato del servicio-->
+<div class="modal-header modalHeaderCS" >
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="padding-left: 30px">
+            <span class="titleHeaderModalCS">
+                INICIO DE SESIÓN
+            </span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS" style="background-color: white!important">
+    <div class="row">
+        <div class="row text-center" style="margin-top: 5px">
+            <img src="img/logoDD.png" class="img-responsive logoLogin" style="width: 80px;">
+        </div>
+        <div class="form-group passworddiv-modal">
+            <span class="labelModalPassword" style="color: #04456b">Correo</span>
+            <input type="email" class="form-control" ng-model="usr.email" placeholder="fulanito@gmail.com" style="color: #1d75b6;">
+        </div>
+        <div class="form-group passworddiv-modal">
+            <span class="labelModalPassword" style="color: #04456b">Contraseña</span>
+            <input type="password" class="form-control" ng-model="usr.password" placeholder="*********" style="color: #1d75b6;">
+        </div>
+        <div class="form-group passworddiv-modal text-center">
+            <button class="btn btnModalOk" type="button" ng-click="$ctrl.back()">Cancelar</button>
+            <button class="btn btnModalOk" type="button" ng-click="$ctrl.login2(usr.email,usr.password)">Inicia Sesión</button>
+        </div>
+        <div class="row text-center" style="margin-top: 10px">
+            <p>
+                <a class="loginLinks" ng-click="$ctrl.forgetPassword()">¿Olvidaste tu contraseña?</a><br>
+                <a class="loginLinks" ng-click="$ctrl.goRegister()">¿Aún no estás en DIGDEEP? Regístrate</a>
+            </p>
+        </div>
+    </div>
+</div>

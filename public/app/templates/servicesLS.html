@@ -1,0 +1,187 @@
+<div ng-include="'app/templates/topnav.html'"></div>
+<!-- nav bar rabbits -->
+<div class="container-fluid containerRabbit" >
+	<div class="row backgroundBar" >
+		<div class="col-md-1 col-sm-1 col-xs-12" style="width: 6.8%"></div>
+		<div class="col-md-2 col-sm-2 col-xs-12 text-left">
+			<a ui-sref="homeLS">
+				<img src="img/livestyle/digPinkLogoBar.png" class="logoBar img-responsive">
+			</a>
+		</div>
+		<div class="col-md-9 col-sm-9 col-xs-12" >
+			<div class="row rabbitsRow">
+				<a ui-sref="homeES">
+					<div class="col-md-2 col-sm-3 col-xs-6 colRabbitIcon colRabbitIconPu linkBarRabbits">
+						<img src="img/digMorado.png" class="rabbitColor">
+						<span class="colorPurpleRabbit">
+							EVENTOS SOCIALES
+						</span>
+					</div>
+				</a>
+				<a ui-sref="homeLS">
+					<div class="col-md-2 col-sm-3 col-xs-6 colRabbitIcon colRabbitIconPi linkBarRabbits">
+						<img src="img/digRosa.png" class="rabbitColor">
+						<span class="colorPinkRabbit">
+							LIFE STYLE
+						</span>
+					</div>
+				</a>
+				<a ui-sref="homeEN">
+					<div class="col-md-2 col-sm-3 col-xs-6 colRabbitIcon colRabbitIconRe linkBarRabbits">
+						<img src="img/digRojo.png" class="rabbitColor">
+						<span class="colorRedRabbit">
+							ENTRETENIMIENTO
+						</span>
+					</div>
+				</a>
+				<a ui-sref="homeDE">
+					<div class="col-md-2 col-sm-3 col-xs-6 colRabbitIcon colRabbitIconBl linkBarRabbits">
+						<img src="img/digBlue.png" class="rabbitColor">
+						<span class="colorBlueRabbit">
+							DELIVERY
+						</span>	
+					</div>
+				</a>
+				<a ui-sref="homeHO">
+					<div class="col-md-2 col-sm-3 col-xs-6 colRabbitIcon colRabbitIconGR linkBarRabbits">
+						<img src="img/digVerde.png" class="rabbitColor">
+						<span class="colorGreenRabbit">
+							HOGAR
+						</span>	
+					</div>
+				</a>
+			</div>
+		</div>		
+	</div>
+</div>
+
+<!--Content-->
+<div class="container-fluid containerLSImg">
+	<div style="height: 100%;background-color: #f61a5e8a"></div>
+</div>
+<div class="container containerServicesContent" >
+	<div class="row">
+		<div class="col-md-3 col-sm-4 col-xs-12" >
+			<div class="row div-searchServices2">
+				<div class="row serviceLabel2LS">
+					<div style="padding: 10px">
+						<img class="img-responsive imgprofileCard" src="{{digdeeperData.urlImg}}" style="border-color: white">
+					</div>
+					<div class="text-center">
+						<span class="textTitleCard">{{digdeeperData.fullname}}</span>
+					</div>
+				</div>
+				<div class="row divFiltersLS">
+					<div class="titleFilters">
+						<span>Filtros de búsqueda</span>
+					</div>
+					<div class="contentFiltersLS">
+						<div class="row" style="margin:0px;margin-top: 30px">
+							<div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 2px;padding-right: 2px;">
+								<ul style="padding-left: 10px">
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.decorations" ng-click="chooseFilter()">Decoraciones
+									</li>
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.fashion" ng-click="chooseFilter()">Moda
+									</li>
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.cocktails" ng-click="chooseFilter()">Cocteles
+									</li>
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.nutrition" ng-click="chooseFilter()">Nutrición
+									</li>
+								</ul>		
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 2px;padding-right: 2px;">
+								<ul style="padding-left: 10px">
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.concerts" ng-click="chooseFilter()">Conciertos
+									</li>
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.parties" ng-click="chooseFilter()">Fiestas
+									</li>
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.culture" ng-click="chooseFilter()">Cultura
+									</li class="labelFilterOption">
+									<li class="labelFilterOption">
+										<input type="checkbox" class="checkLS" ng-model="filters.food" ng-click="chooseFilter()">Comida
+									</li>
+								</ul>		
+							</div>
+						</div>
+						<div class="text-right btnCleanFilters" style="padding-right: 5px">
+							<a ng-click="cleanFilters()" style="color: #04456B">
+								<i class="fa fa-times" style="color: #04456B" aria-hidden="true"></i>
+								Limpiar
+							</a>
+						</div>
+						<div class="text-left" style="padding-left: 10px;margin-top: 52px"> 
+							<span class="titleRange">¿Cuál es tu presupuesto?</span>
+						</div>
+						<div style="margin-top: 20px">
+							<div class="col-md-6 text-left costRangeText" style="padding-left: 10px">
+								$0.00
+							</div>
+							<div class="col-md-6 text-right costRangeText" style="padding-right: 10px">
+								$10,000.00									
+							</div>
+
+							<div class="text-center" style="padding:10px;padding-top: 35px">
+								<input type="range" class="sliderRangeLS" min="0" max="10000" ng-model="rangePrice" ng-change="choosePrice()">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9 col-sm-8 col-xs-12">
+			<h3 class="titleLSservices">Servicios</h3>
+			<!--Card service-->
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-12 cardContainer" ng-repeat="service in services">
+					<div class="cardSubContainerLS">
+						<div ng-click="openDetailsServiceModal(service.service,typePrice)" style="cursor: pointer">
+							<div style="padding: 10px">
+								<div style="width: 213px;height: 133px;display: block;margin: 0 auto;">
+									<img class="img-responsive" src="{{service.service.pictures[0]}}" style="border-radius: 5px;margin: 0 auto">
+								</div>
+							</div>
+							<div class="text-center contentCardServiceESLS">
+								<p>
+									<span class="textTitleCard">{{service.service.title}}</span><br>
+									<span class="textContentCard">Servicio {{$index + 1}}</span>
+								</p>
+								<p>
+									<span class="textSubTitleCard">
+										{{service.service.description}}
+									</span><br>
+								</p>
+							</div>
+							<div class="text-center">
+								<p class="textCostCard" ng-if="typePrice === 1 || typePrice ===2">
+									<i class="fa fa-home" style="color: white;font-size: 14px"></i><span style="font-size: 14px">A domicilio</span><br>{{service.service.price_athome | currency }}
+								</p>
+								<p class="textCostCard" ng-if="typePrice === 1 || typePrice ===3">
+									<i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i><span style="font-size: 14px">En establecimiento</span><br>{{service.service.price_presencial | currency }}
+								</p>
+							</div>
+						</div>
+						<div class="text-center">
+							<p ng-if="typeUser === 'root'">
+								<strong>
+									<a ng-click="openCommentsServiceModal(service.comment1,service.comment2)">ver comentarios</a>
+								</strong>
+							</p>
+						</div>
+						<div class="text-center" ng-click="openContractServiceModal(service.service,user,typePrice)">
+							<button class="btn btn-block buttonContractCardLS">CONTRATAR</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-include="'app/templates/footerPage.html'" scope="" onload=""></div>

@@ -1,0 +1,35 @@
+<div class="modal-header modalHeaderCS" >
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Nuevo Evento</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+
+<div class="modal-body modalBodyCS" style="background-color: white">
+    <div class="text-center">        
+        <span class="selectNewEvent">{{event.date | date: 'dd/MM/yyyy'}}</span><span></span>
+        <!--<div uib-timepicker ng-model="orderService.hourInit" hour-step="1" minute-step="1" show-meridian="ismeridian" ng-change="$ctrl.getHourInit(orderService.hourInit)"></div>-->
+    </div>
+    <div class="text-left">
+        <label class="selectNewEvent">Titulo:</label>
+        <input type="text" class="form-control" ng-model="event.title">
+    </div>
+    <div class="row text-center">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <label class="selectNewEvent">Hora de inicio:</label>
+            <div uib-timepicker ng-model="event.hourInit" hour-step="1" minute-step="1" show-meridian="ismeridian" ng-change="$ctrl.getHourInit(event.hourInit)" style="display: inline-block;"></div><span style="display: inline-block;color: #2d98c9">Hrs.</span>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <label class="selectNewEvent">Hora de fin:</label>
+            <div uib-timepicker ng-model="event.hourFinal" hour-step="1" minute-step="1" show-meridian="ismeridian" min="event.hourInit" style="display: inline-block;"></div><span style="display: inline-block;color: #2d98c9">Hrs.</span>    
+        </div>
+    </div>
+    <div class="text-center" style="padding-bottom: 5px;padding-top: 15px">
+        <img src="img/logoDD.png" style="max-width: 85px">
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.ok()">Aceptar</button>
+    </div>
+</div>

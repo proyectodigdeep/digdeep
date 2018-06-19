@@ -1,0 +1,74 @@
+<div ng-include="'app/templates/topnav.html'"></div>
+
+<header class="divHeader2">
+	<a ui-sref="home">
+		<img src="img/logoBarDD.png" class="logoBar" style="float: left;">	
+	</a>
+	<span class="colorBlueTitle" style="float: right;"><i class="fa fa-commenting" aria-hidden="true" style="color: #1D75B6;"></i> COMENTARIOS DE LOS USUARIOS</span>
+</header>
+
+<div class="container containerDDMenu">
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
+			<div class="row">
+				<div style="margin-top:20px" ng-if="numComments == 0">
+					<h4 class="titleSorry">
+						Lo sentimos :( no hay comentarios aún de los usuarios.
+					</h4>
+				</div>
+				<!-- Comment -->
+				<div class="commentContent" ng-repeat="comment in comments | orderBy:'-dateCommented'" ng-if="numComments > 0 && ([$index] < finalIndex && [$index] >= initIndex)">
+					<div>
+						<div class="row">
+							<div class="col-md-3 col-sm-3 col-xs-4">
+								<label class="inboxText2">Fecha: </label>
+								<span class="inboxText1">{{comment.dateCommented | date:'dd-MM-yyyy'}}</span>
+							</div>
+							<div class="col-md-9 col-sm-9 col-xs-8 text-center">
+								<label class="inboxText2">Titulo del servicio: </label>
+								<span class="inboxText1">{{comment.titleService}}</span>
+							</div>
+						</div>
+					</div>	
+					<div>
+						<div class="row" style="margin: initial">
+							<div class="col-md-6 col-sm-6 col-xs-12 divImgInbox" >
+								<div class="row">
+									<div class="col-md-3 col-sm-3 col-xs-2">
+										<img src="{{comment.clientData.picture}}" class="img-responsive digdeperImg">
+									</div>
+									<div class="col-md-9 col-sm-9 col-xs-10">
+										<label class="inboxText2">Datos del cliente </label><br>
+										<span class="inboxText2">Nombre: </span><span class="inboxText1">{{comment.clientData.fullname}}</span><br>
+										<span class="inboxText2">E-mail: </span><span class="inboxText1">{{comment.clientData.email}}</span><br>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12 divImgInbox" >
+								<div class="row">
+									<div class="col-md-3 col-sm-3 col-xs-2">
+										<img src="{{comment.digdeeperData.picture}}" class="img-responsive digdeperImg">
+									</div>
+									<div class="col-md-9 col-sm-9 col-xs-10">
+										<label class="inboxText2">Datos del proveedor </label><br>
+										<span class="inboxText2">Nombre: </span><span class="inboxText1">{{comment.digdeeperData.fullname}}</span><br>
+										<span class="inboxText2">Teléfono: </span><span class="inboxText1">{{comment.digdeeperData.phone}}</span><br>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<label class="inboxText2">Comentarios del usuario:</label>
+					<div class="text-left inboxText1" style="height: 50px;overflow: auto">
+						<span>{{comment.textComments}}</span>
+					</div>	
+				</div>
+				<div class="row text-center">
+					<ul uib-pagination direction-links="false" boundary-links="true" items-per-page = {{limitPage}} total-items="numComments" ng-model="currentPage" ng-change="pageChanged(currentPage)"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-include="'app/templates/footerPage.html'"></div>

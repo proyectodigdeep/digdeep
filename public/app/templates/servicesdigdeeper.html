@@ -1,0 +1,197 @@
+<div ng-include="'app/templates/topnav.html'"></div>
+
+<header class="divHeader2">
+	<a ui-sref="home">
+		<img src="img/logoBarDD.png" class="logoBar" style="float: left;">	
+	</a>
+	<span class="colorBlueTitle" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" style="color: #1d75b6;"></i> SERVICIOS</span>
+</header>
+
+<div class="container containerDDMenu" ng-init="initServicesDigdeeper()">
+	<div class="row">
+		<div class="col-md-1 col-md-offset-2 col-sm-1 col-xs-12 text-right" ng-include="'app/templates/menuDigdeeperProfile.html'" >
+		</div>
+		<div class="col-md-8 col-sm-8 col-xs-12">
+			<div class="row">
+				<!-- card description-->
+				<div class="col-md-4 col-sm-4 col-xs-12 cardService" ng-repeat="service in services">
+					<div class="containerCardSD">
+						<div>
+							<div class="text-center" style="padding: 10px">
+								<div style="width: 213px;height: 133px;display: block;margin: 0 auto;">
+									<img class="img-responsive" src="{{service.pictures[0]}}" style="border-radius: 5px;margin: 0 auto">
+								</div>
+							</div>
+							<div class="text-center contentCardService">
+								<div>
+									<p style="color: white">
+										<span class="titleCardSDD">{{service.title}}</span>
+										<br>
+										<span class="subtitleCardSDD">Servicio {{$index + 1}}</span>
+									</p>
+								</div>
+								<div>
+									<p style="color: white">
+										<span class="contentCardSDD">{{service.description}}</span>
+									<br>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="text-center">
+							<a class="btn cardServicebtnDE" ng-click="openEditInfoServiceModal(user._id, service, typePrice)"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true" style="color: white"></i></a>
+							<a class="btn cardServicebtnDE" ng-click="openDeleteServiceModal(services,user,service._id)"><i class="fa fa-trash fa-2x" aria-hidden="true" style="color: white"></i></a>
+						</div>
+					</div>
+					<div class="text-center footerCardSDD">
+						<div ng-if="typePrice === 1 || typePrice === 2">
+							<span style="font-size: 15px">a domicilio: </span>{{service.price_athome | currency}}
+						</div>
+						<div ng-if="typePrice === 1 || typePrice === 3">
+							<span  style="font-size: 15px">en establecimiento: </span>{{service.price_presencial | currency}}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12 cardService">
+					<button class="btn" style="width: 100%; height: 370px" ng-click="showPanelServ()">
+						<div class="containerCardSDPlus">
+							<div class="text-center" style="margin-top: 90px;margin-bottom: 90px;">
+								<p>
+									<i class="fa fa-plus fa-5x" aria-hidden="true" style="color: #C2C2C1"></i><br>
+									<span style="color: #C2C2C1">Añadir<br>PRODUCTO / SERVICIO</span>
+								</p>	
+							</div>
+						</div>
+					</button>
+				</div>
+			</div>
+			<section class="row" id="addservice" ng-show="sectionPlus">
+				<!-- Subir nuevo servicio -->
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="row">
+						<i class="fa fa-shopping-cart" aria-hidden="true" style="color: #1d75b6;font-size: 28px"></i>  <span class="separatorProfileTitle">AÑADIR SERVICIO</span>
+						<hr color="#04456b" class="hrService" >
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<label class="labelSendS">Titulo de servicio</label><br>
+							<input type="text" class="form-control inputSendS" ng-model="newService.title" placeholder="Banquetes para boda">
+							<span class="formInvalidText" ng-if="titleServiceFailed">
+								<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+							</span>
+						</div>
+					</div>
+
+					<div class="row" style="margin-top: 10px">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label class="labelSendS">Imagen para tu servicio</label><br>
+							<form ng-model="myDropzone" class="dropzone" method="post" enctype="multipart/form-data" ng-dropzone dropzone-config="dropzoneConfig" dropzone="dropzone" event-handlers="{'error':dzError }" role="form">
+								<div class="fallback">
+									<input name="source_file[]" type="file" multiple />
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4 col-sm-4 col-xs-12">
+							<label class="labelSendS">Categoría</label><br>
+							<select class="form-control inputSendS" ng-model="newService.category" ng-change="chooseCategory()" disabled="true">
+								<option value="" disabled>- Categoría -</option>
+								<option ng-repeat="cat in categories" value="{{cat._id}}">{{cat.title}}</option>
+							</select>
+							<span class="formInvalidText" ng-if="categoryFailed">
+								<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+							</span>
+						</div>
+						<div class="col-md-4 col-sm-4 col-xs-12">
+							<label class="labelSendS">Subcategoría</label><br>
+							<select class="form-control inputSendS" ng-model="newService.subcategory" disabled="true">
+								<option value="" selected disabled>- Subcategoria -</option>
+								<option ng-repeat="subcat in subCategories" value="{{subcat._id}}">{{subcat.title}}</option>	
+							</select>
+							<span class="formInvalidText" ng-if="subCategoryFailed">
+								<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+							</span>
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-12">
+							<div ng-if="typePrice === 1 || typePrice === 2">
+								<label class="labelSendS">Precio a domicilio</label><br>
+								<input type="number" class="form-control inputSendS" placeholder="$" ng-model="newService.price_athome">
+								<span class="formInvalidText" ng-if="costathomeFailed">
+									<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+								</span>
+							</div>
+							<div ng-if="typePrice === 1 || typePrice === 3">
+								<label class="labelSendS">Precio en establecimiento</label><br>
+								<input type="number" class="form-control inputSendS" placeholder="$" ng-model="newService.price_presencial">
+								<span class="formInvalidText" ng-if="costpresencialFailed">
+									<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<label class="labelSendS">Descripción</label>
+					<div class="row">
+						<div class="col-md-10 col-sm-10 col-xs-12">
+							<textarea class="form-control inputSendS" placeholder="Mi servicio" style="resize: none;height: 135px" ng-model="newService.description"></textarea>
+							<span class="formInvalidText" ng-if="descriptionFailed">
+								<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+							</span>
+						</div>
+					</div>
+					<label class="labelSendS">Filtros de busqueda para tu servicio</label>
+					<div class="row">
+						<div class="col-md-10 col-sm-10 col-xs-12">
+							
+							<div class="row" style="padding:10px">
+								<div class="col-md-6 col-sm-6 col-xs-6">
+									<ul>
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.decorations">Decoraciones
+										</li>
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.fashion">Moda
+										</li>
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.cocktails">Cocteles
+										</li>
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.nutrition">Nutrición
+										</li>
+									</ul>		
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-6">
+									<ul>
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.concerts">Conciertos
+										</li>
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.parties">Fiestas
+										</li>
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.culture">Cultura
+										</li class="labelFilterOption">
+										<li class="labelFilterOption">
+											<input type="checkbox" class="checkDD" ng-model="filters.food">Comida
+										</li>
+									</ul>		
+								</div>
+							</div>
+							<span class="formInvalidText">
+								<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Nota: Estos filtros son importantes para que tus clientes, te encuentren fácilmente.
+							</span>
+						</div>
+					</div>
+					<div class="row text-right" style="margin-top: 30px">
+						<button class="btn btnEditCS" ng-click="saveService()">Guardar servicio</button>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+
+<div ng-include="'app/templates/footerPage.html'"></div>

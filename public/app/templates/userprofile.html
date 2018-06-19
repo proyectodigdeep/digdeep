@@ -1,0 +1,362 @@
+<div ng-include="'app/templates/topnav.html'"></div>
+
+<header class="divHeader2">
+	<a ui-sref="home">
+		<img src="img/logoBarDD.png" class="logoBar" style="float: left;">	
+	</a>
+	<span class="colorBlueTitle" style="float: right" ng-if="typeUser === 'user' && typeUser != 'root'">PERFIL DE USUARIO</span>
+	<span class="colorBlueTitle" style="float: right"  ng-if="typeUser === 'root' && typeUser != 'user'">ADMINISTRADOR DIGDEEP</span>
+</header>
+
+<div class="container containerUsr" ng-init="initDataProfileUser()">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-3 col-sm-8 col-xs-12">
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-6">
+					<label class="labelProfile">Nombre</label><br>
+					<!--span class="textContentProfile">{{profileUser.fullname}}</span-->
+					<input type="text" class="form-control inputProfile" placeholder="Fulanito Perez" ng-model="profileUser.fullname">
+				</div>
+				<div class="col-md-8 col-sm-8 col-xs-6">
+					<label class="labelProfile">Dirección</label><br>
+					<span class="textContentProfile" ng-if="profileUserTemp.address !== '' &&  profileUserTemp.address !== null && profileUserTemp.address !== undefined ">
+						{{profileUserTemp.address}}
+					</span>
+					<span class="textContentProfile" ng-if="profileUserTemp.numberHouse !== '' &&  profileUserTemp.numberHouse !== null && profileUserTemp.numberHouse !== undefined ">
+						, # {{profileUserTemp.numberHouse}}
+					</span>
+					<span class="textContentProfile" ng-if="profileUserTemp.colony !== '' &&  profileUserTemp.colony !== null && profileUserTemp.colony !== undefined ">
+						, {{profileUserTemp.colony}}
+					</span>
+					<span class="textContentProfile" ng-if="profileUserTemp.postalCode !== '' &&  profileUserTemp.postalCode !== null && profileUserTemp.postalCode !== undefined ">
+						, CP. {{profileUserTemp.postalCode}}
+					</span>
+					<span class="textContentProfile" ng-if="profileUserTemp.city !== '' &&  profileUserTemp.city !== null && profileUserTemp.city !== undefined ">
+						, {{profileUserTemp.city}}
+					</span>
+					<span class="textContentProfile" ng-if="profileUserTemp.state !== '' &&  profileUserTemp.state !== null && profileUserTemp.state !== undefined ">
+						, {{profileUserTemp.state}}
+					</span>
+				</div>
+			</div>
+			<label class="labelProfile">Foto</label>
+			<div class="row">
+				<form action="v1/usersImg/" enctype="multipart/form-data" method="post">
+					<div class="col-md-2 col-sm-2 col-xs-2">
+						<img class="img-responsive imgProfile" src='{{profileUser.urlImg}}'>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10" style="padding-top: 20px;padding-bottom: 20px " ng-if="typeUser ==='user' && typeUser !='root' ">
+						<div class="botonInputFileModificado" style="width: 130px">
+							<input type="file" class="inputImagenOculto" id="archivo_oculto1" name="file-to-upload" fileread="file"/>
+							<input type="text" name="idUserProfile" value="{{user._id}}" hidden="true">
+							<div class="boton" style="width: 130px">Cambiar imagen</div>   
+						</div> 
+						<div ng-if="file" style="display: inline-block">Nombre de archivo: {{file.name}}</div>
+						<input type="submit" class="btn btnEditProfile" value="Actualizar" ng-if="file">
+					</div>
+				</form>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="labelProfile">Email</label><br>
+					<input type="email" class="form-control inputProfile" placeholder="cosmefulanito82@gmail.com" ng-model="profileUser.email" disabled="true">
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="labelProfile"></label><br>
+					<!--button class="btn btnEditProfile" ng-click="openChangePasswordModal(user._id)" style="margin-top: 4px">Cambiar contraseña</button-->
+					<button class="btn btnEditProfile" ng-click="changePasswordAuth0(user.email)" style="margin-top: 4px">Cambiar contraseña</button>
+
+				</div>
+			</div>
+
+			<label class="labelProfile">Teléfono celular</label>
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-6">
+					<input type="tel" class="form-control inputProfile" placeholder="2227838329" ng-model="profileUser.phone">
+				</div>
+			</div>
+
+			<label class="labelProfile">Ubicación</label>
+			<div class="row">
+				<div class="col-md-5 col-sm-5 col-xs-7">
+					<input class="form-control inputProfile" type="text" placeholder="Calle" ng-model="profileUser.address">
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-3">
+					<input class="form-control inputProfile" type="number" placeholder="Número" ng-model="profileUser.numberHouse">
+				</div>
+				<div class="col-md-5 col-sm-5 col-xs-12">
+					<input class="form-control inputProfile" type="text" placeholder="Colonia" ng-model="profileUser.colony">
+				</div>
+			</div>
+			<div class="row" style="margin-top: 10px">
+				<div class="col-md-5 col-sm-5 col-xs-6">
+					<input class="form-control inputProfile" type="text" placeholder="Ciudad" ng-model="profileUser.city">
+				</div>
+				<div class="col-md-5 col-sm-5 col-xs-6">
+					<select class="form-control inputProfile" placeholder="Estado" ng-model="profileUser.state">
+						<option value="" disabled>- Estado -</option>
+						<option value="Aguascalientes">Aguascalientes</option>
+						<option value="Baja California">Baja California</option>
+						<option value="Baja California Sur">Baja California Sur</option>
+						<option value="Campeche">Campeche</option>
+						<option value="Chiapas">Chiapas</option>
+						<option value="Chihuahua">Chihuahua</option>
+						<option value="Coahuila">Coahuila</option>
+						<option value="Colima">Colima</option>
+						<option value="Distrito Federal">Distrito Federal</option>
+						<option value="Durango">Durango</option>
+						<option value="Estado de México">Estado de México</option>
+						<option value="Guanajuato">Guanajuato</option>
+						<option value="Guerrero">Guerrero</option>
+						<option value="Hidalgo">Hidalgo</option>
+						<option value="Jalisco">Jalisco</option>
+						<option value="Michoacán">Michoacán</option>
+						<option value="Morelos">Morelos</option>
+						<option value="Nayarit">Nayarit</option>
+						<option value="Nuevo León">Nuevo León</option>
+						<option value="Oaxaca">Oaxaca</option>
+						<option value="Puebla">Puebla</option>
+						<option value="Querétaro">Querétaro</option>
+						<option value="Quintana Roo">Quintana Roo</option>
+						<option value="San Luis Potosí">San Luis Potosí</option>
+						<option value="Sinaloa">Sinaloa</option>
+						<option value="Sonora">Sonora</option>
+						<option value="Tabasco">Tabasco</option>
+						<option value="Tamaulipas">Tamaulipas</option>
+						<option value="Tlaxcala">Tlaxcala</option>
+						<option value="Veracruz">Veracruz</option>
+						<option value="Yucatán">Yucatán</option>
+						<option value="Zacatecas">Zacatecas</option>
+					</select>
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-3" >
+					<input class="form-control inputProfile" type="number" placeholder="CP" ng-model="profileUser.postalCode">
+				</div>
+			</div>
+
+			<label class="labelProfile">Fecha de nacimiento</label>
+			<div class="row">
+				<div class="col-md-2 col-sm-2 col-xs-4">
+					<input class="form-control inputProfile" type="number" placeholder="Día" ng-model="profileUserTemp.dayDate" >
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-4" >
+					<select class="form-control inputProfile" placeholder="Mes" ng-model="profileUserTemp.monthDate">
+						<option></option>
+						<option value="enero">Enero</option><option value="febrero">Febrero</option><option value="marzo">Marzo</option><option value="abril">Abril</option><option value="mayo">Mayo</option><option value="junio">Junio</option><option value="julio">Julio</option><option value="agosto">Agosto</option><option value="septiembre">Septiembre</option><option value="octubre">Octubre</option><option value="noviembre">Noviembre</option><option value="diciembre">Diciembre</option>
+					</select>
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-4">
+					<input class="form-control inputProfile" type="number" placeholder="Año" ng-model="profileUserTemp.yearDate">
+				</div>
+			</div>
+			
+			<div class="row text-right" style="margin-top: 30px">
+				<button class="btn btnEditProfile" ng-click="openEditInfoUserModal(user._id,profileUser,profileUserTemp,'user')">Guardar cambios</button>
+			</div>
+		</div>
+
+		<div class="col-md-8 col-md-offset-3 col-sm-8 col-sm-offset-3 col-xs-12" style="margin-top: 50px" ng-if="typeUser != 'root' && typeUser=== 'user'">
+			<div class="row">
+				<i class="fa fa-shopping-cart" aria-hidden="true" style="color: #1d75b6;font-size: 28px"></i><span class="separatorProfileTitle">SERVICIOS CONTRATADOS</span>
+				<hr color="#04456b" style="width: 63%;display: inline-block;height:10px;margin: 0px">
+			</div>
+			<div class="row text-center" style="margin-top:20px" ng-if="orders.length == 0">
+				<h4 class="titleSorry">Aún no has contratado ningún servicio :( , pide tu primer servicio en los apartados de Life Style ó Eventos sociales.</h4>
+			</div>
+			<div class="row" style="margin-top: 20px" ng-if="orders.length > 0">
+				<!-- card description-->
+				<div class="col-md-4 col-sm-4 col-xs-12" style="padding: 23px" ng-repeat="order in orders | orderBy:'-requestedDate'" ng-if="([$index] < finalIndex && [$index] >= initIndex)">
+					<div class="row" style="background-color: #04456b;padding: 15px;height: 665px">
+						<div class="text-center digdeperTitleCard"><span>{{order.dataService.title}}</span></div>
+						<div class="text-center" style="width: 213px;height: 133px;margin: 0 auto;display: block;">
+							<img class="img-responsive" src="{{order.dataService.picture}}" style="display: block;margin: 0 auto">
+						</div>
+						<div class="text-center digdeperImg" style="margin: 0 auto;display: block;">
+							<img src="{{order.dataService.imgDD}}" class="img-responsive digdeperImg">
+						</div>
+						<div class="text-center">
+							<p style="color: white">
+								<span class="digdeperSubTitleCard">DIGDEPER: {{order.dataService.nameDD}}</span>
+								<br>
+								<span class="digdeperContentCard">Costo: {{order.dataService.cost | currency}}</span>
+							</p>
+						</div>
+						<hr color="white">
+						<div class="text-center">
+							<p style="color: white">
+								<span class="digdeperSubTitleCard">Duración</span><br>
+								<span class="digdeperContentCard"><i class="fa fa-calendar" aria-hidden="true" style="color: white"></i> {{order.dataService.dateInit | date:'dd-MM-yyyy'}} - {{order.dataService.dateFinish | date:'dd-MM-yyyy'}}</span><br>
+								<span class="digdeperContentCard"><i class="fa fa-clock-o" aria-hidden="true" style="color: white"></i> {{order.dataService.hourInit | date:"hh:mm a"}} - {{order.dataService.hourFinish |  date:"hh:mm a"}}</span>
+							</p>
+						</div>
+						<hr color="white">
+						<div class="row text-center" style="color: white">
+							<div class="col-md-6 col-sm-6 col-xs-6" style="padding: initial;padding: 5px;padding-right: 5px">
+								<div ng-if="order.status === 1">
+									<span class="digdeperSubTitleCard">Pendiente</span><br>
+									<i class="fa fa-history" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="order.status === 2">
+									<span class="digdeperSubTitleCard">En proceso</span><br>
+									<i class="fa fa-exchange" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="order.status === 3">
+									<span class="digdeperSubTitleCard">Finalizado</span><br>
+									<i class="fa fa-check-circle" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="order.status === 4">
+									<span class="digdeperSubTitleCard">Cancelado</span><br>
+									<i class="fa fa-ban" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="checkDateBlocked(order) && (order.status != 3 && order.status != 4 && order.status != 5 && order.status != 6)">
+									<button class="btn btn-warning" title="Cancelar la orden" ng-click="openCancelOrderModal(order._id, user.fullname, 'client')">
+										<i class="fa fa-ban" aria-hidden="true" style="color: white"></i>
+									</button>
+								</div>
+								<div ng-if="order.status === 5">
+									<span class="digdeperSubTitleCard">Pagado</span><br>
+									<i class="fa fa-money" aria-hidden="true" style="color: white"></i><br>
+									<button class="btn btnFinish" ng-click="openFacturationModal(order)">
+										Facturar
+									</button>
+								</div>
+								<div ng-if="order.status === 6">
+									<span class="digdeperSubTitleCard">Procesando el pago</span><br>
+									<i class="fas fa-sync" style="color: white"></i><br>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6" style="padding: initial;padding-left: 5px;padding-right: 5px">
+								<div ng-if="order.status === 1" style="text-align:center">
+									<span class="digdeperSubTitleCard">
+										Solicitud:
+									</span><br>
+									<span>{{order.requestedDate | date:'dd-MM-yyyy'}}</span>
+								</div>
+								<div ng-if="order.status === 2" class="text-center">
+									<span class="digdeperSubTitleCard">
+										Aceptado: 
+									</span><br>
+									<span>
+										{{order.startDateService | date:'dd-MM-yyyy'}}
+									</span><br>
+									<span class="digdeperSubTitleCard">
+										Lugar:
+									</span><br>
+									<span ng-if="order.placeService === 'athome'">
+										A domicilio
+									</span>
+									<span ng-if="order.placeService === 'presencial'">
+										Establecimiento
+									</span>
+								</div>
+								<div ng-if="order.status === 3">
+									<button class="btn btnFinish" ng-click="openPayTotalServiceModal(order._id,user._id,order)">PAGAR</button>	
+								</div>
+								<!--div ng-if="order.status === 3">
+									<button class="btn btnFinish" ng-click="createOrdenToSpei(order)" style="margin-top: 10px;">Pago/SPEI</button>
+								</div-->
+								<div ng-if="order.status === 4" class="text-center">
+									<span class="digdeperSubTitleCard" style="text-align: center">
+										Fecha:
+									</span><br>
+									<span>
+										{{order.endDateService | date:'dd-MM-yyyy'}}
+									</span>
+								</div>
+								<div ng-if="order.status === 5">
+									<span class="digdeperSubTitleCard">Calificación</span><br>
+									<span uib-rating ng-model="order.value" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['servicio cumplido','servicio regular','buen servicio','eficiente servicio','exelente servicio']" aria-labelledby="default-rating" ng-click="selecRate(order._id,order.value)"></span><br>
+									<a ng-click="openCommentsDigdeeperModal(order)" style="color: white">
+										<i class="fa fa-commenting" aria-hidden="true" style="color: white"></i>¿Comentar este servicio?
+									</a>
+								</div>
+								<div ng-if="order.status === 6">
+									<span class="digdeperSubTitleCard">
+										Fecha/Pago: 
+									</span><br>
+									<span>{{order.payDateService | date:'dd-MM-yyyy'}}</span>
+								</div>
+							</div>
+						</div>
+						<hr color="white">
+						<div style="color: white;">
+							<div ng-if="order.status === 1" class="text-left">
+								<span class="digdeperSubTitleCard">
+									Nota: 
+								</span><br>
+								<span>
+									Espera por favor hasta que el proveedor acepte tu solicitud. Sí en 24hrs. no obtienes respuesta, envíanos un correo: <br>
+									<a style="text-decoration: underline; color: white" href="mailto:manager@digdeep.com.mx?Subject=Solicitud%20de%20servicio%20no%20resuelta%20,%20Id%20de%20pedido:%20{{order._id}}">
+										manager@digdeep.com.mx
+									</a>
+								</span>	
+							</div>
+							<div ng-if="order.status === 2" class="text-left">
+								<div ng-if="order.placeService === 'presencial'" class="text-center">
+									<span class="digdeperSubTitleCard">
+										<button class="btn btnFinish" ng-click="goAlertAddress(order.digdeeper)">
+											Dirección del proveedor
+											<i class="fa fa-location-arrow" style="color: white"></i>
+										</button>
+									</span>	
+								</div>
+								<br>
+								<span class="digdeperSubTitleCard">
+									Nota:
+								</span><br>
+								<span>
+									Recuerda hacer tu pago cuando el proveedor lo finalize.
+								</span>	
+							</div>
+							<div ng-if="order.status === 3 || order.status === 5" class="text-center">
+								<div>
+									<span class="digdeperSubTitleCard">
+										Fecha/Finalización: 
+									</span><br>
+									<span>{{order.endDateService | date:'dd-MM-yyyy'}}</span><br>
+								</div>
+								<div ng-if="order.status === 5">	
+									<span class="digdeperSubTitleCard">
+										Fecha/Pagado: 
+									</span><br>
+									<span>{{order.payDateService | date:'dd-MM-yyyy'}}</span><br>
+								</div>
+								<a ng-click="openCommentsDigdeeperModal(order)" style="color: white" ng-if="order.status === 3">
+									<i class="fa fa-commenting" aria-hidden="true" style="color: white"></i>¿Comentar este servicio?
+								</a>
+							</div>
+
+							<div ng-if="order.status === 4 " class="text-left" style="overflow-y: auto;height: 110px">
+								<span class="digdeperSubTitleCard">
+									Cancelado por:
+								</span><br>
+								<span>
+									{{order.dataCancelOrder.cancelledBy}}
+								</span><br>
+								<span class="digdeperSubTitleCard">
+									Razones de cancelación: 
+								</span>
+								<br>
+								<span>{{order.dataCancelOrder.cancelReasons}}</span>
+							</div>
+							<div ng-if="order.status === 6" class="text-left" style="overflow-y: auto;height: 110px">
+								<span class="digdeperSubTitleCard">
+									Nota:
+								</span><br>
+								<span>
+									Tu pago esta siendo procesado, por el gestor de pagos.
+									Recuerda que si tu pago es por Spei, debes seguir el proceso de pago que se te indico por correo.
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row text-center">
+				<ul uib-pagination direction-links="false" boundary-links="true" items-per-page = {{limitPage}} total-items="numOrders" ng-model="currentPage" ng-change="pageChanged(currentPage)"></ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-include="'app/templates/footerPage.html'"></div>

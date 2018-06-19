@@ -1,0 +1,27 @@
+<!-- Form4 Fecha Final-->
+<div class="modal-header modalHeaderCS" >
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Horario</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS" id="modalBodyCS">
+    <div class="text-center">
+        <div class="text-left divHour">
+            <span class="labelSelectsHours">Inicio</span>
+            <div uib-timepicker ng-model="orderService.hourInit" hour-step="1" minute-step="1" show-meridian="ismeridian" ng-change="$ctrl.getHourInit(orderService.hourInit)"></div>
+        </div>
+        <div class="text-left divHour">
+            <span class="labelSelectsHours">Final</span>
+            <div uib-timepicker ng-model="orderService.hourFinal" hour-step="1" minute-step="1" show-meridian="ismeridian" min="orderService.hourInit"></div>
+        </div>
+    </div>
+    <div class="text-center" ng-if="errAlert === true" style="color: white">
+        *{{alertError}}
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">Continuar</button>
+    </div>
+</div>

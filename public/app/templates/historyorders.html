@@ -1,0 +1,204 @@
+<div ng-include="'app/templates/topnav.html'"></div>
+
+<header class="divHeader2">
+	<a ui-sref="home">
+		<img src="img/logoBarDD.png" class="logoBar" style="float: left;">	
+	</a>
+	<span class="colorBlueTitle" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" style="color: #1d75b6;"></i> SERVICIOS CONTRATADOS</span>
+</header>
+<div class="container containerDDMenu">
+	<div class="row">
+		<div class="col-md-1 col-md-offset-2 col-sm-1 co-sm-offset-2 col-xs-12 text-right" ng-include="'app/templates/menuDigdeeperProfile.html'" >
+		</div>
+		<div class="col-md-8 col-sm-8 col-xs-12">
+			<!-- card description-->
+			<div class="row" style="margin-top:20px" ng-if="orders.lenght == 0">
+				<h4 class="titleSorry">Aún no has contratado ningún servicio :( , pide tu primer servicio en los apartados de Life Style ó Eventos sociales.</h4>
+			</div>
+			<div class="row" style="margin-top: 20px" ng-if="orders.length != 0">
+				<div class="col-md-4 col-sm-4 col-xs-12" style="padding: 23px;padding-top: 0px" ng-repeat="order in orders | orderBy:'-requestedDate'" >
+					<div class="row" style="background-color: #04456b;padding: 15px;height: 665px">
+						<div class="text-center digdeperTitleCard"><span>{{order.dataService.title}}</span></div>
+						<div class="text-center" style="width: 213px;height: 133px;margin: 0 auto;display: block;"><img class="img-responsive" src="{{order.dataService.picture}}" style="display: block;margin: 0 auto"></div>
+						<div class="text-center digdeperImg">
+							<img src="{{order.dataService.imgDD}}" class="img-responsive digdeperImg">
+						</div>
+						<div class="text-center">
+							<p style="color: white">
+								<span class="digdeperSubTitleCard">DIGDEPER: {{order.dataService.nameDD}}</span>
+								<br>
+								<span class="digdeperContentCard">Costo: {{order.dataService.cost | currency}}</span>
+							</p>
+						</div>
+						<hr color="white">
+						<div class="text-center">
+							<p style="color: white">
+								<span class="digdeperSubTitleCard">Duración</span><br>
+								<span class="digdeperContentCard"><i class="fa fa-calendar" aria-hidden="true" style="color: white"></i> {{order.dataService.dateInit | date:'dd-MM-yyyy'}} - {{order.dataService.dateFinish | date:'dd-MM-yyyy'}}</span><br>
+								<span class="digdeperContentCard"><i class="fa fa-clock-o" aria-hidden="true" style="color: white"></i> {{order.dataService.hourInit | date:"hh:mm a"}} - {{order.dataService.hourFinish |  date:"hh:mm a"}}</span>
+							</p>
+						</div>
+						<hr color="white">
+						<div class="row text-center" style="color: white">
+							<div class="col-md-6 col-sm-6 col-xs-6" style="padding: initial;padding: 5px;padding-right: 5px">
+								<div ng-if="order.status === 1">
+									<span class="digdeperSubTitleCard">Pendiente</span><br>
+									<i class="fa fa-history" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="order.status === 2">
+									<span class="digdeperSubTitleCard">En proceso</span><br>
+									<i class="fa fa-exchange" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="order.status === 3">
+									<span class="digdeperSubTitleCard">Finalizado</span><br>
+									<i class="fa fa-check-circle" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="order.status === 4">
+									<span class="digdeperSubTitleCard">Cancelado</span><br>
+									<i class="fa fa-ban" aria-hidden="true" style="color: white"></i>
+								</div>
+								<div ng-if="checkDateBlocked(order) && (order.status != 3 && order.status != 4 && order.status != 5 && order.status != 6)">
+									<button class="btn btn-warning" title="Cancelar la orden" ng-click="openCancelOrderModal(order._id, user.fullname, 'client')">
+										<i class="fa fa-ban" aria-hidden="true" style="color: white"></i>
+									</button>
+								</div>
+								<div ng-if="order.status === 5">
+									<span class="digdeperSubTitleCard">Pagado</span><br>
+									<i class="fa fa-money" aria-hidden="true" style="color: white"></i><br>
+									<button class="btn btnFinish" ng-click="openFacturationModal(order)">
+										Facturar
+									</button>
+								</div>
+								<div ng-if="order.status === 6">
+									<span class="digdeperSubTitleCard">Procesando el pago</span><br>
+									<i class="fas fa-sync" style="color: white"></i><br>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6" style="padding: initial;padding-left: 5px;padding-right: 5px">
+								<div ng-if="order.status === 1" style="text-align:center">
+									<span class="digdeperSubTitleCard">
+										Solicitud:
+									</span><br>
+									<span>{{order.requestedDate | date:'dd-MM-yyyy'}}</span>
+								</div>
+								<div ng-if="order.status === 2" class="text-center">
+									<span class="digdeperSubTitleCard">
+										Aceptado: 
+									</span><br>
+									<span>
+										{{order.startDateService | date:'dd-MM-yyyy'}}
+									</span><br>
+									<span ng-if="order.placeService === 'athome'">
+										A domicilio
+									</span>
+									<span ng-if="order.placeService === 'presencial'">
+										Establecimiento
+									</span>
+								</div>
+								<div ng-if="order.status === 3">
+									<button class="btn btnFinish" ng-click="openPayTotalServiceModal(order._id,user._id,order)">Pago/tarjeta</button>	
+								</div>
+								<div ng-if="order.status === 3">
+									<button class="btn btnFinish" ng-click="createOrdenToSpei(order)" style="margin-top: 10px;">Pago/SPEI</button>
+								</div>
+								<div ng-if="order.status === 4" class="text-center">
+									<span class="digdeperSubTitleCard" style="text-align: center">
+										Fecha:
+									</span><br>
+									<span>
+										{{order.endDateService | date:'dd-MM-yyyy'}}
+									</span>
+								</div>
+								<div ng-if="order.status === 5">
+									<span class="digdeperSubTitleCard">Calificación</span><br>
+									<span uib-rating ng-model="order.value" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['servicio cumplido','servicio regular','buen servicio','eficiente servicio','exelente servicio']" aria-labelledby="default-rating" ng-click="selecRate(order._id,order.value)"></span><br>
+									<a ng-click="openCommentsDigdeeperModal(order)" style="color: white">
+										<i class="fa fa-commenting" aria-hidden="true" style="color: white"></i>¿Comentar este servicio?
+									</a>
+								</div>
+								<div ng-if="order.status === 6">
+									<span class="digdeperSubTitleCard">
+										Fecha/Pago: 
+									</span><br>
+									<span>{{order.payDateService | date:'dd-MM-yyyy'}}</span>
+								</div>
+							</div>
+						</div>
+						<hr color="white">
+						<div style="color: white;">
+							<div ng-if="order.status === 1" class="text-left">
+								<span class="digdeperSubTitleCard">
+									Nota: 
+								</span><br>
+								<span>
+									Espera por favor hasta que el proveedor acepte tu solicitud. Sí en 24hrs. no obtienes respuesta, envíanos un correo, por medio del sig. enlace: <br>
+									<a style="text-decoration: underline; color: white" href="mailto:manager@digdeep.com.mx?Subject=Solicitud%20de%20servicio%20no%20resuelta%20,%20Id%20de%20pedido:%20{{order._id}}">
+										manager@digdeep.com.mx
+									</a>
+								</span>		
+							</div>
+							<div ng-if="order.status === 2" class="text-left">
+								<div ng-if="order.placeService === 'presencial'" class="text-center">
+									<span class="digdeperSubTitleCard">
+										<button class="btn btnFinish" ng-click="goAlertAddress(order.digdeeper)">
+											Dirección del proveedor
+											<i class="fa fa-location-arrow" style="color: white"></i>
+										</button>
+									</span>	
+								</div>
+								<br>
+								<span class="digdeperSubTitleCard">
+									Nota:
+								</span><br>
+								<span>
+									Recuerda hacer tu pago cuando el proveedor lo finalize.
+								</span>	
+							</div>
+							<div ng-if="order.status === 3 || order.status === 5" class="text-center">
+								<div>
+									<span class="digdeperSubTitleCard">
+										Fecha/Finalización: 
+									</span><br>
+									<span>{{order.endDateService | date:'dd-MM-yyyy'}}</span><br>
+								</div>
+								<div ng-if="order.status === 5">	
+									<span class="digdeperSubTitleCard">
+										Fecha/Pagado: 
+									</span><br>
+									<span>{{order.payDateService | date:'dd-MM-yyyy'}}</span><br>
+								</div>
+								<a ng-click="openCommentsDigdeeperModal(order)" style="color: white" ng-if="order.status === 3">
+									<i class="fa fa-commenting" aria-hidden="true" style="color: white"></i>¿Comentar este servicio?
+								</a>
+							</div>
+							<div ng-if="order.status === 4 " class="text-left" style="overflow-y: auto;height: 110px">
+								<span class="digdeperSubTitleCard">
+									Cancelado por:
+								</span><br>
+								<span>
+									{{order.dataCancelOrder.cancelledBy}}
+								</span><br>
+								<span class="digdeperSubTitleCard">
+									Razones de cancelación: 
+								</span>
+								<br>
+								<span>{{order.dataCancelOrder.cancelReasons}}</span>
+							</div>
+							<div ng-if="order.status === 6" class="text-left" style="overflow-y: auto;height: 110px">
+								<span class="digdeperSubTitleCard">
+									Nota:
+								</span><br>
+								<span>
+									Tu pago esta siendo procesado, por el gestor de pagos.
+									Recuerda que si tu pago es por Spei, debes seguir el proceso de pago que se te indico por correo.
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-include="'app/templates/footerPage.html'"></div>
