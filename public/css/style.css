@@ -2450,3 +2450,6 @@ and (orientation : portrait) {
     background-color: #2d97c9;
     color: white;
 }
+.auth0-lock.auth0-lock .auth0-lock-name {
+    display: none!important;
+}
