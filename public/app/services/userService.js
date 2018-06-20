@@ -48,7 +48,9 @@ function(                 $http,   jwtHelper) {
         console.log(id_auth0)
         $http.get('v1/users_auth0/'+id_auth0).
         then(function (response) {
+            console.log(response)
             if(response.data.status === "success"){
+                console.log(response.data.token)
                 onSuccess(response.data.token)
             }
             else{

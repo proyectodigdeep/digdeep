@@ -13,7 +13,7 @@ module.exports = {
 		port: 587,
 	},
 	conekta: {
-		apiKey: 'key_xaDN1mzNxGaez7wKkDgm7Q',
+		apiKey: 'key_ETHz2nziQpiTmZhqTQBAzjw',
 		locale: 'es',
 		currency: 'MXN'
 	},
@@ -23,10 +23,11 @@ module.exports = {
 	   	api_secret : '-c3U7xL23IEyZ3-vOY387yms29A' 
 	},
 	auth0:{
-		domain: "https://creainte2.auth0.com",
+		domain: "digdeepproyecto.auth0.com",
 		//clientId: "vGI1Aqu0TOLnOGf5BlxP2sOgts0XNiXX",
-		clientId: "WneauBfFMFe4q4EJ76FPLm47TKsInbI_",
-		connection : "test"
+		clientId: "G2UJ5z3vZ933hIMxKyMupB0QmhOwviyR",
+		//connection : "test"
+		connection: "digdeepdb"
 	},
 	multer:{
 		dest: "uploads/"

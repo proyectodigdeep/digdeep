@@ -36,5 +36,11 @@
     "fullcalendar": "^3.9.0",
     "angular-auth0": "^3.0.1",
     "angular-lock": "^3.0.1"
+  },
+  "resolutions": {
+    "angular": ">= 1.2.0",
+    "moment": "^2.20.1",
+    "dropzone": "^4.3.0",
+    "fullcalendar": "^3.9.0"
   }
 }

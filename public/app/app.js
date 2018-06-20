@@ -90,8 +90,8 @@ var app = angular.module('digdeepApp', [
 	$urlRouterProvider.otherwise('/')
 	
 	/*angularAuth0Provider.init({
-	    clientID: 'WneauBfFMFe4q4EJ76FPLm47TKsInbI_',
-	    domain: 'creainte2.auth0.com'
+	    clientID: 'cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl',
+	    domain: 'digdeepproyecto.auth0.com'
 	});*/
 	
 	var options = {
@@ -123,8 +123,8 @@ var app = angular.module('digdeepApp', [
 	    //autoclose: true 
 	}
 	lockProvider.init({
-	    clientID: 'WneauBfFMFe4q4EJ76FPLm47TKsInbI_',
-	    domain: 'creainte2.auth0.com',
+	    clientID: 'cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl',
+	    domain: 'digdeepproyecto.auth0.com',
 	    options: options
   	});
 }]);
@@ -162,7 +162,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    allowSignUp: false
 	    //autoclose: true 
 	}
-	$rootScope.lockLogin = new Auth0Lock('WneauBfFMFe4q4EJ76FPLm47TKsInbI_', 'creainte2.auth0.com', options);
+	$rootScope.lockLogin = new Auth0Lock('cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl', 'digdeepproyecto.auth0.com', options);
 	//console.log(lock)
 	///////////////
  	//$rootScope.lock.options.allowSignUp = false
@@ -182,6 +182,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 		//console.log(token)
 	 		// Verificar si el usuario no ha sido registrado con una red social
 	 		if (token == null) {
+	 			console.log("here")
 	 			// Verifcar si la autentifiación es por google
 	 			if (id_auth0.indexOf('google-oauth2') != -1) {
 	 				var data_user = {
@@ -238,10 +239,13 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 		}else{
 	 			// Si ya existe el usuario
 	 			$localStorage.token = token	
+	 			console.log("login")
 	 			if (userService.isTokenValidAsDigdeeper(token)) {
+	 				console.log("digdeeperprofile")
 	 				$state.go('digdeeperprofile')
 	 			}
 				if (userService.isTokenValidAsUser($localStorage.token)) {
+					console.log("userprofile")
 					$state.go('userprofile')
 				}
 	 		}
@@ -281,7 +285,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    allowLogin: false
 	    //autoclose: true 
 	}
-	$rootScope.lockRegister = new Auth0Lock('WneauBfFMFe4q4EJ76FPLm47TKsInbI_', 'creainte2.auth0.com', options2);
+	$rootScope.lockRegister = new Auth0Lock('cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl', 'digdeepproyecto.auth0.com', options2);
 	//console.log(lock)
 	///////////////
  	//$rootScope.lock.options.allowSignUp = false
@@ -378,7 +382,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	  });
 	});
 
-	$rootScope.lockRegister2 = new Auth0Lock('WneauBfFMFe4q4EJ76FPLm47TKsInbI_', 'creainte2.auth0.com', options2);
+	$rootScope.lockRegister2 = new Auth0Lock('cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl', 'digdeepproyecto.auth0.com', options2);
 	//console.log(lock)
 	///////////////
  	//$rootScope.lock.options.allowSignUp = false
@@ -479,7 +483,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 
 app.constant('APP_SETTINGS',  {
 	CONEKTA: {
-		CONEKTA_API_KEY: 'key_DqhyLfkMLbu2m6rU54CLDmQ',
+		CONEKTA_API_KEY: 'key_ETHz2nziQpiTmZhqTQBAzjw',
 		LANGUAGE: 'es' 
 	}
 });

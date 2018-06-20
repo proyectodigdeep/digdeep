@@ -1,6 +1,6 @@
 {
   "name": "angular-jwt",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Library to help you work with JWTs on AngularJS",
   "authors": [
     {
@@ -32,11 +32,11 @@
     "angular": "^1.6.0"
   },
   "homepage": "https://github.com/auth0/angular-jwt",
-  "_release": "0.1.9",
+  "_release": "0.1.10",
   "_resolution": {
     "type": "version",
-    "tag": "0.1.9",
-    "commit": "37407f03703976f97e0a1235a157885344f70377"
+    "tag": "0.1.10",
+    "commit": "e368cf124443507f1710f60ae855c4c54eebc6ea"
   },
   "_source": "https://github.com/auth0/angular-jwt.git",
   "_target": "^0.1.9",
