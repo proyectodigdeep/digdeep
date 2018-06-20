@@ -1,0 +1,21 @@
+<ul style="padding-left: initial;">
+	<li class="col-md-12 col-sm-12 col-xs-3 li-menuDDiper">
+		<a ui-sref="digdeeperprofile"  class="linkDDProfile">Perfil</a>
+	</li>
+	<li class="col-md-12 col-sm-12 col-xs-3 li-menuDDiper">
+		<a ui-sref="servicesdigdeeper" class="linkDDProfile">Servicios</a>
+	</li>
+	<li class="col-md-12 col-sm-12 col-xs-3 li-menuDDiper">
+		<a ui-sref="inboxprofiledd" class="linkDDProfile">Bandeja de entrada</a>
+	</li>
+	<li class="col-md-12 col-sm-12 col-xs-3 li-menuDDiper">
+		<a ui-sref="historyservices" class="linkDDProfile">Historial de pedidos</a>
+	</li>
+	<li class="col-md-12 col-sm-12 col-xs-3 li-menuDDiper">
+		<a ui-sref="calendar" class="linkDDProfile">Calendario</a>
+	</li>
+	<!-- Solo activa este link si el usuario cuenta con los dos roles permitidos ('usuario' y 'digdeeper')-->
+	<li class="col-md-12 col-sm-12 col-xs-3 li-menuDDiper" ng-if="typeUser === 'bothTypesUser'">
+		<a ui-sref="historyorders" class="linkDDProfile">Historial de servicios contratados</a>
+	</li>
+</ul>

@@ -1,0 +1,50 @@
+<nav class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed" style="background-color: #3896ce">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar" style="background-color: white"></span>
+			<span class="icon-bar" style="background-color: white"></span>
+			<span class="icon-bar" style="background-color: white"></span>
+		</button>
+		<a class="navbar-brand" href="#"></a>
+	</div>
+	<div class="collapse navbar-collapse navbarIndex" uib-collapse="isNavCollapsed">
+		<ul class="nav navbar-nav navbar-left iconsSocial">
+			<li >
+				<a href="https://www.facebook.com/digdeepmx/" class="iconsocial"><i class="fa fa-2x fa-facebook-official" aria-hidden="true" style="color:white"></i></a>
+			</li>
+			<li>
+				<a href="" class="iconsocial"><i class="fa  fa-2x fa-instagram" aria-hidden="true" style="color:white"></i></a>
+			</li>
+			<li>
+				<a href="" class="iconsocial"><i class="fa fa-2x fa-twitter" aria-hidden="true" style="color:white"></i></a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav ulCenterTopnavUsr">
+			<li class="liMenuWithUser" ng-class="{'active': tab === 1}">
+				<a ui-sref="whatisdigdeep" class="text-topnavMenuG" ng-click="selecTabTop(1)">
+					¿QUÉ ES DIGDEEP?
+				</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="liMenuWithUser" ng-class="{'active': tab === 2}">
+				<a ui-sref="inboxprofiledd" class="text-topnavMenuG" style="display: inline-block" ng-click="selecTabTop(2)">
+					<i class="fa fa-bell" aria-hidden="true" style="color: #04456B"></i> 
+					PEDIDOS: {{numPendingOrders}}
+				</a>
+			</li>
+			<li class="liMenuWithUser" ng-class="{'active': tab === 3}">
+				<img src="{{user.urlImg}}" class="img-circle avatarUser" ui-sref="digdeeperprofile" style="cursor: pointer" ng-click="selecTabTop(3)"> 
+				<a ui-sref="digdeeperprofile" class="text-topnavMenuG" style="display: inline-block" ng-click="selecTabTop(3)">
+					{{user.fullname}}
+				</a>
+			</li>
+			<li class="liMenuWithUser">
+				<a class="text-topnavMenuG" ng-click="logout();refr();">
+					SALIR
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

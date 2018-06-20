@@ -1,0 +1,72 @@
+<!-- Form1 Información del servicio -->
+<div class="modal-header modalHeaderCS" >
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Detalles del servicio</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+
+<div class="modal-body modalBodyCS" >
+    <div>
+        <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+            <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                <img ng-src="{{slide.image}}" style="margin:auto;">
+                <div class="carousel-caption">
+                    <p>{{slide.text}}</p>
+                </div>
+          </div>
+      </div>
+  </div>
+    <div class="text-center" style="color:white">
+        <p>
+            <span class="titleModalInfo">{{service.title}}</span>
+        </p>
+        <div class="row" ng-if="typePrice === 1">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <span class="text1ModalInfo">Precio</span>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <p>
+                    <i class="fa fa-home" style="color: white;font-size: 14px"></i><span class="text2ModalInfo">A domicilio</span><br>{{service.price_athome | currency }}
+                </p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <p>
+                    <i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i><span class="text2ModalInfo">En establecimiento</span><br>{{service.price_presencial | currency }}
+                </p>
+            </div>
+        </div>
+        <div class="row" ng-if="typePrice === 2">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <span class="text1ModalInfo">Precio</span>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    <i class="fa fa-home" style="color: white;font-size: 14px"></i><span class="text2ModalInfo">A domicilio</span><br>{{service.price_athome | currency }}
+                </p>
+            </div>
+        </div>
+        <div class="row" ng-if="typePrice === 3">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <span class="text1ModalInfo">Precio</span>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    <i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i><span class="text2ModalInfo">En establecimiento del Digdeeper</span><br>{{service.price_presencial | currency }}
+                </p>
+            </div>
+        </div>
+        <p>
+            <span class="text1ModalInfo">Descripción</span>
+        </p>
+        <p>
+            <span class="text2ModalInfo">{{service.description}}</span>
+        </p>
+
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.cancel()">Cerrar</button>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<!-- Form11 confrimación de pago con tarjeta de credito (pago con tarjeta de credito)-->
+<div class="modal-header modalHeaderCS">
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Confirmación de pago</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS">
+    <div class="text-center" style="margin-top: 50px;margin-bottom: 50px">
+        <span class="text-confirmPayCard">Total del servicio: {{orderService.total | currency}}</span>
+    </div>
+    <div class="text-center" style="margin-top: 50px;margin-bottom: 50px">
+        <span class="text-confirmPayCard" style="font-size: 15px">El pago del servicio lo debés realizar, cuando el proveedor lo finaliza.</span>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-center btnCS1" style="padding-right: 0px;padding-left: 10px">
+            <button class="btn btn-block btnCSLeft" ng-click="$ctrl.nextForm()">Aceptar</button>
+        </div>
+        <div class="col-md-6 text-center btnCS2" style="padding-left: 0px;padding-right: 10px">
+            <button class="btn btn-block btnCSRigth" ng-click="$ctrl.cancel()">Cancelar</button>
+        </div>
+    </div>
+</div>

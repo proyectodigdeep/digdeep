@@ -1,0 +1,129 @@
+<!-- Header de los modales con barra de progreso -->
+<div class="modal-header modalHeaderCS" >
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center ">
+            <div ng-include="'app/templates/barStepsRegisterUser.html'" scope="" onload=""></div> 
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<!-- Form1 -->
+<div class="modal-body modalBodyRU" ng-show="step===0">
+    <div class="text-center" style="padding-bottom: 30px;padding-top: 30px;">
+        <p>
+            <span class="text2-successSale" style="font-size: 18px">Ahora, un último paso.</span><br><br>
+            <span class="text2-successSale">¡Queremos saber<br> tus intereses¡</span>
+        </p>
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">Siguiente</button>
+    </div>
+</div>
+<!-- Form2 -->
+<div class="modal-body modalBodyRU" ng-show="step===1">
+    <div class="text-center" style="padding-bottom: 70px;padding-top: 30px">
+        <p>
+            <span class="text2-successSale" style="font-size: 18px">Género</span>
+        </p>
+        <div style="margin-top: 35px">
+            <input type="radio" class="radioRegisterUser" value="M" name="radioRU" ng-click="$ctrl.chooseGender('mujer')" checked> <span class="radioRegisterUser">Mujer</span>
+            <input type="radio" class="radioRegisterUser" value="H" name="radioRU" ng-click="$ctrl.chooseGender('hombre')"> <span class="radioRegisterUser">Hombre</span>
+        </div>
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">Siguiente</button>
+    </div>
+</div>
+<!-- Form3 -->
+<div class="modal-body modalBodyRU" ng-show="step===2">
+    <div style="padding:initial;padding-top: 12px">
+        <div class="row text-center">
+            <p>
+                <span class="text2-successSale text-center" style="font-size: 18px">¿En qué servicios<br> estás interesado?</span>
+            </p><br>
+        </div>
+        <div class="row text2-successSale" style="font-size: 14px">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <ul style="padding:2px">
+                    <li>
+                        <input type="checkbox" class="checkRU" ng-model="category.decorations" name="">Decoraciones   
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkRU" ng-model="category.fashion" name="">Moda
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkRU" ng-model="category.cocktails" name="">Cocteles
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkRU" ng-model="category.nutrition" name="">Nutrición
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <ul style="padding:2px">
+                    <li>
+                        <input type="checkbox" class="checkRU" name="" ng-model="category.concerts">Conciertos   
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkRU" name="" ng-model="category.parties">Fiestas tematicas
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkRU" name="" ng-model="category.culture">Cultura
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkRU" name="" ng-model="category.food">Comida
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row text-center">
+            <button class="btn btnModalOk" ng-click="$ctrl.chooseCategories();$ctrl.nextForm()">Siguiente</button>
+        </div>
+    </div>
+</div>
+<!-- Form4 -->
+<div class="modal-body modalBodyRU" ng-show="step===3">
+    <div class="text-center" style="padding-bottom: 26px;padding-top: 15px;">
+        <p>
+            <span class="text2-successSale" style="font-size: 18px">¿Cuál es tu<br>presupuesto?</span><br>
+        </p>
+        <div style="margin-top: 50px">
+            <div class="col-md-6 text-left costRangeText" style="padding-left: 10px;color: white">
+                $1500.00
+            </div>
+            <div class="col-md-6 text-right costRangeText" style="padding-right: 10px;color: white">
+                $10,000.00                                  
+            </div>
+            <div class="text-center" style="padding:10px;padding-top: 35px">
+                <input type="range" class="sliderRangeRU" min="1500" max="10000" value="50" ng-model="userPref.budget">
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">Siguiente</button>
+    </div>
+</div>
+<!-- Form5 -->
+<div class="modal-body modalBodyRU" ng-show="step===4">
+    <div class="text-center" style="padding-bottom: 60px;padding-top: 60px;">
+        <p>
+            <span class="text2-successSale">Recibirás un correo</span><br>
+            <span class="text2-successSale">de confirmación</span>
+        </p>
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">Continuar</button>
+    </div>
+</div>
+<!-- Form6 -->
+<div class="modal-body modalBodyRU" style="background-color: white" ng-show="step===5">
+    <div class="text-center" style="padding-bottom: 5px;padding-top: 5px;margin-bottom: 10px;">
+        <p>
+            <span class="text-welcomDD">Bienvenido a</span><br>
+        </p>
+        <img src="img/logoDD.png" style="max-width: 125px">
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.sendData()">Finalizar</button>
+    </div>
+</div>

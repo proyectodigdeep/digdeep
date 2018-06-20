@@ -1,0 +1,4 @@
+<div ng-include="'app/templates/topnav/topnavNoLogin.html'" ng-if="typeUser === 'userNoLogin'"></div>
+<div ng-include="'app/templates/topnav/topnavRollUser.html'" ng-if="typeUser === 'user'"></div>
+<div ng-include="'app/templates/topnav/topnavRollDigdeeper.html'" ng-if="typeUser === 'digdeeper' || typeUser=== 'bothTypesUser'"></div>
+<div ng-include="'app/templates/topnav/topnavRollRoot.html'" ng-if="typeUser === 'root'"></div>

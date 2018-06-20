@@ -1,0 +1,65 @@
+<!-- Form1 Información del servicio -->
+<div class="modal-header modalHeaderCS" >
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Últimos comentarios</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+
+<div class="modal-body modalBodyCS" >
+    <div style="margin-top:20px" ng-if="numComments == 0">
+        <h4 class="titleSorry" style="color: white">
+            Lo sentimos :( no hay comentarios aún de los usuarios, para este servicio.
+        </h4>
+    </div>
+    <div class="commentContent" ng-repeat="comment in comments" ng-if="numComments > 0">
+        <div>
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-4">
+                    <span class="inboxText1">{{comment.dateCommented | date:'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-8 text-left">
+                    <label class="inboxText2">Titulo del servicio: </label>
+                    <span class="inboxText1">{{comment.titleService}}</span>
+                </div>
+            </div>
+        </div>  
+        <div>
+            <div class="row" style="margin: initial">
+                <div class="col-md-6 col-sm-6 col-xs-12 divImgInbox" >
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-2">
+                            <img src="{{comment.clientData.picture}}" class="img-responsive digdeperImg">
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-10">
+                            <label class="inboxText2">Datos del cliente </label><br>
+                            <span class="inboxText2">Nombre: </span><span class="inboxText1">{{comment.clientData.fullname}}</span><br>
+                            <span class="inboxText2">E-mail: </span><span class="inboxText1">{{comment.clientData.email}}</span><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 divImgInbox" >
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-2">
+                            <img src="{{comment.digdeeperData.picture}}" class="img-responsive digdeperImg">
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-10">
+                            <label class="inboxText2">Datos del proveedor </label><br>
+                            <span class="inboxText2">Nombre: </span><span class="inboxText1">{{comment.digdeeperData.fullname}}</span><br>
+                            <span class="inboxText2">Telefono: </span><span class="inboxText1">{{comment.digdeeperData.phone}}</span><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <label class="inboxText2">Comentarios del usuario:</label>
+        <div class="text-left inboxText1" style="height: 50px;overflow: auto">
+            <span>{{comment.textComments}}</span>
+        </div>  
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.cancel()">Cerrar</button>
+    </div>
+</div>

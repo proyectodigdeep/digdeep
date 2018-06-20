@@ -1,0 +1,57 @@
+<!-- Form7 Datos de entrega-->
+<div class="modal-header modalHeaderCS">
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">¿Quién recibirá el servicio?</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS" >
+    <div ng-if="formDelivery === 1">
+        <div class="divFormDeliveryData">
+            <span  class="labelFormDeliveryData">Nombre</span>
+            <input type="text" class="form-control inputFormDeliveryData" placeholder="Cosme Fulanito Perengano" ng-model="orderService.deliveryData.name">
+            <span class="formInvalidText" ng-if="deliverynameFailed">
+                <i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Es necesario completar este campo
+            </span>
+        </div>
+        <div class="divFormDeliveryData">
+            <span  class="labelFormDeliveryData">Email</span>
+            <input type="email" class="form-control inputFormDeliveryData" placeholder="cosmefulanito82@gmail.com" ng-model="orderService.deliveryData.email">
+            <span class="formInvalidText" ng-if="deliveryemailFailed">
+                <i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Es necesario completar este campo
+            </span>
+        </div>
+        <div class="divFormDeliveryData">
+            <span  class="labelFormDeliveryData">Teléfono</span>
+            <input type="tel" class="form-control inputFormDeliveryData" placeholder="(222)7058335" ng-model="orderService.deliveryData.phone">
+            <span class="formInvalidText" ng-if="deliveryphoneFailed">
+                <i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Es necesario completar este campo
+            </span>
+        </div>
+        <div class="divFormDeliveryData" style="padding-bottom: 5px;height: 100px">
+            <span  class="labelFormDeliveryData">Ubicación</span>
+            <input type="text" class="form-control inputFormDeliveryData" g-places-autocomplete ng-model="autocmpleteAddress" placeholder="Colonia Centro 2pte. #1234 Puebla, Pue. C.P. 7200" options="autocompleteOptions"/>
+            <span class="formInvalidText" ng-if="deliveryaddressFailed">
+                <i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Este campo no es valido
+            </span>
+        </div>
+        <div class="row text-center">
+            <button class="btn btnModalOk" ng-click="$ctrl.putDeliveryData(autocmpleteAddress,false)">Ajustar Dirección</button>
+        </div>
+        <div class="row text-center" style="margin-top: 5px">
+            <button class="btn btnModalOk" ng-click="$ctrl.putDeliveryData(autocmpleteAddress,true)">Aceptar</button>
+        </div>
+    </div>
+    <div ng-if="formDelivery === 2">
+        <div class="mapCanvas">
+            <div class="centerMarker"></div>
+            <ui-gmap-google-map center='deliveryMap.center' zoom='deliveryMap.zoom' options="deliveryMap.options">
+            </ui-gmap-google-map>
+        </div>
+        <div class="row text-center" style="margin-top: 5px">
+            <button class="btn btnModalOk" ng-click="$ctrl.replaceCoordinates();$ctrl.nextForm()">Aceptar</button>
+        </div>
+    </div>
+</div>

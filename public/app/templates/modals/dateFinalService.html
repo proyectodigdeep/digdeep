@@ -1,0 +1,22 @@
+<!-- Form3 Fecha Final-->
+<div class="modal-header modalHeaderCS">
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Fecha Final</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS" id="modalBodyCS">
+    <div class="text-center">
+        <div class="divCalendar">
+            <div uib-datepicker ng-model="orderService.dateFinal" class="well well-sm" datepicker-options="optionsCalendar"></div>
+        </div>
+    </div>
+    <div class="text-center" ng-if="errAlert === true" style="color: white">
+        *{{alertError}}
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">Continuar</button>
+    </div>
+</div>

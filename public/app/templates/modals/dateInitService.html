@@ -1,0 +1,27 @@
+<!-- Form2 Fecha de inicio-->
+<div class="modal-header modalHeaderCS" >
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">Fecha Inicio</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS" id="modalBodyCS">
+    <div class="text-left">
+        <i class="fa fa fa-circle" style="color: #ffa500f7"></i><span style="color: white">Fechas con citas ya programadas, pero aún así puedes agendar tu servicio, esperando una respuesta favorable por parte del proveedor.</span>
+    </div>
+    <div class="text-center">
+        <div class="divCalendar">
+            <div uib-datepicker ng-model="orderService.dateInit" class="well well-sm" datepicker-options="optionsCalendar"></div>
+        </div>
+    </div>
+    <div class="text-center" ng-if="errAlert === true" style="color: white">
+        *{{alertError}}
+    </div>
+    <div class="row text-center">
+        <button class="btn btnModalOk" ng-click="$ctrl.nextForm()">
+            Continuar
+        </button>
+    </div>
+</div>

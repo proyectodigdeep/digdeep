@@ -1,0 +1,191 @@
+<div ng-include="'app/templates/topnav.html'"></div>
+<div ng-include="'app/templates/subTopNav.html'" scope="" onload=""></div>
+<div ng-include="'app/templates/barRabbitsColors.html'" scope="" onload=""></div>
+
+<header class="text-right divHeader">
+	<span class="colorBlueTitle">Registro Usuario</span>
+</header>
+
+<div class="container-fluid">
+	<div class="col-md-7 col-sm-7 col-xs-12 registerForm">
+		<form>
+			<label class="formRegister">Nombre</label>
+			<div class="row">
+				<div class="col-md-4 col-ms-4 col-xs-12">
+					<input class="form-control formRegister" type="text" placeholder="Nombre" ng-model="dataUserTemp.name">
+					<p class="help-block text-danger"></p>
+					<span class="formInvalidText" ng-if="nameFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-4 col-ms-4 col-xs-12">
+					<input class="form-control formRegister" type="text" placeholder="Apellido" ng-model="dataUserTemp.lastname">
+					<span class="formInvalidText" ng-if="lastnameFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="formRegister">Email</label><br>
+					<input type="email" class="form-control formRegister" placeholder="Email" ng-model="dataUser.email">
+					<span class="formInvalidText" ng-if="emailFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="formRegister">Crea una contraseña</label><br>
+					<input type="password" class="form-control formRegister" placeholder="Contraseña" ng-model="dataUser.password">
+					<span class="formInvalidText" ng-if="passwordFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="formRegister">Confirma tu contraseña</label><br>
+					<input type="password" class="form-control formRegister" placeholder="Contraseña" ng-model="dataUser.confirmPassword">
+					<span class="formInvalidText" ng-if="confirmPasswordFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
+			<label class="formRegister">Teléfono celular</label>
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-6">
+					<input class="form-control formRegister" type="tel" placeholder="Número" ng-model="dataUser.phone">
+					<span class="formInvalidText" ng-if="phoneFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
+			<label class="formRegister">Ubicación</label>
+			<div class="row">
+				<div class="col-md-5 col-sm-5 col-xs-7">
+					<input class="form-control formRegister" type="text" placeholder="Calle" style="display: inline-block" ng-model="dataUser.address">
+					<span class="formInvalidText" ng-if="addressFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-3" style="display: inline-block">
+					<input class="form-control formRegister" type="number" placeholder="Número" style="display: inline-block" ng-model="dataUser.numberHouse">
+				</div>
+				<div class="col-md-5 col-sm-5 col-xs-12" style="display: inline-block">
+					<input class="form-control formRegister" type="text" placeholder="Colonia" style="display: inline-block" ng-model="dataUser.colony">
+					<span class="formInvalidText" ng-if="colonyFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 10px">
+				<div class="col-md-5 col-sm-5 col-xs-6">
+					<input class="form-control formRegister" type="text" placeholder="Ciudad" style="display: inline-block" ng-model="dataUser.city">
+					<span class="formInvalidText" ng-if="cityFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-5 col-sm-5 col-xs-6">
+					<select class="form-control formRegister" placeholder="Estado" style="display: inline-block" ng-model="dataUser.state">
+						<option value='' disabled selected>- Estado -</option>
+						<option value="Aguascalientes">Aguascalientes</option>
+						<option value="Baja California">Baja California</option>
+						<option value="Baja California Sur">Baja California Sur</option>
+						<option value="Campeche">Campeche</option>
+						<option value="Chiapas">Chiapas</option>
+						<option value="Chihuahua">Chihuahua</option>
+						<option value="Coahuila">Coahuila</option>
+						<option value="Colima">Colima</option>
+						<option value="Distrito Federal">Distrito Federal</option>
+						<option value="Durango">Durango</option>
+						<option value="Estado de México">Estado de México</option>
+						<option value="Guanajuato">Guanajuato</option>
+						<option value="Guerrero">Guerrero</option>
+						<option value="Hidalgo">Hidalgo</option>
+						<option value="Jalisco">Jalisco</option>
+						<option value="Michoacán">Michoacán</option>
+						<option value="Morelos">Morelos</option>
+						<option value="Nayarit">Nayarit</option>
+						<option value="Nuevo León">Nuevo León</option>
+						<option value="Oaxaca">Oaxaca</option>
+						<option value="Puebla">Puebla</option>
+						<option value="Querétaro">Querétaro</option>
+						<option value="Quintana Roo">Quintana Roo</option>
+						<option value="San Luis Potosí">San Luis Potosí</option>
+						<option value="Sinaloa">Sinaloa</option>
+						<option value="Sonora">Sonora</option>
+						<option value="Tabasco">Tabasco</option>
+						<option value="Tamaulipas">Tamaulipas</option>
+						<option value="Tlaxcala">Tlaxcala</option>
+						<option value="Veracruz">Veracruz</option>
+						<option value="Yucatán">Yucatán</option>
+						<option value="Zacatecas">Zacatecas</option>
+					</select>
+					<span class="formInvalidText" ng-if="stateFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Debes seleccionar obligatoriamente un estado de la república mexicana.
+					</span>
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-3" style="display: inline-block">
+					<input class="form-control formRegister" type="number" placeholder="CP" style="display: inline-block" ng-model="dataUser.postalCode">
+					<span class="formInvalidText" ng-if="postalCodeFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
+			<label class="formRegister">Fecha de nacimiento</label>
+			<div class="row">
+				<div class="col-md-2 col-sm-2 col-xs-4">
+					<input class="form-control formRegister" type="number" placeholder="Día" style="display: inline-block;" ng-model="dataUserTemp.dateDay">
+					<span class="formInvalidText" ng-if="dateDayFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-4" style="display: inline-block">
+					<select class="form-control formRegister" type="month" placeholder="Mes" style="display: inline-block" ng-model="dataUserTemp.dateMonth">
+						<option value="" disabled selected>- Mes -</option>
+						<option value="enero">Enero</option>
+						<option value="febrero">Febrero</option>
+						<option value="marzo">Marzo</option>
+						<option value="abril">Abril</option>
+						<option value="mayo">Mayo</option>
+						<option value="junio">Junio</option>
+						<option value="julio">Julio</option>
+						<option value="agosto">Agosto</option>
+						<option value="septiembre">Septiembre</option>
+						<option value="octubre">Octubre</option>
+						<option value="noviembre">Noviembre</option>
+						<option value="diciembre">Diciembre</option>
+					</select>
+					<span class="formInvalidText" ng-if="dateMonthFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-4" style="display: inline-block">
+					<input class="form-control formRegister" type="number" placeholder="Año" style="display: inline-block" ng-model="dataUserTemp.dateYear">
+					<span class="formInvalidText" ng-if="dateYearFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
+			<div class="row" style="padding: 20px">
+				<div class="col-md-2 col-sm-2 col-xs-6">
+					<label class="switch">
+						<input type="checkbox" ng-model="privacitypolitics">
+						<span class="slider round"></span>
+					</label>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-6" style="padding-top: 5px;padding-bottom: 5px">
+					<label class="formRegister">
+						<a href="#!/terms" target="_blank" class="formRegister" style="text-decoration: underline;color: #04456b !important">Aceptar términos y condiciones</a>
+					</label>
+				</div>
+				<span class="formInvalidText" ng-if="privacityFailed === true">
+					<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>debes aceptar los términos y condiciones, para continuar con tu registro.
+				</span>
+			</div>
+			<div class="row text-right" style="padding-right: 14px;padding-top: 10px;">
+				<button type="submit" class="btn formRegister" ng-click="registerUser()">Regístrate</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-1"></div>
+</div>
+
+<div ng-include="'app/templates/footerPage.html'" scope="" onload=""></div>
