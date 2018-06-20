@@ -13,7 +13,7 @@ module.exports = {
 		port: 587,
 	},
 	conekta: {
-		apiKey: 'key_ETHz2nziQpiTmZhqTQBAzjw',
+		apiKey: 'key_RbynxeQNr9WAh7JPXyyxkw',
 		locale: 'es',
 		currency: 'MXN'
 	},
