@@ -122,6 +122,39 @@ function (                                        typePrice,  geocodeService,  S
                                              +User.city+", "
                                              +User.postalCode
       
+    userService.getUser(User._id, function (usr) {
+        $scope.orderService.deliveryData.name   = usr.fullname    
+        $scope.orderService.deliveryData.email  = usr.email
+        $scope.orderService.deliveryData.phone  = usr.phone
+        var address = ""
+            if (usr.address != undefined) {
+                address = usr.address
+            }
+            if (usr.numberHouse != undefined) {
+                address = address + ', ' + usr.numberHouse
+            }
+            if (usr.colony != undefined) {
+                address = address + ', ' + usr.colony
+            }
+            if (usr.state != undefined) {
+                address = address + ', ' + usr.state
+            }
+            if (usr.city != undefined) {
+                address = address + ', ' + usr.city
+            }
+            if (usr.postalCode != undefined) {
+                address = address + ', ' + usr.postalCode
+            }
+        $scope.autocmpleteAddress = address
+        console.log("here")
+    }, function (err) {
+        console.log(err)
+        $scope.orderService.deliveryData.name   = undefined   
+        $scope.orderService.deliveryData.email  = undefined
+        $scope.orderService.deliveryData.phone  = undefined
+        $scope.autocmpleteAddress               = undefined
+    })
+
     // Decalarar mapa
     $scope.formDelivery = 1
     $scope.deliveryMap = {

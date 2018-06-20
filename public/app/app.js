@@ -296,7 +296,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	      // Handle error
 	      return;
 	    }
-	    console.log(profile)
+	    console.log(profile.email)
 	 	localStorage.setItem("accessToken", authResult.accessToken);
 	    localStorage.setItem("profile", JSON.stringify(profile));
 	    var id_auth0 = profile.sub
@@ -314,6 +314,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 						auth0Id: id_auth0,
 						urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
 	 				}
+	 				console.log(data_user.email)
 	 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
 	 				userService.registerUserBySocialRed(data_user, function (usr) {
 	 					console.log(usr)
@@ -329,6 +330,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 			}
 
 	 			if (id_auth0.indexOf('facebook') != -1) {
+	 				console.log(profile)
 	 				var data_user = {
 	 					name: String(profile.name),
 						email: String(profile.email),
@@ -372,6 +374,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 				})
 	 			}
 	 		}else{
+	 			console.log("ya existe")
 	 			// Si ya existe el usuario
 	 			$localStorage.token = token	
 	 			$state.go('userprofile')
@@ -426,6 +429,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 				})
 	 			}
 	 			if (id_auth0.indexOf('facebook') != -1) {
+	 				console.log(profile)
 	 				var data_user = {
 	 					name: String(profile.name),
 						email: String(profile.email),

@@ -129,6 +129,8 @@ function(                 $http,   jwtHelper) {
 	}
 
     this.registerUserBySocialRed = function (userdata, onSuccess, onError){
+        console.log("datos de usuario")
+        console.log(userdata)
         $http.post('v1/users_socialred/', userdata)
         .then(function(response) {
             if(response.data.status === "success"){

@@ -79,6 +79,7 @@ module.exports = {
         // Se recupera el nombre del cliente        
         conekta.Customer.create(customer, function (err, customer) {            
             if (!err) {
+                //console.log(err.err.details[0])
                 return onSuccess(customer.toObject());
             }
             return onError(err);
