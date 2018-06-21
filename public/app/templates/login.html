@@ -1,4 +1,4 @@
-<div ng-include="'app/templates/topnav/topnavLogin.html'"></div>
+<!--div ng-include="'app/templates/topnav/topnavLogin.html'"></div-->
 <div class="container containerLogin">
 	<div class="row text-center" style="margin-top: 15px">
 		<a ui-sref="home"><img src="img/logoDD.png" class="img-responsive logoLogin"></a>
@@ -7,12 +7,12 @@
 	
 	<div class="row text-center" style="margin-top:30px">
 		<p>
-			<span class="loginText1">INICIO DE SESIÓN</span>
+			<span class="loginText1">Administrador</span>
 		</p>
-		<p>
+		<!--p>
 			<button class="btn selectRolLogin" style="border-right: solid 1px;margin-right: -2px;padding-right: 32px;" ng-class="{'active': tabRol === 1}" ng-click="selecRolLogin(1)">USUARIO</button>
 			<button class="btn selectRolLogin" style="border-left: solid 1px;margin-left: -2px;padding-left: 32px;" ng-class="{'active': tabRol === 2}" ng-click="selecRolLogin(2)">DIGDEEPER</button>
-		</p>
+		</p-->
 	</div>
 	<form>
 		<div class="row text-center" style="padding-left: 115px;padding-right: 115px;margin-top: 15px" >
@@ -22,11 +22,11 @@
 		<div class="row text-center" style="margin-top: 20px">
 			<button type="submit" class="btn btnInitSesion" ng-click="login(email,password)" ng-click="lock.show()">Inicia Sesión</button>
 		</div>
-		<div class="row text-center" style="margin-top: 20px">
+		<!--div class="row text-center" style="margin-top: 20px">
 			<p>
 				<a class="loginLinks" ng-click="openForgetPasswordModal()">¿Olvidaste tu contraseña?</a><br>
 				<a class="loginLinks" ui-sref="registeruser">¿Aún no estás en DIGDEEP? Regístrate</a>
 			</p>
-		</div>
+		</div-->
 	</form>
 </div>
