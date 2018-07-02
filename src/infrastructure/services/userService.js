@@ -19,9 +19,27 @@ cloudinary.config ({
    api_secret : config.cloudinary.api_secret  
 })
 
-exports.registerUserSocialRed = function(req, res){
+/*exports.registerUserSocialRed = function(req, res){
 	var data = req.body
 	userApp.registerUserSocialRed(data, function(user) {
+		res.status(201)
+		res.json({
+			status: "success",
+			message: "usuario creado correctamente",
+			user: user
+		})
+	}, function(err) {
+		res.status(400)
+		res.json({
+			status: "failure",
+			message: err
+		})
+	})
+}*/
+
+exports.registerUser = function(req, res){
+	var data = req.body
+	userApp.registerUser(data, function(user) {
 		res.status(201)
 		res.json({
 			status: "success",
@@ -273,6 +291,7 @@ exports.getUserByIdAuth0 = function(req,res){
 				expiresIn: 60*60*24*30
 			})
 		}
+		res.status(201)
 		res.json({
 			status: "success",
 			token: token

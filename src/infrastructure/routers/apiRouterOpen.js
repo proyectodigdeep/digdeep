@@ -63,6 +63,10 @@ var commentService 	= require("../services/commentService")  // Este es un servi
 var orderService 	= require("../services/orderService") 	 // Este es un servicio especifico para ordenes de los usuarios
 var calendarService = require("../services/calendarService") 	// Este es un servicio especifico para calendario
 
+/****USUARIOS****/
+	// Crear nuevo usuario despues de registrarlo en auth0
+	router.post("/users_register", userService.registerUser)
+
 // Obtener todas las ordenes de un digdeeper
 router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)	
 // Obtener ordenes para conekta
@@ -79,8 +83,11 @@ router.get("/comments", commentService.getComments)
 router.post("/emails", emailService.send)
 // Crea nuevo usuario
 router.post("/users", userService.createUser)
+
 // Crea nuevo usuario con Red social
-router.post("/users_socialred", userService.registerUserSocialRed)
+//router.post("/users_socialred", userService.registerUserSocialRed)
+
+
 // Verificar si existe un correo de un usuario ya registrado
 router.post("/usersverify", userService.verifyUserByEmail)
 // Obtener todos los usuarios con una subcategoria especifica

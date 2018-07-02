@@ -57,7 +57,7 @@ exports.create = function (data, onSuccess, onError){
 	}, onError)
 }
 
-exports.registerUserRedSocial = function (data, onSuccess, onError){
+exports.registerUser = function (data, onSuccess, onError){
 	// Crear un usuario
 	var user = new userEntity()
 		user.fullname 		= data.name

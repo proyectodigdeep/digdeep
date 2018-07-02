@@ -182,7 +182,6 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 		//console.log(token)
 	 		// Verificar si el usuario no ha sido registrado con una red social
 	 		if (token == null) {
-	 			console.log("here")
 	 			// Verifcar si la autentifiación es por google
 	 			if (id_auth0.indexOf('google-oauth2') != -1) {
 	 				var data_user = {
@@ -282,7 +281,9 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	          state:"some thing I need to preserve"
 	        }
 	    },
-	    allowLogin: false
+	    allowLogin: false,
+	    loginAfterSignup: false,
+	    auto_login: false
 	    //autoclose: true 
 	}
 	$rootScope.lockRegister = new Auth0Lock('cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl', 'digdeepproyecto.auth0.com', options2);
@@ -301,87 +302,95 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    localStorage.setItem("profile", JSON.stringify(profile));
 	    var id_auth0 = profile.sub
 	    var profile = profile
-	    userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-	 		//console.log(token)
-	 		// Verificar si el usuario no ha sido registrado con una red social
-	 		if (token == null) {
-	 			// Verifcar si la autentifiación es por google
-	 			if (id_auth0.indexOf('google-oauth2') != -1) {
-	 				var data_user = {
-	 					name: String(profile.name),
-						email: String(profile.email),
-						roll: "user",
-						auth0Id: id_auth0,
-						urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-	 				}
-	 				console.log(data_user.email)
-	 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
-	 				userService.registerUserBySocialRed(data_user, function (usr) {
-	 					console.log(usr)
-	 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-							$localStorage.token = token	
-	 						$state.go('userprofile')
-						}, function (err) {
-							console.log(err)
-						})
-	 				}, function (err) {
-	 					console.log(err)
-	 				})
-	 			}
 
-	 			if (id_auth0.indexOf('facebook') != -1) {
-	 				console.log(profile)
-	 				var data_user = {
-	 					name: String(profile.name),
-						email: String(profile.email),
-						roll: "user",
-						auth0Id: id_auth0,
-						urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-	 				}
-	 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
-	 				userService.registerUserBySocialRed(data_user, function (usr) {
-	 					console.log(usr)
-	 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-							$localStorage.token = token	
-	 						$state.go('userprofile')
-						}, function (err) {
-							console.log(err)
-						})
-	 				}, function (err) {
-	 					console.log(err)
-	 				})
-	 			}
-	 			if (id_auth0.indexOf('auth0') != -1) {
-	 				var data_user = {
-	 					name: String(profile.name),
-						email: String(profile.email),
-						roll: "user",
-						auth0Id: id_auth0,
-						urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-	 				}
-	 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
-	 				userService.registerUserBySocialRed(data_user, function (usr) {
-	 					console.log(usr)
-	 					// Obtener el token del usuario registrado
-	 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-							$localStorage.token = token	
-	 						$state.go('userprofile')
-						}, function (err) {
-							console.log(err)
-						})
-	 				}, function (err) {
-	 					console.log(err)
-	 				})
-	 			}
-	 		}else{
-	 			console.log("ya existe")
-	 			// Si ya existe el usuario
-	 			$localStorage.token = token	
-	 			$state.go('userprofile')
-	 		}
-	 	}, function (err) {
-	 		console.log(err)
-	 	})
+	    if (!profile.email_verified) {
+		    alert('Por favor Verifica tu cuenta antes de contin');
+		    return false
+		} else {
+			userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+		 		//console.log(token)
+		 		// Verificar si el usuario no ha sido registrado con una red social
+		 		if (token == null) {
+		 			// Verifcar si la autentifiación es por google
+		 			if (id_auth0.indexOf('google-oauth2') != -1) {
+		 				var data_user = {
+		 					name: String(profile.name),
+							email: String(profile.email),
+							roll: "user",
+							auth0Id: id_auth0,
+							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+		 				}
+		 				console.log(data_user.email)
+		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+		 				userService.registerUserBySocialRed(data_user, function (usr) {
+		 					console.log(usr)
+		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+								$localStorage.token = token	
+		 						$state.go('userprofile')
+							}, function (err) {
+								console.log(err)
+							})
+		 				}, function (err) {
+		 					console.log(err)
+		 				})
+		 			}
+
+		 			if (id_auth0.indexOf('facebook') != -1) {
+		 				console.log(profile)
+		 				var data_user = {
+		 					name: String(profile.name),
+							email: String(profile.email),
+							roll: "user",
+							auth0Id: id_auth0,
+							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+		 				}
+		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+		 				userService.registerUserBySocialRed(data_user, function (usr) {
+		 					console.log(usr)
+		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+								$localStorage.token = token	
+		 						$state.go('userprofile')
+							}, function (err) {
+								console.log(err)
+							})
+		 				}, function (err) {
+		 					console.log(err)
+		 				})
+		 			}
+		 			if (id_auth0.indexOf('auth0') != -1) {
+		 				var data_user = {
+		 					name: String(profile.name),
+							email: String(profile.email),
+							roll: "user",
+							auth0Id: id_auth0,
+							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+		 				}
+		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+		 				userService.registerUserBySocialRed(data_user, function (usr) {
+		 					console.log(usr)
+		 					// Obtener el token del usuario registrado
+		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+								$localStorage.token = token	
+		 						$state.go('userprofile')
+							}, function (err) {
+								console.log(err)
+							})
+		 				}, function (err) {
+		 					console.log(err)
+		 				})
+		 			}
+		 		}else{
+		 			console.log("ya existe")
+		 			// Si ya existe el usuario
+		 			$localStorage.token = token	
+		 			$state.go('userprofile')
+		 		}
+		 	}, function (err) {
+		 		console.log(err)
+		 	})
+		}	
+		
+	    
 	  });
 	});
 

@@ -11,8 +11,8 @@ exports.create = function(data, onSuccess,onError){
 	}
 }
 
-exports.registerUserSocialRed = function(data, onSuccess,onError){
-	userRepository.registerUserRedSocial(data, function(user){
+exports.registerUser = function(data, onSuccess,onError){
+	userRepository.registerUser(data, function(user){
 		onSuccess(user)
 	},onError)
 }

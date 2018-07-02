@@ -4,7 +4,7 @@ var commentApp = require("../../application/commentApp")
 exports.createComment= function(req,res){
  	var data = req.body
  	commentApp.create(data, function(comment) {
-		res.status(201)
+		res.status(200)
 		res.json({
 			status: 	"success",
 			message: 	"Comentario creado correctamente",
@@ -21,6 +21,7 @@ exports.createComment= function(req,res){
 
 exports.getComments = function(req, res) {
 	commentApp.getComments(function(comments) {
+		res.status(200)
 		res.json({
 			status: "success",
 			comments: comments
@@ -37,6 +38,7 @@ exports.getComments = function(req, res) {
 exports.getComment = function(req, res) {
 	var id = req.params.id
 	commentApp.getComment(id,function(comment) {
+		res.status(200)
 		res.json({
 			status: "success",
 			comment:comment
