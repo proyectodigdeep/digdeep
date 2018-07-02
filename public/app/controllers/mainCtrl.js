@@ -38,8 +38,9 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     
     //console.log($rootScope.lock)
     lock.checkSession({}, function(err, authResult) {
+	  console.log("checando sesion")
 	  console.log(err)
-	  console.log(authResult)
+	  console.log("Checando sesion abierta"+authResult)
 	});
     $scope.selecTabTop = function (numTab) {
     	$scope.tab = numTab

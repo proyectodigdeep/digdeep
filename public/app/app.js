@@ -375,6 +375,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 							$localStorage.token = token	
 		 							$state.go('userprofile')
 		 						}else{
+		 							alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
 	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 							}
 
@@ -428,6 +429,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 							auth0Id: id_auth0,
 							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
 		 				}
+		 				console.log("here registrando usuario")
 		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
 		 				userService.registerUserBySocialRed(data_user, function (usr) {
 		 					console.log(usr)
@@ -443,6 +445,8 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 							$localStorage.token = token	
 		 							$state.go('userprofile')
 		 						}else{
+		 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+
 		 							alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 							}
