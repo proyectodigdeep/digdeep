@@ -36,12 +36,36 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     $scope.tab = 0
     $scope.tabRol = 0
     
-    //console.log($rootScope.lock)
-    lock.checkSession({}, function(err, authResult) {
-	  console.log("checando sesion")
+    console.log($rootScope.lockLogin)
+   
+    lock.getUserInfo(authResult.accessToken, function(error, profile) {
+		console.log(error)
+	    localStorage.setItem("profile", JSON.stringify(profile));
+		
+		console.log(profile)
+	})
+	/*var lock = new Auth0Lock(
+	  options.clientID
+	);*/
+	/*lock.getClient().refreshToken(localStorage.accessToken, function (err, delegationResult) {
+	  // Get here the new JWT via delegationResult.id_token
+	  console.log(delegationResult)
 	  console.log(err)
-	  console.log("Checando sesion abierta"+authResult)
+	});*/
+	lock.checkSession({}, function (err, authResult) {
+		console.log(err, authResult);
 	});
+    /*lock.checkSession({}, function(err, authResult) {
+	  	console.log("checando sesion")
+	  	console.log(err)
+	  	console.log("Checando sesion abierta"+authResult.accessToken)
+	  	//localStorage.setItem("accessToken", authResult.accessToken);
+		//localStorage.setItem("profile", JSON.stringify(profile));
+		lock.getUserInfo(authResult.accessToken, function(error, profile) {
+			console.log(error)
+			console.log(profile)
+		})
+	});*/
     $scope.selecTabTop = function (numTab) {
     	$scope.tab = numTab
     }
