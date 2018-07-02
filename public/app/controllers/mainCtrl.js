@@ -36,13 +36,14 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     $scope.tab = 0
     $scope.tabRol = 0
     
-    
-    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
-		console.log(error)
-	    localStorage.setItem("profile", JSON.stringify(profile));
+    if (localStorage.accessToken) {
+	    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
+			console.log(error)
+		    localStorage.setItem("profile", JSON.stringify(profile));
 
-		console.log(profile)
-	})
+			console.log(profile)
+		})	
+    }
 	/*var lock = new Auth0Lock(
 	  options.clientID
 	);*/
