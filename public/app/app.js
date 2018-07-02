@@ -324,8 +324,10 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 					auth0Id: id_auth0,
 					urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
  				}
+ 				console.log("registrando")
  				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
  				userService.registerUserBySocialRed(data_user, function (usr) {
+ 					console.log("registrando usuario "+usr)
  					if (usr) {
  						if (profile.email_verified == true) {
  							userService.getTokenByIdAuth0(String(id_auth0), function (token) {
