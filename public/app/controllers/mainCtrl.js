@@ -40,7 +40,7 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     if (localStorage.accessToken) {
 	    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 			console.log(error)
-		    if (profile) {
+		    if (profile && profile.email_verified == true) {
 		    	var id_auth0 = profile.sub
 		    	localStorage.setItem("profile", JSON.stringify(profile));
 		    	userService.getTokenByIdAuth0(String(id_auth0), function (token) {
