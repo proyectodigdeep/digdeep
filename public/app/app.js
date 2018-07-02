@@ -304,55 +304,61 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	// LOK PARA REGISTRO USUARIO
 	$rootScope.lockRegister = new Auth0Lock('cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl', 'digdeepproyecto.auth0.com', options2);
 	$rootScope.lockRegister.on("authenticated", function(authResult) {
-		console.log(authResult)
+		//console.log(authResult)
 	  	lock.getUserInfo(authResult.accessToken, function(error, profile) {
-/*<<<<<<< HEAD
-	    if (error) {
-	      // Handle error
-	      return;
-	    }
-	    console.log(profile.email)
-	 	localStorage.setItem("accessToken", authResult.accessToken);
-	    localStorage.setItem("profile", JSON.stringify(profile));
-	    var id_auth0 = profile.sub
-	    var profile = profile
-
-	    if (!profile.email_verified) {
-		    alert('Por favor Verifica tu cuenta antes de contin');
-		    return false
-		} else {
-			userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-		 		//console.log(token)
-		 		// Verificar si el usuario no ha sido registrado con una red social
-		 		if (token == null) {
-		 			// Verifcar si la autentifiación es por google
-		 			if (id_auth0.indexOf('google-oauth2') != -1) {
-		 				var data_user = {
-		 					name: String(profile.name),
-							email: String(profile.email),
-							roll: "user",
-							auth0Id: id_auth0,
-							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-		 				}
-		 				console.log(data_user.email)
-		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
-		 				userService.registerUserBySocialRed(data_user, function (usr) {
-		 					console.log(usr)
-		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								$localStorage.token = token	
-		 						$state.go('userprofile')
-*///=======
 	  		console.log(profile)
 		    if (error) {
 		      // Handle error
 		      return;
 		    }
-		    console.log(profile.email)
-		 	localStorage.setItem("accessToken", authResult.accessToken);
-		    localStorage.setItem("profile", JSON.stringify(profile));
+		    localStorage.setItem("accessToken", authResult.accessToken);
+		    //localStorage.setItem("profile", JSON.stringify(profile));
 		    var id_auth0 = profile.sub
 		    var profile = profile
-		    userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+		    // Registrar usuario en la db que fue registrado en auth0 por correo y contraseña.
+		    if (id_auth0.indexOf('auth0') != -1) {
+ 				var data_user = {
+ 					name: String(profile.name),
+					email: String(profile.email),
+					roll: "user",
+					auth0Id: id_auth0,
+					urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+ 				}
+ 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+ 				userService.registerUserBySocialRed(data_user, function (usr) {
+ 					if (usr) {
+ 						if (profile.email_verified == true) {
+ 							userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+								$localStorage.token = token	
+		 						$state.go('userprofile')
+							}, function (err) {
+								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
+							})
+ 						}else{
+ 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+ 							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+						}
+ 					}
+ 					// Obtener el token del usuario registrado
+ 					/*userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+						if (profile.email_verified == true) {
+ 							$localStorage.token = token	
+ 							$state.go('userprofile')
+ 						}else{
+ 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+ 							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+						}
+					}, function (err) {
+						console.log(err)
+					})*/
+ 				}, function (err) {
+ 					console.log(err)
+ 				})
+ 			}
+
+		    /*userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 		 		//console.log(token)
 		 		// Verificar si el usuario no ha sido registrado con una red social
 		 		if (token == null) {
@@ -378,8 +384,6 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 							alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
 	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 							}
-
-/*>>>>>>> bab9d4ea532841276f40c1e823c799c3dec1c900*/
 							}, function (err) {
 								console.log(err)
 							})
@@ -400,11 +404,6 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
 		 				userService.registerUserBySocialRed(data_user, function (usr) {
 		 					console.log(usr)
-/*<<<<<<< HEAD
-		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								$localStorage.token = token	
-		 						$state.go('userprofile')
-=======*/
 		 					// Obtener el token del usuario registrado
 		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 								if (profile.email_verified == true) {
@@ -413,7 +412,6 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 						}else{
 	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 							}
-//>>>>>>> bab9d4ea532841276f40c1e823c799c3dec1c900
 							}, function (err) {
 								console.log(err)
 							})
@@ -421,63 +419,16 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 					console.log(err)
 		 				})
 		 			}
-		 			if (id_auth0.indexOf('auth0') != -1) {
-		 				var data_user = {
-		 					name: String(profile.name),
-							email: String(profile.email),
-							roll: "user",
-							auth0Id: id_auth0,
-							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-		 				}
-		 				console.log("here registrando usuario")
-		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
-		 				userService.registerUserBySocialRed(data_user, function (usr) {
-		 					console.log(usr)
-		 					// Obtener el token del usuario registrado
-/*<<<<<<< HEAD
-		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								$localStorage.token = token	
-		 						$state.go('userprofile')
-=======*/
-		 					// Obtener el token del usuario registrado
-		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								if (profile.email_verified == true) {
-		 							$localStorage.token = token	
-		 							$state.go('userprofile')
-		 						}else{
-		 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
-
-		 							alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
-	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
-	 							}
-//>>>>>>> bab9d4ea532841276f40c1e823c799c3dec1c900
-							}, function (err) {
-								console.log(err)
-							})
-		 				}, function (err) {
-		 					console.log(err)
-		 				})
-		 			}
+		 			
 		 		}else{
-/*<<<<<<< HEAD
-		 			console.log("ya existe")
-=======*/
-//>>>>>>> bab9d4ea532841276f40c1e823c799c3dec1c900
 		 			// Si ya existe el usuario
 		 			$localStorage.token = token	
 		 			$state.go('userprofile')
 		 		}
 		 	}, function (err) {
 		 		console.log(err)
-		 	})
-/*<<<<<<< HEAD
-		}	
-		
-	    
-	  });
-=======*/
+		 	})*/
 	  	});
-//>>>>>>> bab9d4ea532841276f40c1e823c799c3dec1c900
 	});
 
 	// LOK PARA REGISTRO DE DIGDEEPER

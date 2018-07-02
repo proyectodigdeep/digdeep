@@ -36,36 +36,24 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     $scope.tab = 0
     $scope.tabRol = 0
     
+    // Verificar si existe un usuario esperando a verificar su cuenta
     if (localStorage.accessToken) {
 	    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 			console.log(error)
-		    localStorage.setItem("profile", JSON.stringify(profile));
-
+		    if (profile) {
+		    	var id_auth0 = profile.sub
+		    	localStorage.setItem("profile", JSON.stringify(profile));
+		    	userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+					$localStorage.token = token	
+					location.reload()
+				}, function (err) {
+					$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
+				})
+		    }
 			console.log(profile)
 		})	
     }
-	/*var lock = new Auth0Lock(
-	  options.clientID
-	);*/
-	/*lock.getClient().refreshToken(localStorage.accessToken, function (err, delegationResult) {
-	  // Get here the new JWT via delegationResult.id_token
-	  console.log(delegationResult)
-	  console.log(err)
-	});*/
-	lock.checkSession({}, function (err, authResult) {
-		console.log(err, authResult);
-	});
-    /*lock.checkSession({}, function(err, authResult) {
-	  	console.log("checando sesion")
-	  	console.log(err)
-	  	console.log("Checando sesion abierta"+authResult.accessToken)
-	  	//localStorage.setItem("accessToken", authResult.accessToken);
-		//localStorage.setItem("profile", JSON.stringify(profile));
-		lock.getUserInfo(authResult.accessToken, function(error, profile) {
-			console.log(error)
-			console.log(profile)
-		})
-	});*/
+
     $scope.selecTabTop = function (numTab) {
     	$scope.tab = numTab
     }
