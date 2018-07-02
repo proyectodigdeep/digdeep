@@ -44,10 +44,7 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 		    	var id_auth0 = profile.sub
 		    	localStorage.setItem("profile", JSON.stringify(profile));
 		    	userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-					$localStorage.token = token	
-					if ($localStorage.token) {
-						location.reload()
-					}
+					$localStorage.token = token
 				}, function (err) {
 					$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 				})
