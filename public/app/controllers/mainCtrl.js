@@ -37,6 +37,10 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     $scope.tabRol = 0
     
     //console.log($rootScope.lock)
+    lock.checkSession({}, function(err, authResult) {
+	  console.log(err)
+	  console.log(authResult)
+	});
     $scope.selecTabTop = function (numTab) {
     	$scope.tab = numTab
     }

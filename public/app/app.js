@@ -443,6 +443,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 							$localStorage.token = token	
 		 							$state.go('userprofile')
 		 						}else{
+		 							alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 							}
 //>>>>>>> bab9d4ea532841276f40c1e823c799c3dec1c900
