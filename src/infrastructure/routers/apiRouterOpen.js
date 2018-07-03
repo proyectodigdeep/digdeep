@@ -66,6 +66,10 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 /****USUARIOS****/
 	// Crear nuevo usuario despues de registrarlo en auth0
 	router.post("/users_register", userService.registerUser)
+	// Obtener un token access de un usuario por id de auth 0, despues de logearse en auth0
+	router.get("/tokens_auth0/:id", securityService.generateTokenUserByIdAuth0)
+	// Verificar una cuenta de un usuario, a petición de un correo que mando auth0
+
 
 // Obtener todas las ordenes de un digdeeper
 router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)	
@@ -102,8 +106,7 @@ router.put("/userspreferences/:id", userService.updatePreferencesUser)
 router.get('/events_by_digdeeper/:id', calendarService.getEventsByDigdeeper)
 // Obtener un usuario por id de auth 0
 router.get('/users_auth0/:id', userService.getUserByIdAuth0)
-// Obtener un token de un usuario por id de auth 0
-router.get('/tokens_auth0/:id', securityService.generateTokenUserByIdAuth0)
+
 // Enviar un email a un usuario
 router.post('/email_changepassword', emailService.changePasswordUser)
 

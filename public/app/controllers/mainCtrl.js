@@ -61,8 +61,8 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     }
 
     $scope.logout = function() {
-    	console.log("here")
-		delete $localStorage.token
+		delete localStorage.accessToken
+    	delete $localStorage.token
 		delete localStorage.profile
 		$scope.tab = 0
 		$state.transitionTo("home", {
