@@ -36,7 +36,6 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     $scope.tab = 0
     $scope.tabRol = 0
     
-    // Verificar si existe un usuario esperando a verificar su cuenta
     if (localStorage.accessToken) {
 	    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 			console.log(error)
