@@ -241,7 +241,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 							$localStorage.token = token	
 	 							$state.go('userprofile')
 	 						}else{
-	 							$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+								$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 						}
 						}, function (err) {
 							console.log(err)
@@ -254,13 +254,17 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 			// Si ya existe el usuario
 	 			$localStorage.token = token	
 	 			console.log("login")
-	 			if (userService.isTokenValidAsDigdeeper(token)) {
-	 				console.log("digdeeperprofile")
-	 				$state.go('digdeeperprofile')
-	 			}
-				if (userService.isTokenValidAsUser($localStorage.token)) {
-					console.log("userprofile")
-					$state.go('userprofile')
+	 			if (profile.email_verified == true) {
+					if (userService.isTokenValidAsDigdeeper(token)) {
+		 				console.log("digdeeperprofile")
+		 				$state.go('digdeeperprofile')
+		 			}
+					if (userService.isTokenValidAsUser($localStorage.token)) {
+						console.log("userprofile")
+						$state.go('userprofile')
+					}
+				}else{
+					$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 				}
 	 		}
 	 	}, function (err) {
@@ -342,94 +346,83 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 						}
  					}
- 					// Obtener el token del usuario registrado
- 					/*userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-						if (profile.email_verified == true) {
- 							$localStorage.token = token	
- 							$state.go('userprofile')
- 						}else{
- 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
- 							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
-							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
-						}
-					}, function (err) {
-						console.log(err)
-					})*/
  				}, function (err) {
  					console.log(err)
  				})
  			}
+ 			if (id_auth0.indexOf('google-oauth2') != -1 || id_auth0.indexOf('facebook') != -1) {
+ 				userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+			 		//console.log(token)
+			 		// Verificar si el usuario no ha sido registrado con una red social
+			 		if (token == null) {
+			 			// Verifcar si la autentifiación es por google
+			 			if (id_auth0.indexOf('google-oauth2') != -1) {
+			 				var data_user = {
+			 					name: String(profile.name),
+								email: String(profile.email),
+								roll: "user",
+								auth0Id: id_auth0,
+								urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+			 				}
+			 				//console.log(data_user.email)
+			 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+			 				userService.registerUserBySocialRed(data_user, function (usr) {
+			 					console.log(usr)
+			 					// Obtener el token del usuario registrado
+			 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+									if (profile.email_verified == true) {
+			 							$localStorage.token = token	
+			 							$state.go('userprofile')
+			 						}else{
+			 							alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
+		 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+		 							}
+								}, function (err) {
+									console.log(err)
+								})
+			 				}, function (err) {
+			 					console.log(err)
+			 				})
+			 			}
 
-		    /*userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-		 		//console.log(token)
-		 		// Verificar si el usuario no ha sido registrado con una red social
-		 		if (token == null) {
-		 			// Verifcar si la autentifiación es por google
-		 			if (id_auth0.indexOf('google-oauth2') != -1) {
-		 				var data_user = {
-		 					name: String(profile.name),
-							email: String(profile.email),
-							roll: "user",
-							auth0Id: id_auth0,
-							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-		 				}
-		 				//console.log(data_user.email)
-		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
-		 				userService.registerUserBySocialRed(data_user, function (usr) {
-		 					console.log(usr)
-		 					// Obtener el token del usuario registrado
-		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								if (profile.email_verified == true) {
-		 							$localStorage.token = token	
-		 							$state.go('userprofile')
-		 						}else{
-		 							alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
-	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
-	 							}
-							}, function (err) {
-								console.log(err)
-							})
-		 				}, function (err) {
-		 					console.log(err)
-		 				})
-		 			}
-
-		 			if (id_auth0.indexOf('facebook') != -1) {
-		 				console.log(profile)
-		 				var data_user = {
-		 					name: String(profile.name),
-							email: String(profile.email),
-							roll: "user",
-							auth0Id: id_auth0,
-							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-		 				}
-		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
-		 				userService.registerUserBySocialRed(data_user, function (usr) {
-		 					console.log(usr)
-		 					// Obtener el token del usuario registrado
-		 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								if (profile.email_verified == true) {
-		 							$localStorage.token = token	
-		 							$state.go('userprofile')
-		 						}else{
-	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
-	 							}
-							}, function (err) {
-								console.log(err)
-							})
-		 				}, function (err) {
-		 					console.log(err)
-		 				})
-		 			}
-		 			
-		 		}else{
-		 			// Si ya existe el usuario
-		 			$localStorage.token = token	
-		 			$state.go('userprofile')
-		 		}
-		 	}, function (err) {
-		 		console.log(err)
-		 	})*/
+			 			if (id_auth0.indexOf('facebook') != -1) {
+			 				console.log(profile)
+			 				var data_user = {
+			 					name: String(profile.name),
+								email: String(profile.email),
+								roll: "user",
+								auth0Id: id_auth0,
+								urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+			 				}
+			 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+			 				userService.registerUserBySocialRed(data_user, function (usr) {
+			 					console.log(usr)
+			 					// Obtener el token del usuario registrado
+			 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+									if (profile.email_verified == true) {
+			 							$localStorage.token = token	
+			 							$state.go('userprofile')
+			 						}else{
+		 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+		 							}
+								}, function (err) {
+									console.log(err)
+								})
+			 				}, function (err) {
+			 					console.log(err)
+			 				})
+			 			}
+			 			
+			 		}else{
+			 			// Si ya existe el usuario
+			 			$localStorage.token = token	
+			 			$state.go('userprofile')
+			 		}
+			 	}, function (err) {
+			 		console.log(err)
+			 	})
+ 			}
+		    
 	  	});
 	});
 
@@ -447,7 +440,113 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    localStorage.setItem("profile", JSON.stringify(profile));
 	    var id_auth0 = profile.sub
 	    var profile = profile
-	    userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+
+	    // Registrar usuario en la db que fue registrado en auth0 por correo y contraseña.
+		    if (id_auth0.indexOf('auth0') != -1) {
+ 				var data_user = {
+ 					name: String(profile.name),
+					email: String(profile.email),
+					roll: "digdeeper",
+					auth0Id: id_auth0,
+					urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+ 				}
+ 				console.log("registrando")
+ 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+ 				userService.registerUserBySocialRed(data_user, function (usr) {
+ 					console.log("registrando usuario "+usr)
+ 					if (usr) {
+ 						if (profile.email_verified == true) {
+ 							userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+								$localStorage.token = token	
+		 						$state.go('digdeeperprofile')
+							}, function (err) {
+								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
+							})
+ 						}else{
+ 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+ 							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+						}
+ 					}
+ 				}, function (err) {
+ 					console.log(err)
+ 				})
+ 			}
+ 			if (id_auth0.indexOf('google-oauth2') != -1 || id_auth0.indexOf('facebook') != -1) {
+ 				userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+			 		//console.log(token)
+			 		// Verificar si el usuario no ha sido registrado con una red social
+			 		if (token == null) {
+			 			// Verifcar si la autentifiación es por google
+			 			if (id_auth0.indexOf('google-oauth2') != -1) {
+			 				var data_user = {
+			 					name: String(profile.name),
+								email: String(profile.email),
+								roll: "digdeeper",
+								auth0Id: id_auth0,
+								urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+			 				}
+			 				//console.log(data_user.email)
+			 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+			 				userService.registerUserBySocialRed(data_user, function (usr) {
+			 					console.log(usr)
+			 					// Obtener el token del usuario registrado
+			 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+									if (profile.email_verified == true) {
+			 							$localStorage.token = token	
+			 							$state.go('digdeeperprofile')
+			 						}else{
+			 							alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
+		 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+		 							}
+								}, function (err) {
+									console.log(err)
+								})
+			 				}, function (err) {
+			 					console.log(err)
+			 				})
+			 			}
+
+			 			if (id_auth0.indexOf('facebook') != -1) {
+			 				console.log(profile)
+			 				var data_user = {
+			 					name: String(profile.name),
+								email: String(profile.email),
+								roll: "digdeeper",
+								auth0Id: id_auth0,
+								urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+			 				}
+			 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
+			 				userService.registerUserBySocialRed(data_user, function (usr) {
+			 					console.log(usr)
+			 					// Obtener el token del usuario registrado
+			 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+									if (profile.email_verified == true) {
+			 							$localStorage.token = token	
+			 							$state.go('digdeeperprofile')
+			 						}else{
+		 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+		 							}
+								}, function (err) {
+									console.log(err)
+								})
+			 				}, function (err) {
+			 					console.log(err)
+			 				})
+			 			}
+			 			
+			 		}else{
+			 			// Si ya existe el usuario
+			 			$localStorage.token = token	
+			 			$state.go('userprofile')
+			 		}
+			 	}, function (err) {
+			 		console.log(err)
+			 	})
+ 			}
+
+	    ///7
+	    /*userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 	 		//console.log(token)
 	 		// Verificar si el usuario no ha sido registrado con una red social
 	 		if (token == null) {
@@ -539,7 +638,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 		}
 	 	}, function (err) {
 	 		console.log(err)
-	 	})
+	 	})*/
 	  });
 	});
 });
