@@ -246,11 +246,25 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 				})
 	 			}
 	 		}else{
-	 			// Si ya existe el usuario
-	 			$localStorage.token = token	
+	 			// Si ya existe el usuario		
 	 			console.log("login")
-	 			if (profile.email_verified == true) {
-					if (userService.isTokenValidAsDigdeeper(token)) {
+	 			if (id_auth0.indexOf('auth0') != -1) {
+	 				if (profile.email_verified == true) {
+						if (userService.isTokenValidAsDigdeeper(token)) {
+			 				console.log("digdeeperprofile")
+			 				$state.go('digdeeperprofile')
+			 			}
+						if (userService.isTokenValidAsUser($localStorage.token)) {
+							console.log("userprofile")
+							$state.go('userprofile')
+						}
+					}else{
+						$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+					}	
+	 			}
+	 			if (id_auth0.indexOf('google-oauth2') != -1 || id_auth0.indexOf('facebook') != -1) {
+	 				$localStorage.token = token	
+	 				if (userService.isTokenValidAsDigdeeper($localStorage.token)) {
 		 				console.log("digdeeperprofile")
 		 				$state.go('digdeeperprofile')
 		 			}
@@ -258,9 +272,8 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 						console.log("userprofile")
 						$state.go('userprofile')
 					}
-				}else{
-					$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
-				}
+	 			}
+	 			
 	 		}
 	 	}, function (err) {
 	 		console.log(err)
@@ -460,11 +473,11 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 					if (usr) {
 						if (profile.email_verified == true) {
 							userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-							$localStorage.token = token	
-	 						$state.go('digdeeperprofile')
-						}, function (err) {
-							$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
-						})
+								$localStorage.token = token	
+		 						$state.go('digdeeperprofile')
+							}, function (err) {
+								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
+							})
 						}else{
 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
