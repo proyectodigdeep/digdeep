@@ -35,8 +35,23 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     $scope.emailDigdeep = "manager@digdeep.com.mx"
     $scope.tab = 0
     $scope.tabRol = 0
-    
-
+    if (localStorage.accessToken) {
+	    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
+	    	console.log("obteniendo token user")
+			console.log(error)
+		    if (profile && profile.email_verified == true) {
+		    	var id_auth0 = profile.sub
+		    	localStorage.setItem("profile", JSON.stringify(profile));
+		    	userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+					$localStorage.token = token
+					//$state.go("https://digdeep.mx/#/home")
+				}, function (err) {
+					$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
+				})
+		    }
+			console.log(profile)
+		})	
+	}
 
     $scope.selecTabTop = function (numTab) {
     	$scope.tab = numTab
