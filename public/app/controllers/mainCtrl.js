@@ -48,6 +48,8 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 				}, function (err) {
 					$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 				})
+		    }else{
+		    	$state.go('welcome')
 		    }
 			console.log(profile)
 		})	
