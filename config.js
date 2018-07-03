@@ -1,9 +1,9 @@
 module.exports = {
 	// Conexion a la base de datos
 	//Modo produccion
-	//mongo_url: process.env.MONGODB_URI || "mongodb://digdeepweb:creaInte2018.@ds151451.mlab.com:51451/digdeep_db",
+	mongo_url: process.env.MONGODB_URI || "mongodb://digdeepweb:creaInte2018.@ds151451.mlab.com:51451/digdeep_db",
 	//Modo de pruebas
-	mongo_url: process.env.MONGODB_URI || "mongodb://root:patopumas08@ds121321.mlab.com:21321/db_pruebas_digdeep",
+	//mongo_url: process.env.MONGODB_URI || "mongodb://root:patopumas08@ds125821.mlab.com:25821/db_pruebas_digdeep",
 	port: int(process.env.PORT) || 5000,
 	jwt_secret: "clavesecretanoestanimportanteenrealidadsoloesparacreartokens",
 	
@@ -35,9 +35,7 @@ module.exports = {
 		dest: "uploads/"
 	},
 	server_test: 'http://localhost:5000/v1'
-
 }
-
 
 function bool(str) {
     if (str == void 0) return false
