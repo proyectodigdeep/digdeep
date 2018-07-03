@@ -104,18 +104,33 @@ angular.module('digdeepApp.userProfileCtrl', [])
 				urlImg: 			user.urlImg
 			}
 			// Separar la fecha de nacimiento para poder mostrarla en formulario 
-			var arrayDate = user.birthdate.split("/")
-			$scope.profileUserTemp = {
-				address:    user.address,
-				colony:  	user.colony,
-				postalCode: user.postalCode,
-				numberHouse:user.numberHouse,
-				city:       user.city,  
-				state:      user.state,
-				dayDate:  	parseInt(arrayDate[0]),
-				monthDate: 	arrayDate[1],
-				yearDate: 	parseInt(arrayDate[2])
+			if (user.birthdate) {
+				var arrayDate = user.birthdate.split("/")	
+				$scope.profileUserTemp = {
+					address:    user.address,
+					colony:  	user.colony,
+					postalCode: user.postalCode,
+					numberHouse:user.numberHouse,
+					city:       user.city,  
+					state:      user.state,
+					dayDate:  	parseInt(arrayDate[0]),
+					monthDate: 	arrayDate[1],
+					yearDate: 	parseInt(arrayDate[2])
+				}
+			}else{
+				$scope.profileUserTemp = {
+					address:    user.address,
+					colony:  	user.colony,
+					postalCode: user.postalCode,
+					numberHouse:user.numberHouse,
+					city:       user.city,  
+					state:      user.state,
+					dayDate:  	null,
+					monthDate: 	null,
+					yearDate: 	null
+				}
 			}
+			
 		},function (err) {
 			if ($localStorage.token == undefined) {
 				$state.go("home")

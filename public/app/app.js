@@ -154,6 +154,8 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    allowSignUp: false
 	    //autoclose: true 
 	}
+	var id_auth0 = ""
+	var profile = {}
 	/// LOK PARA LOGIN
 	$rootScope.lockLogin = new Auth0Lock('cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl', 'digdeepproyecto.auth0.com', options);
  	$rootScope.lockLogin.on("authenticated", function(authResult) {
@@ -165,8 +167,8 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    //console.log(profile)
 	 	localStorage.setItem("accessToken", authResult.accessToken);
 	    localStorage.setItem("profile", JSON.stringify(profile));
-	    var id_auth0 = profile.sub
-	    var profile = profile
+	    id_auth0 = profile.sub
+	    profile = profile
 	    userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 	 		// Verificar si el usuario no ha sido registrado con una red social
 	 		if (token == null) {
@@ -248,13 +250,15 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 		}else{
 	 			// Si ya existe el usuario		
 	 			console.log("login")
+	 			console.log("id_auth0 "+ id_auth0)
 	 			if (id_auth0.indexOf('auth0') != -1) {
 	 				if (profile.email_verified == true) {
+	 					$localStorage.token = token	
 						if (userService.isTokenValidAsDigdeeper(token)) {
 			 				console.log("digdeeperprofile")
 			 				$state.go('digdeeperprofile')
 			 			}
-						if (userService.isTokenValidAsUser($localStorage.token)) {
+						if (userService.isTokenValidAsUser(token)) {
 							console.log("userprofile")
 							$state.go('userprofile')
 						}
@@ -264,11 +268,11 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 			}
 	 			if (id_auth0.indexOf('google-oauth2') != -1 || id_auth0.indexOf('facebook') != -1) {
 	 				$localStorage.token = token	
-	 				if (userService.isTokenValidAsDigdeeper($localStorage.token)) {
+	 				if (userService.isTokenValidAsDigdeeper(token)) {
 		 				console.log("digdeeperprofile")
 		 				$state.go('digdeeperprofile')
 		 			}
-					if (userService.isTokenValidAsUser($localStorage.token)) {
+					if (userService.isTokenValidAsUser(token)) {
 						console.log("userprofile")
 						$state.go('userprofile')
 					}
@@ -325,8 +329,8 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		    }
 		    localStorage.setItem("accessToken", authResult.accessToken);
 		    //localStorage.setItem("profile", JSON.stringify(profile));
-		    var id_auth0 = profile.sub
-		    var profile = profile
+		    id_auth0 = profile.sub
+		    profile = profile
 		    // Registrar usuario en la db que fue registrado en auth0 por correo y contraseña.
 		    if (id_auth0.indexOf('auth0') != -1) {
  				var data_user = {
@@ -349,12 +353,12 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 							})
  						}else{
- 							userService.getTokenByIdAuth0(String(id_auth0), function (token) {
+ 							/*userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 								$localStorage.token = token	
 		 						//$state.go('userprofile')
 							}, function (err) {
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
-							})
+							})*/
  							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
  							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
