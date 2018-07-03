@@ -70,9 +70,12 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 	router.get("/tokens_auth0/:id", securityService.generateTokenUserByIdAuth0)
 	// Verificar una cuenta de un usuario, a petición de un correo que mando auth0
 
+/***USUARIOS DIGDEEPER (PROVEEDORES)****/
+	// Obtener todas las ordenes de un digdeeper
+	router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)
+	// Obtener los horarios de los servicios de un digdeeper por medio de una fecha
+	router.post('/getordersforRangedatebydigdeeper/:id',orderService.getForRangeDateByDigdeeper)
 
-// Obtener todas las ordenes de un digdeeper
-router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)	
 // Obtener ordenes para conekta
 router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
 // Poner contraseña temporal a un usuario

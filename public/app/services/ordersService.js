@@ -28,6 +28,17 @@ function(                  $http,   jwtHelper) {
             }
         }, onError)
     }
+    /*this.getDatesByDigdeeper = function (idDigdeeper, onSucces, onError) {
+        $http.get('v1/datesbydigdeeper/'+idDigdeeper)
+        .then(function (response) {
+            if(response.data.status === "success"){
+                onSucces(response.data.dates, response.data.ordersDates)
+            }
+            else{
+                onError(response.data.message)
+            }
+        }, onError)
+    }*/
     // Calificar un servicio
     this.qualifyService = function (id_order, value, token, onSucces, onError) {
         var data = {

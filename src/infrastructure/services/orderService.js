@@ -634,7 +634,7 @@ exports.getOrdersByDigdeeper = function(req, res) {
 	}
 }
 
-// Obtener todos las fechas de un proveedor
+// Obtener todas las fechas de un proveedor
 exports.getDatesByDigdeeper = function(req, res) {
 	var dates = []
 	var ordersDates = []
@@ -665,6 +665,43 @@ exports.getDatesByDigdeeper = function(req, res) {
 		})
 	})
 }
+
+
+// Obtener todos los horarios no disponibles de un proveedor(digdeeper), segun una fecha especifica
+exports.getForRangeDateByDigdeeper = function(req, res) {
+	var id_user = req.params.id
+	var dateDefaultInit = req.body.dateDefaultInit
+	var dateDefaultFinish = req.body.dateDefaultFinish
+
+	orderApp.getForRangeDateByDigdeeper(id_user, dateDefaultInit, dateDefaultFinish, function(orders) {
+		console.log(orders)
+		// Obtener los horarios
+		var ordersDates = []
+		for (var i = 0; i < orders.length; i++) {
+			var orderdate = {
+				dateInit: orders[i].dataService.dateInit,
+				dateFinish: orders[i].dataService.dateFinish,
+				hourInit: orders[i].dataService.hourInit,
+				hourFinish: orders[i].dataService.hourFinish
+			}
+			ordersDates.push(orderdate)
+		}
+		res.status(201)
+		res.json({
+			status: "success",
+			message: "Fechas obtenidas correctamente",
+			//dates: dates,
+			orders: ordersDates
+		})
+	}, function(err) {
+		res.status(400)
+		res.json({
+			status: "failure",
+			message: "No se ha´podido obtener las fechas."
+		})
+	})
+}
+
 // Obtener todas las ordenes de un usuario con rol "user"
 exports.getOrdersOfUser = function (req, res) {
 	if (req.user.hasRole('user')){

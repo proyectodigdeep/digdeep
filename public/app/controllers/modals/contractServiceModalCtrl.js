@@ -36,6 +36,8 @@ function (                                        typePrice,  geocodeService,  S
     if ($scope.typeUser === "userNoLogin") {
         $rootScope.$emit("openLoginToContractModal")
     }
+    reloadServices()
+
     // tipo de precio que tiene activo el proveedor, segun el lugar donde será el servicio
     // 1 ambos tipos (a domicilio y en establecimiento)
     // 2 solo el tipo a domicilio

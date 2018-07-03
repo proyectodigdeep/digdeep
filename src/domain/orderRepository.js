@@ -90,6 +90,12 @@ exports.findAllByDigdeeper = function(id,onSuccess, onError) {
 		else return onSuccess(orders)
 	})
 }
+exports.getForRangeDateByDigdeeper = function(id, dateInit, dateFinish, onSuccess, onError) {
+	orderEntity.find({ $and: [{"digdeeper": id}, {"dataService.dateInit": {$gte: dateInit}}, {"dataService.dateFinish": {$lte: dateFinish}} ]}).exec(function(err, orders) {
+		if (err) return onError("Hubo un error al obtener todas las ordenes: "+ err)
+		else return onSuccess(orders)
+	})
+}
 exports.findAllByClient = function(id,onSuccess, onError) {
 	orderEntity.find({"client": id}).exec(function(err, orders) {
 		if (err) return onError("Hubo un error al obtener todas las ordenes: "+ err)

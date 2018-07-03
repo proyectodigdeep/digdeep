@@ -38,6 +38,9 @@ exports.getOrdersPay = function(onSuccess, onError) {
 exports.getOrdersByDigdeeper = function(id,onSuccess, onError) {
     orderRepository.findAllByDigdeeper(id,onSuccess, onError)
 }
+exports.getForRangeDateByDigdeeper = function(id, dateInit, dateFinal, onSuccess, onError) {
+    orderRepository.getForRangeDateByDigdeeper(id, dateInit, dateFinal, onSuccess, onError)
+}
 exports.getOrdersByClient = function(id,onSuccess, onError) {
     orderRepository.findAllByClient(id,onSuccess, onError)
 }
