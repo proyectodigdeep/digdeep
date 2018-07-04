@@ -36,7 +36,6 @@ function (                                        typePrice,  geocodeService,  S
     if ($scope.typeUser === "userNoLogin") {
         $rootScope.$emit("openLoginToContractModal")
     }
-    reloadServices()
 
     // tipo de precio que tiene activo el proveedor, segun el lugar donde será el servicio
     // 1 ambos tipos (a domicilio y en establecimiento)
@@ -148,7 +147,6 @@ function (                                        typePrice,  geocodeService,  S
                 address = address + ', ' + usr.postalCode
             }
         $scope.autocmpleteAddress = address
-        console.log("here")
     }, function (err) {
         console.log(err)
         $scope.orderService.deliveryData.name   = undefined   
@@ -384,8 +382,51 @@ function (                                        typePrice,  geocodeService,  S
                     $scope.alertError = "No puedes tener la misma hora de inicio que de finalización."
                     $scope.errAlert = true
                 }else{  
-                    nextFormTrue()
-                    return true   
+                    // Verificar que no interfiera con ningun horario
+                    ordersService.getDatesAndHoursByRangeDate($scope.orderService.digdeeper, $scope.orderService.dateInit ,$scope.orderService.dateFinal, function (orders) {
+                        console.log(orders)
+                        if (orders.length > 0) {
+                            for (var i = 0; i < orders.length; i++) {
+                                var hourInitTemp = new Date(orders[i].hourInit)
+                                var hourFinalTemp = new Date(orders[i].hourFinish)
+
+                                var hourInitTempNewOrder = new Date($scope.orderService.hourInit)
+                                var hourFinalTempNewOrder = new Date($scope.orderService.hourFinal)
+                                console.log(hourInitTemp.getHours())
+                                console.log(hourFinalTemp.getHours())
+                                console.log(hourInitTempNewOrder.getHours())
+                                console.log(hourFinalTempNewOrder.getHours())
+                                // Verificar que la hora inicial del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
+                                if (hourInitTempNewOrder >= hourInitTemp && hourInitTempNewOrder <= hourFinalTemp) {
+                                    $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
+                                    $scope.errAlert = true
+                                    return false
+                                }else{
+                                    // Verificar que la hora final del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
+                                    if (hourFinalTempNewOrder >= hourInitTemp && hourFinalTempNewOrder <=  hourFinalTemp) {
+                                        $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
+                                        $scope.errAlert = true
+                                        return false
+                                    }else{
+                                        // Verificar que la hora inicial y final del nuevo servicio no abarquen el rango de horas de los servicios apartados
+                                        if (hourInitTempNewOrder <= hourInitTemp && hourFinalTempNewOrder >= hourFinalTemp) {
+                                            $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
+                                            $scope.errAlert = true
+                                            return false
+                                        }
+                                    }   
+                                }
+                            }
+                            nextFormTrue()
+                            return true
+                        }else{
+                            nextFormTrue()
+                            return true  
+                        }
+                    }, function (err) {
+                        $rootScope.$emit("openAlert", {textAlert:"Lo sentimos no se pudo agendar tu horario. intentaló más tarde."})
+                        return false
+                    }) 
                 }
             }
         }
@@ -651,13 +692,13 @@ function (                                        typePrice,  geocodeService,  S
                      if (rolesUser[0] === "digdeeper") {
                         //alert("No puedes contratar un servicio, puesto que tu cuenta solo es digdeeper, registrate con una cuenta normal, para poder contratar nuestros servicios")
                         $uibModalInstance.close()
-                        $rootScope.$emit("openAlertDigdeepModal",{
+                        $rootScope.$emit("openAlert",{
                             textAlert: "No puedes contratar un servicio, puesto que tu cuenta solo es digdeeper, registrate con una cuenta normal, para poder contratar nuestros servicios"
                         })
                     }else{
                         //alert("Necesitas ingresar a tu cuenta para poder contratar nuestros servicios, o registrate en nuestra pagína gratuitamente")
                         $uibModalInstance.close()
-                        $rootScope.$emit("openAlertDigdeepModal",{
+                        $rootScope.$emit("openAlert",{
                             textAlert: "Necesitas ingresar a tu cuenta para poder contratar nuestros servicios, o regístrate en nuestra página gratuitamente"
                         })
                         $state.go("login")
@@ -665,7 +706,7 @@ function (                                        typePrice,  geocodeService,  S
                 }else{
                     //alert("Necesitas ingresar a tu cuenta para poder contratar nuestros servicios, o registrate en nuestra pagína gratuitamente")
                     $uibModalInstance.close()
-                    $rootScope.$emit("openAlertDigdeepModal",{
+                    $rootScope.$emit("openAlert",{
                         textAlert: "Necesitas ingresar a tu cuenta para poder contratar nuestros servicios, o regístrate en nuestra página gratuitamente."
                     })
                     $state.go("login")
@@ -815,10 +856,10 @@ function (                                        typePrice,  geocodeService,  S
                 .then(function(response) {
                     if(response.data.status === "success"){
                         //$uibModalInstance.close()
-                        //$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Se ha enviado tus comentarios a DIGDEEP, Gracias por ayudarnos a mejorar para ti."})
+                        //$rootScope.$emit("openAlert", {textAlert:"Se ha enviado tus comentarios a DIGDEEP, Gracias por ayudarnos a mejorar para ti."})
                     }
                     else{
-                        $rootScope.$emit("openAlertDigdeepModal", {textAlert:"Mensaje NO enviado, no se le pudo avisar a DIGDEEP contactalo..."})
+                        $rootScope.$emit("openAlert", {textAlert:"Mensaje NO enviado, no se le pudo avisar a DIGDEEP contactalo..."})
                     }
                 })
 

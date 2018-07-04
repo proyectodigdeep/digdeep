@@ -189,7 +189,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 							$localStorage.token = token	
 	 							$state.go('userprofile')
 	 						}else{
-	 							$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+	 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 						}
 						}, function (err) {
 							console.log(err)
@@ -214,7 +214,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	 							$localStorage.token = token	
 	 							$state.go('userprofile')
 	 						}else{
-	 							$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+	 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 						}
 						}, function (err) {
 							console.log(err)
@@ -530,7 +530,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 							$state.go('digdeeperprofile')
 		 						}else{
 		 							//alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
-	 								$rootScope.$emit("openAlertDigdeepModal", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+	 								$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 							}
 							}, function (err) {
 								console.log(err)

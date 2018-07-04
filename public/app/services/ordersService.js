@@ -28,17 +28,21 @@ function(                  $http,   jwtHelper) {
             }
         }, onError)
     }
-    /*this.getDatesByDigdeeper = function (idDigdeeper, onSucces, onError) {
-        $http.get('v1/datesbydigdeeper/'+idDigdeeper)
+    this.getDatesAndHoursByRangeDate = function (idDigdeeper, dateDefaultInit, dateDefaultFinish, onSucces, onError) {
+        var data = {}
+            data.dateDefaultInit = dateDefaultInit
+            data.dateDefaultFinish = dateDefaultFinish  
+        
+        $http.post('v1/getordersforRangedatebydigdeeper/'+idDigdeeper, data)
         .then(function (response) {
             if(response.data.status === "success"){
-                onSucces(response.data.dates, response.data.ordersDates)
+                onSucces(response.data.orders)
             }
             else{
                 onError(response.data.message)
             }
         }, onError)
-    }*/
+    }
     // Calificar un servicio
     this.qualifyService = function (id_order, value, token, onSucces, onError) {
         var data = {
