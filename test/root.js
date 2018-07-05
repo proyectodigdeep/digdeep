@@ -178,7 +178,7 @@ describe('GET ALL ORDERS WITH STATUS PAY: ',()=>{
 });
 
 describe('ADMIN DISVALIDATE PROVIDER: ',()=>{
-  it('it should GET all ORDERS PAY', (done) => {
+  it('it should GET user with roll: "digdeeper", with parameter verified: false', (done) => {
     chai.request(url)
       .get('/disvalidateproviders/'+id_digdeeper_prueba)
       .set('x-access-token', tokenPruebaAdmin)
@@ -190,6 +190,7 @@ describe('ADMIN DISVALIDATE PROVIDER: ',()=>{
 
           res.body.status.should.be.a('string');
           res.body.status.should.be.eql('success');
+          res.body.user.should.be.a('object');
           res.body.user.should.be.a('object');
           //res.body.orders.length.should.be.eql(0);
         done();
