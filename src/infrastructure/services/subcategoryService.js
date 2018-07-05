@@ -21,6 +21,7 @@ exports.createSubcategory= function(req,res){
 
 exports.getSubcategories = function(req, res) {
 	subcategoryApp.getSubcategories(function(subcategories) {
+		res.status(201)
 		res.json({
 			status: "success",
 			subcategories: subcategories
@@ -37,6 +38,7 @@ exports.getSubcategories = function(req, res) {
 exports.getSubcategory = function(req, res) {
 	var id = req.params.id
 	subcategoryApp.getSubcategory(id,function(subcategory) {
+		res.status(201)
 		res.json({
 			status: "success",
 			subcategory:subcategory
@@ -54,6 +56,7 @@ exports.updateSubcategory = function (req,res) {
 	var id 	= req.params.id
 	var data= req.body
 	subcategoryApp.updateSubcategory(id, data, function(subcategory) {
+		res.status(201)
 		res.json({
 			status: "success",
 			message: "Subcategoria actualizada",
@@ -71,6 +74,7 @@ exports.updateSubcategory = function (req,res) {
 exports.deleteSubcategory = function(req, res) {
 	var id = req.params.id
 	subcategoryApp.deleteSubcategory(id, function() {
+		res.status(201)
 		res.json({
 			status: "success",
 			message: "Categoria eliminada : "+id

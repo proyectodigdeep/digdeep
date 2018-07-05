@@ -21,6 +21,7 @@ exports.createCategory= function(req,res){
 
 exports.getCategories = function(req, res) {
 	categoryApp.getCategories(function(categories) {
+		res.status(201)
 		res.json({
 			status: "success",
 			categories: categories
@@ -37,6 +38,7 @@ exports.getCategories = function(req, res) {
 exports.getCategory = function(req, res) {
 	var id = req.params.id
 	categoryApp.getCategory(id,function(category) {
+		res.status(201)
 		res.json({
 			status: "success",
 			category:category
@@ -52,6 +54,7 @@ exports.getCategory = function(req, res) {
 exports.getCategoryBySlug = function(req, res) {
 	var id = req.params.id
 	categoryApp.getCategoryBySlug(id,function(category) {
+		res.status(201)
 		res.json({
 			status: "success",
 			category:category
@@ -69,6 +72,7 @@ exports.updateCategory = function (req,res) {
 	var id 	= req.params.id
 	var data= req.body
 	categoryApp.updateCategory(id, data, function(category) {
+		res.status(201)
 		res.json({
 			status: "success",
 			message: "Categoria actualizada",
@@ -86,6 +90,7 @@ exports.updateCategory = function (req,res) {
 exports.deleteCategory = function(req, res) {
 	var id = req.params.id
 	categoryApp.deleteCategory(id, function() {
+		res.status(201)
 		res.json({
 			status: "success",
 			message: "Categoria eliminada : "+id

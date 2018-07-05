@@ -321,6 +321,7 @@ exports.updatePreferencesUser= function(req,res){
 }
 exports.validateProvider= function(req,res){
  	userApp.validateProvider(req.params.id, function(user) {
+ 		res.status(201)
  		res.json({
  			status: 'success', 
  			user: user
@@ -332,6 +333,7 @@ exports.validateProvider= function(req,res){
 }
 exports.disvalidateProvider= function(req,res){
  	userApp.disvalidateProvider(req.params.id, function(user) {
+ 		res.status(201)
  		res.json({
  			status: 'success', 
  			user: user
@@ -500,7 +502,13 @@ exports.updateUserDDiper = function(req, res, next) {
 		req.body.myServicesRequested    ? userData.myServicesRequested 	= req.body.myServicesRequested: null
 		req.body.kindServices    		? userData.kindServices 		= req.body.kindServices: null
 		
+		req.body.webPage		? userData.webPage = req.body.webPage: null
+		req.body.fanPage 		? userData.fanPage = req.body.fanPage: null
+		req.body.instagram 		? userData.instagram = req.body.instagram : null
+		req.body.rfc			? userData.rfc = req.body.rfc: null
+		req.body.logo 			? userData.logo = req.body.logo : null
 		userApp.update(req.params.id, userData, function(user) {
+			res.status(201)
 			res.json({status: 'success', user: user})
 		}, function(err) {
 			res.status(400)

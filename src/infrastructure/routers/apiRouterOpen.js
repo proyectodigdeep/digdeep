@@ -35,10 +35,10 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 	router.get("/users/:id", userService.getUser)
 	//[ok] Obtener un usuario por id de auth 0
 	router.get('/users_auth0/:id', userService.getUserByIdAuth0)
+	//[ok] Obtener todos los eventos de un proveedor
+	router.get('/events_by_digdeeper/:id', calendarService.getEventsByDigdeeper)
 	// Obtener todos los usuarios con una subcategoria especifica
 	router.get("/usersbysubcategory/:id", userService.getUsersBySubcategories)
-	// Obtener todos los eventos de un proveedor
-	router.get('/events_by_digdeeper/:id', calendarService.getEventsByDigdeeper)
 	// Cambiar la foto de perfil de un usuario con rol: 'user'
 	router.post('/usersImg', upload.single('file-to-upload'), function (req, res, next) {
 		cloudinary.uploader.upload (req.file.path, function (result) {
@@ -92,7 +92,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 		}
 	})
 /***USUARIOS DIGDEEPER (PROVEEDORES)****/
-	// Obtener todas las ordenes de un digdeeper
+	// Obtener todas las fechas ocupadas de un digdeeper
 	router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)
 	// Obtener los horarios de los servicios de un digdeeper por medio de una fecha
 	router.post('/getordersforRangedatebydigdeeper/:id',orderService.getForRangeDateByDigdeeper)
@@ -175,13 +175,16 @@ router.post('/whconekta', function (req, res) {
 	}
 })
 
+/**** ROOT ****/
+// Iniciar sesión administrador
+	router.post("/authenticate", securityService.authenticate)
+
 /****OBSOLETAS DESPUES DE CAMBIOS CON AUTH0****/
-// Crea nuevo usuario
+	// Crea nuevo usuario
 	router.post("/users", userService.createUser)
 	// Verificar si existe un correo de un usuario ya registrado
 	router.post("/usersverify", userService.verifyUserByEmail)
-	// Iniciar sesión
-	router.post("/authenticate", securityService.authenticate)
+	
 	// Ingresar las preferencias del usuario al registrarse con rol: user
 	router.put("/userspreferences/:id", userService.updatePreferencesUser)
 	// Enviar un email a un usuario

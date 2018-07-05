@@ -38,7 +38,8 @@ exports.getEvents = function(req, res) {
 exports.getEventsByDigdeeper = function(req, res) {
 	id = req.params.id
 	calendarApp.getEventsByDigdeeper(id, function(events) {
-		console.log(events)
+		//console.log(events)
+		res.status(201)
 		res.json({
 			status: "success",
 			events: events

@@ -27,6 +27,7 @@ exports.authenticate = function(req, res) {
 			})
 
 			// return the information including token as JSON
+			res.status(201)
 			res.json({
 				success: true,
 				message: 'Enjoy your token!',

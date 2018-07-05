@@ -148,6 +148,12 @@ exports.update = function(id, data, onSuccess, onError) {
 			data.customerId  		? user.customerId		  = data.customerId: null
 			data.auth0Id  			? user.auth0Id		  	  = data.auth0Id: null
 
+			data.webPage		? user.webPage = data.webPage: null
+			data.fanPage 		? user.fanPage = data.fanPage: null
+			data.instagram 		? user.instagram = data.instagram : null
+			data.rfc			? user.rfc = data.rfc: null
+			data.logo 			? user.logo = data.logo: null
+
 			//data.services   		? user.services  		  = data.services: null
 			data.postedServices   	? user.postedServices  	  	= data.postedServices: null
 			data.myServicesRequested? user.myServicesRequested	= data.myServicesRequested: null

@@ -20,7 +20,7 @@ describe('GET ALL COMMENTS: ',()=>{
       .get('/comments')
       .end((err, res) => {
           //let rest_body = bodyParser.json(res.body)
-          console.log(res.body)
+          //console.log(res.body)
           res.should.have.status(200);
           res.body.should.be.a('object');
 

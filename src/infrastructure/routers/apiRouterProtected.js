@@ -33,7 +33,7 @@ module.exports = function() {
 		}
 	})
 
-	// Obtener todos los proveedores registrados
+	//[ok] Obtener todos los proveedores registrados
 	router.get('/providers/:id', function(req, res, next) {
 		if (req.user.hasRole('root')){
 			userService.getProviders(req.params.id, res, next)
@@ -44,7 +44,7 @@ module.exports = function() {
 		} 
 	})
 	
-	// Actualizar datos de un usuario
+	//[ok digdeeper, falta probar el de usuario normal] Actualizar datos de un usuario
 	router.put('/users/:id', function(req, res, next) {
 		if (req.user.hasRole('user') || req.user.hasRole('root')){
 			if (req.body.temp_service === null || req.body.temp_service === undefined ) {
@@ -64,7 +64,7 @@ module.exports = function() {
 				res.status(403)
 				res.json("No tienes el rol necesario para esta solicitud")
 			}
-		} 
+		}
 	})
 
 	// Actualizar el password de un usuario
@@ -158,17 +158,6 @@ module.exports = function() {
 		}
 	})
 
-	// Obtener todos los eventos de un proveedor
-	/*router.get('/events_by_digdeeper/:id', function(req, res, next) {
-		if (req.user.hasRole('digdeeper')){
-			calendarService.getEventsByDigdeeper(req, res, next)
-		}
-		else {
-			res.status(403)
-			res.json("No tienes el rol necesario para esta solicitud")
-		}
-	})*/
-
 	// actualizar un evento de un proveedor
 	router.put('/events/:id', function(req, res, next) {
 		if (req.user.hasRole('digdeeper')){
@@ -206,25 +195,25 @@ module.exports = function() {
 	router.post('/orders',orderService.postOrder)
 	// Obtener una orden en especifico
 	router.get('/orders/:id',orderService.getOrder)
-	// Obtener todas las ordenes
+	
+	//[OK] Obtener todas las ordenes
 	router.get('/orders',orderService.getOrders)
-
-	// Obtener todas las ordenes pendientes
+	//[OK] Obtener todas las ordenes pendientes
 	router.get('/orderspending',orderService.getOrdersPending)
-	// Obtener todas las ordenes en proceso
+	//[OK] Obtener todas las ordenes en proceso
 	router.get('/ordersinprocess',orderService.getOrdersInprocess)
-	// Obtener todas las ordenes finalizadas
+	//[OK] Obtener todas las ordenes finalizadas
 	router.get('/ordersfinished',orderService.getOrdersFinished)
-	// Obtener todas las ordenes canceladas
+	//[OK] Obtener todas las ordenes canceladas
 	router.get('/orderscanceled',orderService.getOrdersCanceled)
-	// Obtener todas las ordenes pagadas
+	//[OK] Obtener todas las ordenes pagadas
 	router.get('/orderspay',orderService.getOrdersPay)
 
-	// Obtener todas las ordenes de un cliente
+	//[ok] Obtener todas las ordenes de un cliente
 	router.get('/ordersbyclient/:id',orderService.getOrdersByClient)
-	// Obtener todas las ordenes de un digdeeper
+	//[ok] Obtener todas las ordenes de un digdeeper
 	router.get('/ordersbydigdeeper/:id',orderService.getOrdersByDigdeeper)
-	// Obtener todas las ordenes que ha echo un usuario con rol "user"
+	//[OK] Obtener todas las ordenes que ha echo un usuario con rol "user"
 	router.get('/ordersofuser/:id',orderService.getOrdersOfUser)
 	
 	// Confirmar una orden que tiene un usuario digdeeper

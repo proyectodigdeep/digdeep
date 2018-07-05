@@ -13,105 +13,83 @@ let should = chai.should();
 let url = config.server_test
 
 chai.use(chaiHttp);
+let id_user_prueba = "5b3d9bf38e57c80c8c2852ee"
+let id_user_prueba_auth0 = "auth0|5b2b312fc4e1ce04c2710907"
+let token_user_prueba = ""
 
-/*describe('REGISTER ONE USER WITH ROL:"USER OR DIGDEEPER", AFTER TO REGISTER IN AUTH0: ',()=>{
-  it('it should GET ONE USER WITH ROL: "USER OR DIGDEEPER" REGISTERED', (done) => {
-    let user = {
-      name: 'Fulanito Perez',
-      email: 'Fulanito@gmail.com',
-      roll: "user",
-      auth0Id: "auth0|3837227342834234234",
-      urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
-    }
+describe('GET TOKEN ACCESS FOR USER WITH ROL: "USER", BY ID AUTH0, AFTER TO LOGIN IN AUTH0 ',()=>{
+  it('it should GET token access of the one user with rol user', (done) => {
     chai.request(url)
-      .post('/users_register')
-      .send(user)
+      .get('/tokens_auth0/'+id_user_prueba_auth0)
       .end((err, res) => {
-          //let rest_body = bodyParser.json(res.body)
-          if (err) {
-            console.log(err)
-          }else{
-            //console.log(res.body)
-            res.should.have.status(201);
-            res.body.should.be.a('object');
-
-            res.body.status.should.be.a('string');
-            res.body.status.should.be.eql('success');
-            
-            res.body.user.should.be.a('object');
-            res.body.message.should.be.a('string');
-          }
-        done();
-      });
-  });
-});
-
-describe('GET TOKEN ACCESS FOR USER BY ID AUTH0, AFTER TO LOGIN IN AUTH0 ',()=>{
-  it('it should GET token access of the one user', (done) => {
-    var idUser_auth0 = "auth0|3837227342834234234"
-    chai.request(url)
-      .get('/users_auth0/'+idUser_auth0)
-      .end((err, res) => {
-        if (err) {
-          console.log(err)
-        }else{
-          //console.log(res.body)
-          res.should.have.status(201);
           res.body.should.be.a('object');
 
           res.body.status.should.be.a('string');
           res.body.status.should.be.eql('success');
 
           res.body.token.should.be.a('string');
-        }
-         
-        done();
+          token_user_prueba = res.body.token
+          done();
       });
   });
-})*/
+})
 
 describe('GET DATA OF ONE USER BY ID',()=>{
   it('it should GET user data', (done) => {
-    var id_user = "5b3d9bf38e57c80c8c2852ee"
+    //var id_user = "5b3d9bf38e57c80c8c2852ee"
     chai.request(url)
-      .get('/users/'+id_user)
+      .get('/users/'+id_user_prueba)
       .end((err, res) => {
-        if (err) {
-          console.log(err)
-        }else{
-          console.log(res.body)
-          res.should.have.status(201);
-          res.body.should.be.a('object');
+        //console.log(res.body)
+        res.should.have.status(201);
+        res.body.should.be.a('object');
 
-          res.body.status.should.be.a('string');
-          res.body.status.should.be.eql('success');
+        res.body.status.should.be.a('string');
+        res.body.status.should.be.eql('success');
 
-          res.body.user.should.be.a('object');
-        }
+        res.body.user.should.be.a('object');
         done();
       });
   });
 });
 
-describe('MANAGER GET ALL USERS WITH ROLL: "DIGDEEPER"',()=>{
-  it('manager, it should GET users with roll:"DIGDEEPER"', (done) => {
-    var id_manager = "5a6febc3e84a4605c8c5618b" // definido por default en la db
-    chai.request(url)
-      .get('/providers/'+id_manager)
-      .end((err, res) => {
-        if (err) {
-          //console.log(err)
-        }else{
-          //console.log(res.body)
-          res.should.have.status(201);
-          res.body.should.be.a('object');
+/*describe('GET ALL ORDERS OF ONE CLIENTE (USER WITH ROL USER)',()=>{
+  it('it should GET all orders of one user ', (done) => {
+  //var id_user = "5b3d9bf38e57c80c8c2852ee"
+  chai.request(url)
+    .get('/ordersbyclient/'+id_user_prueba)
+    .set('x-access-token', token_user_prueba)
+    .end((err, res) => {
+      //console.log(res.body)
+      res.should.have.status(201);
+      res.body.should.be.a('object');
 
-          res.body.status.should.be.a('string');
-          res.body.status.should.be.eql('success');
+      res.body.status.should.be.a('string');
+      res.body.status.should.be.eql('success');
 
-          res.body.users.should.be.a('array');
-        }
-        done();
-      });
+      res.body.orders.should.be.a('array');
+      done();
+    });
+  });
+});*/
+
+describe('GET ALL ORDERS REQUESTED OF ONE CLIENTE (USER WITH ROL USER)',()=>{
+  it('it should GET all orders of one user ', (done) => {
+  //var id_user = "5b3d9bf38e57c80c8c2852ee"
+  chai.request(url)
+    .get('/ordersofuser/'+id_user_prueba)
+    .set('x-access-token', token_user_prueba)
+    .end((err, res) => {
+      //console.log(res.body)
+      res.should.have.status(200);
+      res.body.should.be.a('object');
+
+      res.body.status.should.be.a('string');
+      res.body.status.should.be.eql('success');
+
+      res.body.orders.should.be.a('array');
+      done();
+    });
   });
 });
+
