@@ -6,44 +6,7 @@ var config = require("../../../config")
 var cloudinary = require ("cloudinary")
 var orderApp = require('../../application/orderApp')
 var userApp  = require('../../application/userApp')
-//var ManagementClient = require('auth0').ManagementClient;
-//var AuthenticationClient = require('auth0').AuthenticationClient;
 var request = require("request");
-// Configuración auth0
-
-/*var options = { method: 'POST',
-  url: 'https://creainte2.auth0.com/dbconnections/signup',
-  headers: { 'content-type': 'application/json' },
-  body: 
-   { client_id: config.auth0.clientId,
-     email: 'pepe@hotmail.com',
-     password: 'Supersecret1234',
-     connection: 'test',
-     user_metadata: { name: 'john', color: 'red' } },
-  json: true };
-
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
-  console.log(body);
-});*/
-
-// Configuración de cloudinary (repositorio de imagenes)
-
-
-/*var options = { method: 'POST',
-  url: 'https://creainte2.auth0.com/dbconnections/change_password',
-  headers: { 'content-type': 'application/json' },
-  body: 
-   { client_id: 'WneauBfFMFe4q4EJ76FPLm47TKsInbI_',
-     email: 'patosoak@gmail.com',
-     connection: config.auth0.connection},
-  json: true };
-
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
-
-  console.log(body);
-});*/
 
 cloudinary.config ({ 
    cloud_name : config.cloudinary.cloud_name, 
@@ -64,107 +27,87 @@ var orderService 	= require("../services/orderService") 	 // Este es un servicio
 var calendarService = require("../services/calendarService") 	// Este es un servicio especifico para calendario
 
 /****USUARIOS****/
-	// Crear nuevo usuario despues de registrarlo en auth0
+	//[ok] Crear nuevo usuario despues de registrarlo en auth0
 	router.post("/users_register", userService.registerUser)
-	// Obtener un token access de un usuario por id de auth 0, despues de logearse en auth0
+	//[ok] Obtener un token access de un usuario por id de auth 0, despues de logearse en auth0
 	router.get("/tokens_auth0/:id", securityService.generateTokenUserByIdAuth0)
-	// Verificar una cuenta de un usuario, a petición de un correo que mando auth0
-
+	//[ok] Obtener datos de un usuario
+	router.get("/users/:id", userService.getUser)
+	//[ok] Obtener un usuario por id de auth 0
+	router.get('/users_auth0/:id', userService.getUserByIdAuth0)
+	// Obtener todos los usuarios con una subcategoria especifica
+	router.get("/usersbysubcategory/:id", userService.getUsersBySubcategories)
+	// Obtener todos los eventos de un proveedor
+	router.get('/events_by_digdeeper/:id', calendarService.getEventsByDigdeeper)
+	// Cambiar la foto de perfil de un usuario con rol: 'user'
+	router.post('/usersImg', upload.single('file-to-upload'), function (req, res, next) {
+		cloudinary.uploader.upload (req.file.path, function (result) {
+			var data = {
+				url: result.url,
+				id:  req.body.idUserProfile
+			}
+			userService.updateImgUsr(data)
+			res.redirect('/#!/userprofile')
+		},{
+			// Ajusta el tamaño de la imagen y le asigna un id unico
+			public_id: req.body.idUserProfile, 
+			crop: 'fill',
+			width: 91,
+			height: 91
+		})
+	})
+	// Cambiar la foto de perfil de un usuario con rol: 'digdeeper'
+	router.post('/digdeepersImg', upload.single('file-to-upload'), function (req, res, next) {
+		// req.file is the `avatar` file
+		// req.body will hold the text fields, if there were any
+		// subir una imagen a cloudinary
+		cloudinary.uploader.upload (req.file.path, function (result) {
+			var data = {
+				url: result.url,
+				id:  req.body.idUserProfile
+			}
+			userService.updateImgUsr(data)
+			res.redirect('/#!/digdeeperprofile')
+		},{
+			// Ajusta el tamaño de la imagen y le asigna un id unico
+			public_id: req.body.idUserProfile, 
+			crop: 'fill',
+			width: 91,
+			height: 91
+		})
+	})
+	// Subir imagenes del servicio de un proveedor (digdeeper)
+	router.post('/digdeeperImgServiceTemp',upload.any(), function (req, res, next) {
+		var arrayUrlsImg = []
+		for (var i = 0; i < req.files.length; i++) {
+			if (req.files[i].mimetype === "image/jpeg" || req.files[i].mimetype === "image/png") {
+				arrayUrlsImg.push(req.files[i].path)
+				if (arrayUrlsImg.length === req.files.length) {
+					res.send(arrayUrlsImg)	
+				}
+			}else{
+				console.log("archivo no permitido")
+				res.send("error")
+			}
+		}
+	})
 /***USUARIOS DIGDEEPER (PROVEEDORES)****/
 	// Obtener todas las ordenes de un digdeeper
 	router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)
 	// Obtener los horarios de los servicios de un digdeeper por medio de una fecha
 	router.post('/getordersforRangedatebydigdeeper/:id',orderService.getForRangeDateByDigdeeper)
-
-// Obtener ordenes para conekta
-router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
-// Poner contraseña temporal a un usuario
-router.put("/userspasswordforget/:id", userService.updatePasswordUserForget)
-// Crear un comentario
-router.post("/comments", commentService.createComment)
-// Obtener un comentario
-router.get("/comments/:id", commentService.getComment)
-// Obtener todos los comentarios
-router.get("/comments", commentService.getComments)
-// Enviar un email
-router.post("/emails", emailService.send)
-// Crea nuevo usuario
-router.post("/users", userService.createUser)
-
-// Crea nuevo usuario con Red social
-//router.post("/users_socialred", userService.registerUserSocialRed)
-
-
-// Verificar si existe un correo de un usuario ya registrado
-router.post("/usersverify", userService.verifyUserByEmail)
-// Obtener todos los usuarios con una subcategoria especifica
-router.get("/usersbysubcategory/:id", userService.getUsersBySubcategories)
-// Obtener datos de un usuario
-router.get("/users/:id", userService.getUser)
-// Iniciar sesión
-router.post("/authenticate", securityService.authenticate)
-// Ingresar las preferencias del usuario al registrarse con rol: user
-router.put("/userspreferences/:id", userService.updatePreferencesUser)
-// Obtener todos los eventos de un proveedor
-router.get('/events_by_digdeeper/:id', calendarService.getEventsByDigdeeper)
-// Obtener un usuario por id de auth 0
-router.get('/users_auth0/:id', userService.getUserByIdAuth0)
-
-// Enviar un email a un usuario
-router.post('/email_changepassword', emailService.changePasswordUser)
-
-// Cambiar la foto de perfil de un usuario con rol: 'user'
-router.post('/usersImg', upload.single('file-to-upload'), function (req, res, next) {
-	cloudinary.uploader.upload (req.file.path, function (result) {
-		var data = {
-			url: result.url,
-			id:  req.body.idUserProfile
-		}
-		userService.updateImgUsr(data)
-		res.redirect('/#!/userprofile')
-	},{
-		// Ajusta el tamaño de la imagen y le asigna un id unico
-		public_id: req.body.idUserProfile, 
-		crop: 'fill',
-		width: 91,
-		height: 91
-	})
-})
-// Cambiar la foto de perfil de un usuario con rol: 'digdeeper'
-router.post('/digdeepersImg', upload.single('file-to-upload'), function (req, res, next) {
-	// req.file is the `avatar` file
-	// req.body will hold the text fields, if there were any
-	// subir una imagen a cloudinary
-	cloudinary.uploader.upload (req.file.path, function (result) {
-		var data = {
-			url: result.url,
-			id:  req.body.idUserProfile
-		}
-		userService.updateImgUsr(data)
-		res.redirect('/#!/digdeeperprofile')
-	},{
-		// Ajusta el tamaño de la imagen y le asigna un id unico
-		public_id: req.body.idUserProfile, 
-		crop: 'fill',
-		width: 91,
-		height: 91
-	})
-})
-// Subir imagenes del servicio de un proveedor (digdeeper)
-router.post('/digdeeperImgServiceTemp',upload.any(), function (req, res, next) {
-	var arrayUrlsImg = []
-	for (var i = 0; i < req.files.length; i++) {
-		if (req.files[i].mimetype === "image/jpeg" || req.files[i].mimetype === "image/png") {
-			arrayUrlsImg.push(req.files[i].path)
-			if (arrayUrlsImg.length === req.files.length) {
-				res.send(arrayUrlsImg)	
-			}
-		}else{
-			console.log("archivo no permitido")
-			res.send("error")
-		}
-	}
-})
+/****COMENTARIOS****/
+	router.get("/comments/:id", commentService.getComment)
+	// Crear un comentario
+	router.post("/comments", commentService.createComment)
+	//[ok] Obtener todos los comentarios
+	router.get("/comments", commentService.getComments)
+/****EMAILS****/
+	// Enviar un email
+	router.post("/emails", emailService.send)
+/****ORDENES****/
+	// Obtener ordenes para conekta
+	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
 
 // procesa las peticiones de conekta para la validacion de ordenes por spei
 router.post('/whconekta', function (req, res) {
@@ -232,5 +175,19 @@ router.post('/whconekta', function (req, res) {
 	}
 })
 
+/****OBSOLETAS DESPUES DE CAMBIOS CON AUTH0****/
+// Crea nuevo usuario
+	router.post("/users", userService.createUser)
+	// Verificar si existe un correo de un usuario ya registrado
+	router.post("/usersverify", userService.verifyUserByEmail)
+	// Iniciar sesión
+	router.post("/authenticate", securityService.authenticate)
+	// Ingresar las preferencias del usuario al registrarse con rol: user
+	router.put("/userspreferences/:id", userService.updatePreferencesUser)
+	// Enviar un email a un usuario
+	router.post('/email_changepassword', emailService.changePasswordUser)
+	// Poner contraseña temporal a un usuario
+	router.put("/userspasswordforget/:id", userService.updatePasswordUserForget)
+/***********************************************/
 // Exportar el módulo de rutas para API
 module.exports = router

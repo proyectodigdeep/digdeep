@@ -4,10 +4,9 @@
   "description": "",
   "main": "web.js",
   "scripts": {
-    "start": "node web.js",
+    "start": "SET NODE_ENV=dev && node web.js",
     "postinstall": "bower install",
-    "test": "mocha --timeout 10000",
-    "start": "SET NODE_ENV=dev && node web.js"
+    "test": "mocha --timeout 10000"
   },
   "repository": {
     "type": "git",
