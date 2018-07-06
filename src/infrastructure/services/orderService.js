@@ -133,8 +133,14 @@ exports.finishOrder = function(req, res) {
 							
 							// if client contain customerId this is returned
 							if (client.customerId && client.customerId !== '') {
-								client.id_paymentSource = tokenCard				
-								return callback(null, order, client);
+								//client.id_paymentSource = tokenCard
+								conektaService.searchCustomer(client.customerId, function (customer) {
+									client.id_paymentSource = customer.payment_sources.data[0].id
+									return callback(null, order, client);
+								}, function (err) {
+									return callback(null, order, client);
+								})
+								
 							}
 							// if not contain customer then create a customer on conekta
 							conektaService.createCustomer(customer, tokenCard, function (customer) {
