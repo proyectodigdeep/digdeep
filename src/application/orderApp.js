@@ -61,7 +61,7 @@ exports.finishOrder = function (idOrder,data,onSuccess, onError) {
 			order_finished.status = 3 // poner orden en finalizada
 			order_finished.endDateService = data.endDateService
 			orderRepository.update(order_finished, function (order_finished) {
-				onSuccess(order)
+				onSuccess(order_finished)
 			}, onError)
 		}	
 	},onError)
