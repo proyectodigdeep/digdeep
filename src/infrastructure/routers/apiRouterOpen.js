@@ -91,6 +91,19 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 			}
 		}
 	})
+	// Cambiar la foto de perfil de un usuario con rol: 'user'
+	router.post('/images_user', upload.single('file-to-upload'), function (req, res, next) {
+		cloudinary.uploader.upload (req.file.path, function (result) {
+			var data = {
+				url: result.url
+			}
+			res.status(result.status).json(data);
+		},{
+			crop: 'fill',
+			width: 100,
+			height: 100
+		})
+	})
 /***USUARIOS DIGDEEPER (PROVEEDORES)****/
 	// Obtener todas las fechas ocupadas de un digdeeper
 	router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)

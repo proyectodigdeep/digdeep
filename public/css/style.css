@@ -2494,3 +2494,16 @@ and (orientation : portrait) {
     float: left;
     font-family: "Ubuntu-Regular";
 }
+.addCardContract{
+    background-color: #26a5dc;
+    color: white;
+    font-family: "Ubuntu-Bold";
+    width: 62%;
+    height: 40px;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
