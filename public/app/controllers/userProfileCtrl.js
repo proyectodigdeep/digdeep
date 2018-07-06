@@ -34,7 +34,7 @@ angular.module('digdeepApp.userProfileCtrl', [])
 	$scope.limitPage = 6
     $scope.finalIndex = 0
     $scope.initIndex = 0
-    verifyMethodPay()
+    
 	// Recargar órdenes cada 5 segundos
 	$interval(function(){
 		//verificar el tipo de usuario para mostrar la barra de navegación acorde a el
@@ -44,6 +44,7 @@ angular.module('digdeepApp.userProfileCtrl', [])
    		}else{
    			if ($rootScope.typeUser === 'user') {
    				reloadOrders()	
+   				verifyMethodPay()
    			}
    		}
 	}, 5000)

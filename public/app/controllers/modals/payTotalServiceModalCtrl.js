@@ -127,6 +127,7 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                                 $rootScope.$emit("openAlert", { textAlert: "Servicio pagado correctamente, te enviaremos un correo con los detalles de tu compra, Gracias por Digdeépear con nostros." })
                                 $uibModalInstance.close()
                             }, function (err) {
+                                console.log(err)
                                 //$rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu compra, contacta a DIGDEEP por favor." })
                                 $rootScope.$emit("openAlert", { textAlert: err.data.message })
                                 $uibModalInstance.close()
@@ -156,7 +157,6 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
 
             this.selectMethodPay = function (methodPay) {
                 $scope.methodPayDefault = methodPay
-                console.log(methodPay)
             }
 
             this.createOrdenToSpei = function() {        

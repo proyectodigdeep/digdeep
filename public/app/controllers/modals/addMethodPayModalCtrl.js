@@ -43,12 +43,11 @@ function (                                 id_user,   $rootScope,   $uibModalIns
     };
     $scope.errorMessage = null;
     $scope.nameFailed = false;
-    verifyMethodPay()
 
     this.cancel = function () {
         $uibModalInstance.close()
     }
-    
+   
     this.agregarTarjetaNueva = function () {
        // Validacion de la tarjeta
         conektaService.validarTarjeta($scope.card).then(function (result) {                    
@@ -60,9 +59,7 @@ function (                                 id_user,   $rootScope,   $uibModalIns
                     userService.addMethodPayToCustomer($scope.id_user, response.token.id, $localStorage.token, function (methodsPay) {
                         $scope.methodsPay = methodsPay.data
                         $rootScope.$emit("openAlert", { textAlert: "Su tarjeta ha sido agregada correctamente." })
-                        verifyMethodPay()
                         $uibModalInstance.close()
-                        location.reload()
                     }, function (err) {
                         console.log(err)
                         $rootScope.$emit("openAlert", { textAlert: err.data.message })
@@ -77,17 +74,6 @@ function (                                 id_user,   $rootScope,   $uibModalIns
         }, function (error) {                    
             $scope.errorMessage = error.message;
         });
-    }
-
-    function verifyMethodPay() {
-        //$rootScope.$emit("openAlertDigdeepModal", { textAlert: "Preparando todo..." });
-        userService.verifyMethodPay($scope.id_user, $localStorage.token, function (methodsPay) {
-            if (methodsPay != undefined && methodsPay.data.length > 0) {
-                console.log(methodsPay)
-            }
-        }, function (err) {
-            console.log(err)
-        })
     }
 }])
 

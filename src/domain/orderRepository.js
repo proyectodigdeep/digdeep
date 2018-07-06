@@ -42,6 +42,8 @@ exports.create = function (data, onSuccess, onError){
 		order.dataService.coordinates.lng 	= data.coordinates.lng
 
 		order.idOrderConekta 			= ""
+		order.idMethodPay 				= data.idMethodPay
+		
 	order.save(function(err,order){
 		if(err) return onError(err)
 		else return onSuccess(order)

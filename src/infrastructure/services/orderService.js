@@ -107,7 +107,8 @@ exports.finishOrder = function(req, res) {
 							callback(null, {
 								client: fullOrder.client,
 								name: fullOrder.dataService.title,
-								price: fullOrder.dataService.cost
+								price: fullOrder.dataService.cost,
+								id_paymentSource: fullOrder.idMethodPay
 							});
 						}, function (err) {
 							callback({errName: 'error to get order', err: err});
@@ -136,9 +137,10 @@ exports.finishOrder = function(req, res) {
 								//client.id_paymentSource = tokenCard
 								conektaService.searchCustomer(client.customerId, function (customer) {
 									console.log(customer.payment_sources)
-									if (customer.payment_sources.data.length > 0) {
+									client.id_paymentSource = id_paymentSource
+									/*if (customer.payment_sources.data.length > 0) {
 										client.id_paymentSource = customer.payment_sources.data[0].id
-									}
+									}*/
 									return callback(null, order, client);
 								}, function (err) {
 									return callback(null, order, client);

@@ -54,7 +54,8 @@ var orderSchema = new mongoose.Schema({
         imgUser:        String,
         _service:       mongoose.Schema.Types.ObjectId
     },
-    idOrderConekta:     String 
+    idOrderConekta:     String,
+    idMethodPay:        String
 })
 
 module.exports = mongoose.model("Orders",orderSchema)

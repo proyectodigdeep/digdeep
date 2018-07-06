@@ -22,8 +22,8 @@ function (                                $scope,   $uibModal,   $document) {
     }
 }])
 
-.controller('contractServiceInstanceModalCtrl', ['typePrice','geocodeService','Service', 'User','$scope', '$rootScope', '$uibModalInstance', 'rolesUser', 'serviceService', '$state', 'ordersService', '$localStorage', 'userService', '$http', 'calendarService',
-function (                                        typePrice,  geocodeService,  Service,   User,  $scope,   $rootScope,   $uibModalInstance,   rolesUser,   serviceService,   $state,   ordersService,   $localStorage,   userService,   $http,   calendarService) {
+.controller('contractServiceInstanceModalCtrl', ['typePrice','geocodeService','Service', 'User','$scope', '$rootScope', '$uibModalInstance', 'rolesUser', 'serviceService', '$state', 'ordersService', '$localStorage', 'userService', '$http', 'calendarService', 'conektaService',
+function (                                        typePrice,  geocodeService,  Service,   User,  $scope,   $rootScope,   $uibModalInstance,   rolesUser,   serviceService,   $state,   ordersService,   $localStorage,   userService,   $http,   calendarService, conektaService) {
     // Datos del servicio
     $scope.service = Service
     // Obtener los datos del usuario para mostrar su perfil
@@ -63,12 +63,6 @@ function (                                        typePrice,  geocodeService,  S
     $scope.tabMenuCurrency = $scope.menuModalsCardCredit[0]// utiliza por defecto el menu, con forma de pago en efectivo
     var CurrentDate = new Date()
 
-    $scope.card = {
-        num: null,
-        dateVen1: null,
-        dateVen2: null,
-        cod: null
-    }
     $scope.billing = {
         fullname:   "",
         rfc:        "",
@@ -110,7 +104,8 @@ function (                                        typePrice,  geocodeService,  S
         coordinates: {
             lat: null,
             lng: null
-        }
+        },
+        idMethodPay: ""
     }
     // Instancias los datos de entrega por default con los del usuario registrado
     $scope.orderService.deliveryData.name   = User.fullname    
@@ -193,7 +188,64 @@ function (                                        typePrice,  geocodeService,  S
         minZoom: 11, 
         scrollwheel: true
     }
-    
+    $scope.card = {
+        number: null,
+        name: null,
+        exp_month: null,
+        exp_year: null,
+        cvc: null
+    };
+    $scope.errorMessage = null;
+    $scope.nameFailed = false;
+    verifyMethodPay()
+
+    this.agregarTarjetaNueva = function () {
+       // Validacion de la tarjeta
+        conektaService.validarTarjeta($scope.card).then(function (result) {                    
+            $rootScope.$emit("openAlertDigdeepModal", { textAlert: "Guardando los datos de su tarjeta." });
+            // creando token                    
+            conektaService.tokenizar($scope.card).then(function (response) {
+                if (response.success) {                        
+                    $scope.errorMessage = null;
+                    userService.addMethodPayToCustomer(User._id, response.token.id, $localStorage.token, function (methodsPay) {
+                        console.log(methodsPay)
+                        //$scope.methodPayDefault = methodsPay.data[0].id
+                        verifyMethodPay()
+                        $scope.showFormCard = false
+                    }, function (err) {
+                        console.log(err)
+                        $rootScope.$emit("openAlert", { textAlert: err.data.message })
+
+                    })              
+                }else{
+                    $rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu tarjeta. Verifica tus datos por favor." })
+                }
+            }, function (errResponse) {
+                $scope.errorMessage = errResponse.message;
+            });
+        }, function (error) {                    
+            $scope.errorMessage = error.message;
+        });
+    }
+    this.selectMethodPay = function (methodPay) {
+        $scope.methodPayDefault = methodPay
+        $scope.orderService.idMethodPay = methodPay.id
+        console.log($scope.orderService.idMethodPay)
+    }
+    this.addCard = function () {
+        $scope.showFormCard = true
+    }
+    function verifyMethodPay() {
+        //$rootScope.$emit("openAlertDigdeepModal", { textAlert: "Preparando todo..." });
+        userService.verifyMethodPay(User._id, $localStorage.token, function (methodsPay) {
+            if (methodsPay != undefined && methodsPay.data.length > 0) {
+                console.log(methodsPay)
+                $scope.methodsPay = methodsPay.data
+            }
+        }, function (err) {
+            console.log(err)
+        })
+    }
     // Seleccionar donde se quiere el servicio
     $scope.selectPlaceService = function (place) {
         $scope.orderService.placeService = place
