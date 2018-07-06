@@ -192,7 +192,7 @@ exports.payOrder = function(req, res) {
 					callback(null, order, customer);
 				}
 			},
-			// create order
+			// create order in conekta
 			function (order, customer, callback) {
 				/*v1
 				conektaService.createOrder(order, customer, paymentMethod, tokenCard, function (_order) {

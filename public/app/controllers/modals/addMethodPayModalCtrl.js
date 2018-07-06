@@ -62,6 +62,7 @@ function (                                 id_user,   $rootScope,   $uibModalIns
                         $rootScope.$emit("openAlert", { textAlert: "Su tarjeta ha sido agregada correctamente." })
                         verifyMethodPay()
                         $uibModalInstance.close()
+                        location.reload()
                     }, function (err) {
                         console.log(err)
                         $rootScope.$emit("openAlert", { textAlert: err.data.message })
