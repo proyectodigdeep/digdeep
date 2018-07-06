@@ -69,7 +69,12 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 				specialty: 			user.specialty,
 				descriptionCompany: user.descriptionCompany, 
 				urlImg: 			user.urlImg,
-				kindServices: 		[]
+				kindServices: 		[],
+				webPage: user.webPage,
+				fanPage: user.fanPage,
+				instagram: user.instagram,
+				rfc: user.rfc,
+				logo: user.logo
 			}
 			if (user.kindServices === undefined || user.kindServices.length === 0) {
 				$scope.digdeeperProfile.kindServices = []
@@ -170,16 +175,56 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 			$scope.digdeeperProfile.kindServices.push("presencial")
 		}
 		console.log($scope.digdeeperProfile)
-		userService.updateDigdeeperProfile($scope.user._id, $scope.digdeeperProfile, $localStorage.token,
-			function (user) {
-				$rootScope.$emit("openAlertDigdeepModal",{
-					textAlert: "Tus datos se actualizaron correctamente"
-				})
-				// Recargar los datos del usuario para obtener los actualizados
-				$scope.initDataProfileUser()
-			}, function (err) {
-				console.log(err)
-				alert("Algo salio mal, usuario no actualizado: "+err.data.message)
+		userService.updateDigdeeperProfile($scope.user._id, $scope.digdeeperProfile, $localStorage.token, function (user) {
+			$rootScope.$emit("openAlertDigdeepModal",{
+				textAlert: "Tus datos se actualizaron correctamente"
 			})
+			// Recargar los datos del usuario para obtener los actualizados
+			$scope.initDataProfileUser()
+		}, function (err) {
+			console.log(err)
+			alert("Algo salio mal, usuario no actualizado: "+err.data.message)
+		})
 	}
+	// Configuración del dropzone
+    $scope.dropzoneConfig = {
+        init            : function() {
+            this.on('addedfile', function(file) {
+                $scope.$apply(function() {
+                    $scope.filesUploading = true;
+                })
+            })
+            this.on("success", function(file, response) {
+                if (response === "error") {
+                    $rootScope.$emit("openAlertDigdeepModal",{
+                        textAlert: "Hay un archivo que no esta permitido, inténtalo nuevamente."
+                    })
+                    this.removeAllFiles()
+                }else{
+                    $scope.digdeeperProfile.logo = response
+                    //$scope.newService.pictures = response
+                    console.log(response)
+                }
+            })
+            this.on("error", function(file, response) {
+                console.log(response)
+                if (response === "You can not upload any more files.") {
+                    $rootScope.$emit("openAlertDigdeepModal",{
+                        textAlert: "No puedes subir más de 1 foto, inténtalo nuevamente."
+                    })
+                    this.removeAllFiles()
+                }
+            })
+            this.on("complete", function(file) {
+              //this.removeFile(file);
+            })
+        },
+        url             : 'v1/digdeeperImgServiceTemp/',
+        parallelUploads : 1,
+        uploadMultiple  : true,
+        maxFileSize     : 30,
+        addRemoveLinks  : 'dictCancelUpload',
+        paramName: "photos",
+        maxFiles: 1
+    }
 }])

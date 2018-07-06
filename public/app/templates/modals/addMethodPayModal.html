@@ -1,0 +1,41 @@
+<!-- Form10 Datos de tarjeta de credito (pago con tarjeta de credito)-->
+<div class="modal-header modalHeaderCS">
+    <div class="row" >
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="titleHeaderModalCS">DATOS DE TU TARJETA</span>
+        </div>
+        <i class="fa fa-times fa-1x closeIcon" style="color: white" aria-hidden="true" ng-click="$ctrl.cancel()"></i>
+    </div>
+</div>
+<div class="modal-body modalBodyCS">
+    <div>
+        <div class="datos-tarjeta">
+            <div class="divFormDeliveryData">
+                <span class="labelFormDeliveryData">Titular de la tarjeta</span>
+                <input type="text" class="form-control inputFormDeliveryData" ng-model="card.name" placeholder="Ej. Luis Pérez">        
+            </div>
+            <div class="divFormDeliveryData">
+                <span  class="labelFormDeliveryData">Número de tarjeta</span>
+                <input type="text" class="form-control inputFormDeliveryData" ng-model="card.number" placeholder="1234578954326572">        
+            </div>
+            <div class="divFormDeliveryData">
+                <span  class="labelFormDeliveryData">Fecha de vencimiento</span>
+                <input type="text" class="form-control inputFormDeliveryData" style="width: 70px;display: inline-block" placeholder="06" ng-model="card.exp_month" maxlength="2">
+                <input type="text" class="form-control inputFormDeliveryData" style="width: 70px;display: inline-block" placeholder="2018" ng-model="card.exp_year" maxlength="4">        
+            </div>
+            <div class="divFormDeliveryData">
+                <span  class="labelFormDeliveryData">Código de seguridad</span>
+                <input type="text" class="form-control inputFormDeliveryData" style="width: 70px" placeholder="335" ng-model="card.cvc" maxlength="4">        
+            </div>
+            <div class="alert alert-danger" ng-if="errorMessage" style="font-size: 13px;">
+                Por favor verifique los siguientes valores: <br>     
+                <i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i> {{errorMessage}}        
+            </div>
+        </div>
+        <div class="row text-center">
+            <button class="btn btnModalOk" style="font-size: 15px" ng-click="$ctrl.agregarTarjetaNueva()">
+                Agregar Tarjeta
+            </button>
+        </div>
+    </div>
+</div>

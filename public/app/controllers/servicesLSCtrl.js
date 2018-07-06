@@ -122,7 +122,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
             serviceService.getServicesByDigdeeperComments($localStorage.idDigdeeper,function (services) {
                 $scope.services = []
                 for (var i = 0; i < services.length; i++) {
-                    if (services[i].service.price <= $scope.rangePrice) {
+                    if (services[i].service.price_presencial <= $scope.rangePrice) {
                         $scope.services.push(services[i])   
                     }
                 }
@@ -141,7 +141,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if ($scope.filters.decorations === true) {
                             position = services[i].service.filters.indexOf("decorations");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }
@@ -152,7 +152,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if ($scope.filters.fashion === true) {
                             position = services[i].service.filters.indexOf("fashion");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }
@@ -164,7 +164,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if($scope.filters.cocktails === true){
                             position = services[i].service.filters.indexOf("cocktails");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }
@@ -175,7 +175,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if($scope.filters.nutrition    === true){
                             position = services[i].service.filters.indexOf("nutrition");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }
@@ -186,7 +186,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if($scope.filters.concerts     === true){
                             position = services[i].service.filters.indexOf("concerts");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }
@@ -197,7 +197,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if ($scope.filters.parties     === true) {
                             position = services[i].service.filters.indexOf("parties");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }
@@ -208,7 +208,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if ($scope.filters.culture     === true) {
                             position = services[i].service.filters.indexOf("culture");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }
@@ -219,7 +219,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
                         if ($scope.filters.food        === true) {
                             position = services[i].service.filters.indexOf("food");
                             if (position >= 0) {
-                                if (services[i].service.price <= $scope.rangePrice) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
                                     $scope.services.push(services[i])
                                     blocked = true   
                                 }

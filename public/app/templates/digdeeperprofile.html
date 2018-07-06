@@ -205,6 +205,47 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="formRegister">Página Web *</label><br>
+					<input type="text" class="form-control formRegister" placeholder="Página Web" ng-model="digdeeperProfile.webPage">
+					<span class="formInvalidText" ng-if="webPageFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="formRegister">Fan Page *</label><br>
+					<input type="text" class="form-control formRegister" placeholder="Fan Page" ng-model="digdeeperProfile.fanPage">
+					<span class="formInvalidText" ng-if="fanPageFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<label class="formRegister">Instagram *</label><br>
+					<input type="text" class="form-control formRegister" placeholder="Instagram" ng-model="digdeeperProfile.instagram">
+					<span class="formInvalidText" ng-if="instagramFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 10px">
+				<div class="col-md-4 col-sm-4 col-xs-6">
+					<label class="formRegister">Logo de empresa</label>
+					<img class="img-responsive" src="{{digdeeperProfile.logo}}" style="border-radius: 5px;margin: 0 auto">
+					<form ng-model="myDropzone" class="dropzone dropzoneLogo" method="post" enctype="multipart/form-data" ng-dropzone dropzone-config="dropzoneConfig" dropzone="dropzone" event-handlers="{'error':dzError }" role="form">
+						<div class="fallback">
+							<input name="source_file[]" type="file" multiple />
+						</div>
+					</form>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-6">
+					<label class="formRegister">RFC *</label><br>
+					<input type="text" class="form-control formRegister" placeholder="RFC" ng-model="digdeeperProfile.rfc">
+					<span class="formInvalidText" ng-if="rfcFailed">
+						<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>No puedes dejar este campo en blanco.
+					</span>
+				</div>
+			</div>
 			
 			<div class="row text-right" style="margin-top: 30px">
 				<button class="btn btnEditProfile" ng-click="openEditInfoUserModal(user._id,digdeeperProfile,digdeeperProfileTemp,'digdeeper',athome,presencial)">Guardar cambios</button>

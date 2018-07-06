@@ -29,7 +29,8 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 	angular.extend(this, $controller('dateInfoModalCtrl', {$scope: $scope}))
 	angular.extend(this, $controller('dateInfoOutModalCtrl', {$scope: $scope}))
 	angular.extend(this, $controller('newEventCalendarModalCtrl', {$scope: $scope}))
-	
+	angular.extend(this, $controller('addMethodPayModalCtrl', {$scope: $scope}))
+
     $scope.showLinksReg = false
     $scope.user = {}
     $scope.emailDigdeep = "manager@digdeep.com.mx"

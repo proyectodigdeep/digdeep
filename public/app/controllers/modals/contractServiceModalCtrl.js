@@ -34,7 +34,7 @@ function (                                        typePrice,  geocodeService,  S
     }})
     $scope.typeUser = $rootScope.typeUser
     if ($scope.typeUser === "userNoLogin") {
-        $rootScope.$emit("openLoginToContractModal")
+        $scope.lockLogin.show()
     }
 
     // tipo de precio que tiene activo el proveedor, segun el lugar donde será el servicio

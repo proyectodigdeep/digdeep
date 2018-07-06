@@ -34,7 +34,7 @@ angular.module('digdeepApp.userProfileCtrl', [])
 	$scope.limitPage = 6
     $scope.finalIndex = 0
     $scope.initIndex = 0
-
+    verifyMethodPay()
 	// Recargar órdenes cada 5 segundos
 	$interval(function(){
 		//verificar el tipo de usuario para mostrar la barra de navegación acorde a el
@@ -214,8 +214,16 @@ angular.module('digdeepApp.userProfileCtrl', [])
 			console.log(err)
 		})
 	}
-	
-
+	function verifyMethodPay() {
+        userService.verifyMethodPay($scope.user._id, $localStorage.token, function (methodsPay) {
+        	if (methodsPay != undefined && methodsPay.data.length > 0) {
+                $scope.methodsPay = methodsPay.data
+                console.log($scope.methodsPay)
+            }
+        }, function (err) {
+            console.log(err)
+        })
+    }
 	$scope.createOrdenToSpei = function(order) {		
 		var payDate = new Date()
 		ordersService.payOrder(order._id, payDate, null, 'spei', $localStorage.token, function (ord) {			

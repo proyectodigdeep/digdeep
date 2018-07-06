@@ -135,23 +135,48 @@
 				</div>
 			</div>
 
-			<label class="labelProfile">Fecha de nacimiento</label>
+			
 			<div class="row">
-				<div class="col-md-2 col-sm-2 col-xs-4">
-					<input class="form-control inputProfile" type="number" placeholder="Día" ng-model="profileUserTemp.dayDate" >
+				<div class="col-md-8">
+					<div class="row" style="padding-left: 16px">
+						<label class="labelProfile">Fecha de nacimiento</label>
+					</div>
+					<div class="row">
+						<div class="col-md-3 col-sm-2 col-xs-4">
+							<input class="form-control inputProfile" type="number" placeholder="Día" ng-model="profileUserTemp.dayDate" >
+						</div>
+						<div class="col-md-6 col-sm-3 col-xs-4" >
+							<select class="form-control inputProfile" placeholder="Mes" ng-model="profileUserTemp.monthDate">
+								<option></option>
+								<option value="enero">Enero</option><option value="febrero">Febrero</option><option value="marzo">Marzo</option><option value="abril">Abril</option><option value="mayo">Mayo</option><option value="junio">Junio</option><option value="julio">Julio</option><option value="agosto">Agosto</option><option value="septiembre">Septiembre</option><option value="octubre">Octubre</option><option value="noviembre">Noviembre</option><option value="diciembre">Diciembre</option>
+							</select>
+						</div>
+						<div class="col-md-3 col-sm-2 col-xs-4">
+							<input class="form-control inputProfile" type="number" placeholder="Año" ng-model="profileUserTemp.yearDate">
+						</div>
+					</div>
+					
 				</div>
-				<div class="col-md-3 col-sm-3 col-xs-4" >
-					<select class="form-control inputProfile" placeholder="Mes" ng-model="profileUserTemp.monthDate">
-						<option></option>
-						<option value="enero">Enero</option><option value="febrero">Febrero</option><option value="marzo">Marzo</option><option value="abril">Abril</option><option value="mayo">Mayo</option><option value="junio">Junio</option><option value="julio">Julio</option><option value="agosto">Agosto</option><option value="septiembre">Septiembre</option><option value="octubre">Octubre</option><option value="noviembre">Noviembre</option><option value="diciembre">Diciembre</option>
-					</select>
-				</div>
-				<div class="col-md-2 col-sm-2 col-xs-4">
-					<input class="form-control inputProfile" type="number" placeholder="Año" ng-model="profileUserTemp.yearDate">
+				<div class="col-md-4">
+					<div class="col-md-12 col-sm-12 col-xs-12" ng-if="methodsPay.length > 0">
+						<label class="labelProfile">
+							Metodos de pago
+						</label>
+						<div ng-repeat="m in methodsPay">
+			                <div>
+			                	<i style="color: #1d75b6;" class="fa fa-credit-card"></i> 
+			                    <span class="labelFormDeliveryData" style="color: #1d75b6;font-size: 12px">**** **** **** {{m.last4}} {{m.brand}}</span>
+			                </div>   
+			            </div>
+					</div>
 				</div>
 			</div>
 			
 			<div class="row text-right" style="margin-top: 30px">
+				<button class="btn btnEditProfile" ng-click="openMethodPay(user._id)">
+					<i class="fa fa-plus" aria-hidden="true" style="color: white"></i> <i class="fa fa-credit-card-alt" aria-hidden="true" style="color: white"></i> Metodo de pago
+				</button>
+				
 				<button class="btn btnEditProfile" ng-click="openEditInfoUserModal(user._id,profileUser,profileUserTemp,'user')">Guardar cambios</button>
 			</div>
 		</div>

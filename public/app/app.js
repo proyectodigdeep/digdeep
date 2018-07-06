@@ -77,6 +77,7 @@ var app = angular.module('digdeepApp', [
 	"digdeepApp.dateInfoModalCtrl",
 	"digdeepApp.newEventCalendarModalCtrl",
 	"digdeepApp.dateInfoOutModalCtrl",
+	"digdeepApp.addMethodPayModalCtrl",
 
 	'digdeepApp.userService',
 	'digdeepApp.serviceService',

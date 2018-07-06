@@ -42,20 +42,6 @@ module.exports = {
                 }
             ];
         }
-        /*if (paymentMethod === 'card_saved') {            
-            order['customer_info'] = {
-                "customer_id": customer.customerId
-            };
-            order['charges'] = [
-                {
-                    "payment_method": {
-                        "type": "paymentMethod",
-                        "token_id": tokenId
-                    }
-                }
-            ];
-        }*/
-
         conekta.Order.create(order, function (err, _order) {
 
             if (!err) {
@@ -79,9 +65,9 @@ module.exports = {
         // Se recupera el nombre del cliente        
         conekta.Customer.create(customer, function (err, customer) {            
             if (!err) {
-                //console.log(err.err.details[0])
                 return onSuccess(customer.toObject());
             }
+            console.log(err)
             return onError(err);
         });
     },

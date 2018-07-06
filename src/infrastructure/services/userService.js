@@ -42,21 +42,59 @@ exports.addMethodPayToCustomer = function(req, res){
 	var tokenCard = req.body.tokenId
 	userApp.find(id_user, function (user) {
 		var id_customer = user.customerId
-		conektaService.addCardCustomer(id_customer, tokenCard, function (customer) {
-			if (customer) {
-				res.json({
-					status: 'success', 
-					payment_sources: customer.payment_sources,
-					message: "Tarjeta agregar correctamente"
-				})
-			}else{
+		if (id_customer) {
+			conektaService.addCardCustomer(id_customer, tokenCard, function (customer) {
+				if (customer) {
+					res.json({
+						status: 'success', 
+						payment_sources: customer.payment_sources,
+						message: "Tarjeta agregada correctamente"
+					})
+				}else{
+					res.status(400)
+					res.json({status: 'failure', message: "No se encontro el customer"})
+				}
+			},function (err) {
+				var message = "tenemos problemas con nuestros servicios, intentaló más tarde."
+				if(err.details && err.details.length > 0){
+					message = err.details[0].message
+				}
 				res.status(400)
-				res.json({status: 'failure', message: "No se encontro el customer"})
-			}
-		},function (err) {
-			res.status(400)
-			res.json({status: 'failure', message: "problemas al agregar una tarjeta al cliente"})
-		})
+				res.json({status: 'failure', message: message})
+			})
+		}else{
+			var cliente = {
+		        'name': user.fullname,
+		        'email': user.email,
+		        'phone': user.phone
+		    };
+			// Crear customer nuevo
+			conektaService.createCustomer(cliente, tokenCard, function (customer) {
+				// add customer id to client					
+				user.customerId = customer.id;						
+				// update client with customer id
+				userApp.update(user._id, user, function (resClient) {
+					res.status(201)
+					res.json({
+						status: 'success', 
+						payment_sources: customer.payment_sources,
+						message: "Tarjeta agregada correctamente"
+					})
+				}, function (err) {
+					res.status(400)
+					res.json({status: 'failure', message: "Lo sentimos no se agregar la tarjeta intentaló más tarde."})
+				});
+				
+			}, function (err) {
+				var message = "tenemos problemas con nuestros servicios, intentaló más tarde."
+				if(err.details && err.details.length > 0){
+					message = err.details[0].message
+				}
+				res.status(400)
+				res.json({status: 'failure', message: message})
+			})
+		}
+		
 	}, function (err) {
 		res.status(400)
 		res.json({
