@@ -28,6 +28,7 @@ module.exports = {
 		domain: "digdeepproyecto.auth0.com",
 		//clientId: "vGI1Aqu0TOLnOGf5BlxP2sOgts0XNiXX",
 		clientId: "G2UJ5z3vZ933hIMxKyMupB0QmhOwviyR",
+		//clientId: "M1MW9PYFJ63ePUutLzAORebfOwKw1-Ac",
 		//connection : "test"
 		connection: "digdeepdb"
 	},

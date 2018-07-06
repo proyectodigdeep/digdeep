@@ -179,18 +179,18 @@ exports.notificacionDatosSPEI = function (client, order, callback) {
 
 exports.changePasswordUser = function (req, res, next) {
 	var email = req.body.email
-	var options = { method: 'POST',
-  	url: config.auth0.domain+'/digdeepdb/change_password',
- 	headers: { 'content-type': 'application/json' },
-  	body: 
-   	{ 	
-   		client_id: config.auth0.clientId,
-	    email: email,
-	    connection: config.auth0.connection 
-	},
-  		json: true 
-  	};
-
+	var options = { 
+		method: 'POST',
+  		url: config.auth0.domain+'/dbconnections/change_password',
+ 		headers: { 'content-type': 'application/json' },
+	  	body: 
+	   	{ 	
+	   		client_id: config.auth0.clientId,
+		    email: email,
+		    connection: 'Username-Password-Authentication' 
+		},
+	  		json: true 
+	  	};
 	request(options, function (error, response, body) {
 	  if (error) {
 	  	console.log(error)
