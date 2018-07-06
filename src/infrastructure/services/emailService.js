@@ -179,13 +179,14 @@ exports.notificacionDatosSPEI = function (client, order, callback) {
 
 exports.changePasswordUser = function (req, res, next) {
 	var email = req.body.email
+	console.log(email)
 	var options = { 
 		method: 'POST',
-  		url: config.auth0.domain+'/dbconnections/change_password',
+  		url: 'https://digdeepproyecto.auth0.com/dbconnections/change_password',
  		headers: { 'content-type': 'application/json' },
 	  	body: 
 	   	{ 	
-	   		client_id: config.auth0.clientId,
+	   		client_id: "G2UJ5z3vZ933hIMxKyMupB0QmhOwviyR",
 		    email: email,
 		    connection: 'Username-Password-Authentication' 
 		},
@@ -197,6 +198,7 @@ exports.changePasswordUser = function (req, res, next) {
 	  	res.status(400)
 		res.json({status: 'failure', message: err})
 	  }else{
+	  	//console.log(response)
 	  	console.log(body)
 	  	res.json({status: 'success', message: body})
 	  }
