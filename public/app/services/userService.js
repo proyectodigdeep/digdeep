@@ -305,11 +305,11 @@ function(                 $http,   jwtHelper) {
             postedServices:     userdata.postedServices,
             myServicesRequested:userdata.myServicesRequested,
             kindServices:       userdata.kindServices,
-            user.webPage        : userdata.webPage,
-            user.fanPage        : userdata.fanPage,
-            user.instagram      : userdata.instagram,
-            user.rfc            : userdata.rfc,
-            user.logo           : userdata.logo
+            webPage        : userdata.webPage,
+            fanPage        : userdata.fanPage,
+            instagram      : userdata.instagram,
+            rfc            : userdata.rfc,
+            logo           : userdata.logo
         },{headers: {'x-access-token': token}})
         .then(function(response) {
             if(response.data.status === "success"){

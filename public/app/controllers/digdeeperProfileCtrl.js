@@ -70,11 +70,11 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 				descriptionCompany: user.descriptionCompany, 
 				urlImg: 			user.urlImg,
 				kindServices: 		[],
-				webPage: 			"",
-				fanPage: 			"",
-				instagram: 			"",
-				rfc: 				"",
-				logo: 				""
+				webPage: 			user.webPage,
+				fanPage: 			user.fanPage,
+				instagram: 			user.instagram,
+				rfc: 				user.rfc,
+				logo: 				user.logo
 			}
 			if (user.kindServices === undefined || user.kindServices.length === 0) {
 				$scope.digdeeperProfile.kindServices = []
@@ -174,7 +174,7 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 		if ($scope.presencial == true) {
 			$scope.digdeeperProfile.kindServices.push("presencial")
 		}
-		console.log("actualizando "+$scope.digdeeperProfile)
+		console.log("actualizando " $scope.digdeeperProfile)
 		userService.updateDigdeeperProfile($scope.user._id, $scope.digdeeperProfile, $localStorage.token, function (user) {
 			console.log(user)
 			$rootScope.$emit("openAlertDigdeepModal",{
