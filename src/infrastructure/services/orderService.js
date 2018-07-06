@@ -136,8 +136,8 @@ exports.finishOrder = function(req, res) {
 								//client.id_paymentSource = tokenCard
 								conektaService.searchCustomer(client.customerId, function (customer) {
 									console.log(customer.payment_sources)
-									if (customer.payment_sources.length > 0) {
-										client.id_paymentSource = customer.payment_sources[0].id
+									if (customer.payment_sources.data.length > 0) {
+										client.id_paymentSource = customer.payment_sources.data[0].id
 									}
 									return callback(null, order, client);
 								}, function (err) {
@@ -146,7 +146,8 @@ exports.finishOrder = function(req, res) {
 								
 							}else{
 								// if not contain customer then create a customer on conekta
-								conektaService.createCustomer(customer, tokenCard, function (customer) {
+								callback(null, order, customer);
+								/*conektaService.createCustomer(customer, tokenCard, function (customer) {
 									// add customer id to client					
 									client.customerId = customer.id;						
 									// update client with customer id
@@ -158,9 +159,8 @@ exports.finishOrder = function(req, res) {
 									});
 								}, function (err) {
 									callback({ errName: 'error to create customer', err: err });
-								});
+								});*/
 							}
-							
 						}else {					
 							// SPEI
 							console.log(order, customer)
