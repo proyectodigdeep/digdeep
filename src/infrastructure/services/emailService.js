@@ -180,7 +180,7 @@ exports.notificacionDatosSPEI = function (client, order, callback) {
 exports.changePasswordUser = function (req, res, next) {
 	var email = req.body.email
 	var options = { method: 'POST',
-  	url: config.auth0.domain+'/dbconnections/change_password',
+  	url: config.auth0.domain+'/digdeepdb/change_password',
  	headers: { 'content-type': 'application/json' },
   	body: 
    	{ 	
