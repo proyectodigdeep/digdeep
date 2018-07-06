@@ -144,21 +144,23 @@ exports.finishOrder = function(req, res) {
 									return callback(null, order, client);
 								})
 								
-							}
-							// if not contain customer then create a customer on conekta
-							conektaService.createCustomer(customer, tokenCard, function (customer) {
-								// add customer id to client					
-								client.customerId = customer.id;						
-								// update client with customer id
-								userApp.update(client._id, client, function (resClient) {
-									//callback(null, order, { customerId: client.customerId});
-									callback(null, order, customer);
+							}else{
+								// if not contain customer then create a customer on conekta
+								conektaService.createCustomer(customer, tokenCard, function (customer) {
+									// add customer id to client					
+									client.customerId = customer.id;						
+									// update client with customer id
+									userApp.update(client._id, client, function (resClient) {
+										//callback(null, order, { customerId: client.customerId});
+										callback(null, order, customer);
+									}, function (err) {
+										callback({ errName: 'error to update user', err: err });
+									});
 								}, function (err) {
-									callback({ errName: 'error to update user', err: err });
+									callback({ errName: 'error to create customer', err: err });
 								});
-							}, function (err) {
-								callback({ errName: 'error to create customer', err: err });
-							});
+							}
+							
 						}else {					
 							// SPEI
 							console.log(order, customer)
