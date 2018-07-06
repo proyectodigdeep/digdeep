@@ -61,14 +61,14 @@ function (                                     userTemp,  $rootScope,   $uibModa
                 function (user) {
                     //alert("Usuario actualizado correctamente")
                     $uibModalInstance.close()
-                    $rootScope.$emit("openAlertDigdeepModal",{
-                        textAlert: "Tus datos se actualizaron correctamente"
+                    $rootScope.$emit("openAlert",{
+                        textAlert: "Tus datos se actualizaron correctamente."
                     })
                 }, function (err) {
                     console.log(err)
                     //alert("Algo salio mal, usuario no actualizado: "+err.data.message)
                     $rootScope.$emit("openAlertDigdeepModal",{
-                        textAlert: "Algo salio mal, inténtalo más tarde"
+                        textAlert: "Algo salio mal, inténtalo más tarde."
                     })
                 })
         }
@@ -81,7 +81,7 @@ function (                                     userTemp,  $rootScope,   $uibModa
                 function (user) {
                     //alert("Digdeeper actualizado correctamente")
                     $uibModalInstance.close()
-                    $rootScope.$emit("openAlertDigdeepModal",{
+                    $rootScope.$emit("openAlert",{
                         textAlert: "Tus datos se actualizaron correctamente"
                     })
                 }, function (err) {
