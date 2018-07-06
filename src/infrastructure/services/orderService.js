@@ -135,7 +135,9 @@ exports.finishOrder = function(req, res) {
 							if (client.customerId && client.customerId !== '') {
 								//client.id_paymentSource = tokenCard
 								conektaService.searchCustomer(client.customerId, function (customer) {
-									client.id_paymentSource = customer.payment_sources.data[0].id
+									if (customer.payment_sources.data.length > 0) {
+										client.id_paymentSource = customer.payment_sources.data[0].id
+									}
 									return callback(null, order, client);
 								}, function (err) {
 									return callback(null, order, client);
