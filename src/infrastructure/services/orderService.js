@@ -137,7 +137,7 @@ exports.finishOrder = function(req, res) {
 								//client.id_paymentSource = tokenCard
 								conektaService.searchCustomer(client.customerId, function (customer) {
 									console.log(customer.payment_sources)
-									client.id_paymentSource = id_paymentSource
+									client.id_paymentSource = order.id_paymentSource
 									/*if (customer.payment_sources.data.length > 0) {
 										client.id_paymentSource = customer.payment_sources.data[0].id
 									}*/
