@@ -286,6 +286,7 @@ function(                 $http,   jwtHelper) {
     }
     // Actualizar los datos del perfil de un usuario digdeeper (proveedor)
     this.updateDigdeeperProfile = function (idUser, userdata, token, onSuccess, onError){
+        console.log("Actualizar usuario "+userdata)
         $http.put('v1/users/'+idUser,
         {
             fullname:           userdata.fullname,
@@ -305,11 +306,11 @@ function(                 $http,   jwtHelper) {
             postedServices:     userdata.postedServices,
             myServicesRequested:userdata.myServicesRequested,
             kindServices:       userdata.kindServices,
-            webPage        : userdata.webPage,
-            fanPage        : userdata.fanPage,
-            instagram      : userdata.instagram,
-            rfc            : userdata.rfc,
-            logo           : userdata.logo
+            webPage: userdata.webPage,
+            fanPage: userdata.fanPage,
+            instagram: userdata.instagram,
+            rfc: userdata.rfc,
+            logo: userdata.logo
         },{headers: {'x-access-token': token}})
         .then(function(response) {
             if(response.data.status === "success"){

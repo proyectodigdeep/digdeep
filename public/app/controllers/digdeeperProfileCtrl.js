@@ -174,7 +174,7 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 		if ($scope.presencial == true) {
 			$scope.digdeeperProfile.kindServices.push("presencial")
 		}
-		console.log("actualizando " $scope.digdeeperProfile)
+		console.log("actualizando " + $scope.digdeeperProfile)
 		userService.updateDigdeeperProfile($scope.user._id, $scope.digdeeperProfile, $localStorage.token, function (user) {
 			console.log(user)
 			$rootScope.$emit("openAlertDigdeepModal",{
