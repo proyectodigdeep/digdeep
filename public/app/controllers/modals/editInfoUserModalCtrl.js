@@ -11,6 +11,8 @@ function (                             $rootScope,   $scope,   $uibModal,   $doc
         if (presencial == true) {
             dataUsr.kindServices.push("presencial")
         }
+        console.log(athome)
+        console.log(presencial)
         console.log(dataUsr)
         $uibModal.open({
             animation: true,
