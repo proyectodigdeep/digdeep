@@ -202,10 +202,7 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
                     })
                     this.removeAllFiles()
                 }else{
-                	console.log("logo "+response)
                 	$scope.digdeeperProfile.logo = response
-                    //$scope.newService.pictures = response
-                    console.log(response)
                 }
             })
             this.on("error", function(file, response) {

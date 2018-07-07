@@ -92,7 +92,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 	})
 
 	// Subir imagenes desde un dropzone, a cloudinary
-	/*router.post('/digdeeper_logo',upload.any(), function (req, res, next) {
+	router.post('/digdeeper_logo',upload.any(), function (req, res, next) {
 		var arrayUrlsImg = []
 		for (var i = 0; i < req.files.length; i++) {
 			if (req.files[i].mimetype === "image/jpeg" || req.files[i].mimetype === "image/png") {
@@ -101,7 +101,6 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 					console.log("**subiendo logo**")
 					if (arrayUrlsImg.length > 0) {
 						cloudinary.uploader.upload (arrayUrlsImg[0], function (result) {
-							console.log("subiendo a cloudinary")
 							res.send(result.url)
 						},{
 							// Ajusta el tamaño de la imagen y le asigna un id unico
@@ -118,7 +117,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 				res.send("error")
 			}
 		}
-	})*/
+	})
 	
 /***USUARIOS DIGDEEPER (PROVEEDORES)****/
 	// Obtener todas las fechas ocupadas de un digdeeper
