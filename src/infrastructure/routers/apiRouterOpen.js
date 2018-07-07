@@ -101,6 +101,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 					console.log("**subiendo logo**")
 					if (arrayUrlsImg.length > 0) {
 						cloudinary.uploader.upload (arrayUrlsImg[0], function (result) {
+							console.log("subiendo a cloudinary")
 							res.send(result.url)
 						},{
 							// Ajusta el tamaño de la imagen y le asigna un id unico
