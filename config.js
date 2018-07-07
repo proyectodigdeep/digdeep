@@ -30,7 +30,7 @@ module.exports = {
 		clientId: "G2UJ5z3vZ933hIMxKyMupB0QmhOwviyR",
 		//clientId: "M1MW9PYFJ63ePUutLzAORebfOwKw1-Ac",
 		//connection : "test"
-		connection: "digdeepdb"
+		connection: "Username-Password-Authentication"
 	},
 	multer:{
 		dest: "uploads/"

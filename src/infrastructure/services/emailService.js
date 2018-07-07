@@ -185,7 +185,7 @@ exports.changePasswordUser = function (req, res, next) {
 		body: 
 		   { //client_id: 'M1MW9PYFJ63ePUutLzAORebfOwKw1-Ac',
 		     email: email,
-		     connection: 'digdeepdb' },
+		     connection: 'Username-Password-Authentication' },
 		json: true 
 	};
 
