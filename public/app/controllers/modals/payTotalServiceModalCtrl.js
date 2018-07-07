@@ -127,7 +127,6 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                                 $rootScope.$emit("openAlert", { textAlert: "Servicio pagado correctamente, te enviaremos un correo con los detalles de tu compra, Gracias por Digdeépear con nostros." })
                                 $uibModalInstance.close()
                             }, function (err) {
-                                console.log(err)
                                 var messageDefault = err.data.message
                                 if (messageDefault == 'Formato inválido para "name".') {
                                     messageDefault = "El nombre de tu perfil, no es un nombre valido."
@@ -139,12 +138,10 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                                     messageDefault = "El teléfono de tu perfil, no es un teléfono valido."
                                 }
                                 if (messageDefault == undefined || messageDefault == null) {
-                                    messageDefault = 'No se pudo guardar los datos de tu compra, intenta pagar con otro metodo porfavor'
+                                    messageDefault = 'No se pudo guardar los datos de tu compra, intenta pagar con otro método por favor'
                                 }
                                 console.log(err)
                                 $rootScope.$emit("openAlert", { textAlert: messageDefault })
-                                //$rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu compra, contacta a DIGDEEP por favor." })
-                                //$rootScope.$emit("openAlert", { textAlert: err.data.message })
                                 $uibModalInstance.close()
                             });                        
                         }else{
@@ -164,7 +161,23 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                     $rootScope.$emit("openAlert", { textAlert: "Servicio pagado correctamente, te enviaremos un correo con los detalles de tu compra, Gracias por Digdeépear con nostros." })
                     $uibModalInstance.close()
                 }, function (err) {
-                    $rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu compra, intenta pagar con otro metodo por favor." })
+                    var messageDefault = err.data.message
+                    if (messageDefault == 'Formato inválido para "name".') {
+                        messageDefault = "El nombre de tu perfil, no es un nombre valido."
+                    }
+                    if (messageDefault == 'Formato inválido para "email".') {
+                        messageDefault = "El correo de tu perfil, no es un correo valido."
+                    }
+                    if (messageDefault == 'El parametro phone" es requerido.') {
+                        messageDefault = "El teléfono de tu perfil, no es un teléfono valido."
+                    }
+                    if (messageDefault == undefined || messageDefault == null) {
+                        alert(err.data.message)
+                        messageDefault = 'No se pudo guardar los datos de tu compra, intenta pagar con otro método por favor'
+                    }
+                    console.log(err)
+                    $rootScope.$emit("openAlert", { textAlert: messageDefault })
+                    //$rootScope.$emit("openAlert", { textAlert: "..No se pudo guardar los datos de tu compra, intenta pagar con otro metodo por favor." })
                     $uibModalInstance.close()
                 }); 
             }
@@ -180,11 +193,23 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                     $rootScope.$emit("openAlert", {
                         textAlert: "Orden generada exitosamente, en unos minutos recibirá un correo con la información de pago."
                     });
-                }, function (err) {         
-                    console.error('err ordern response: ', err);
-                    $rootScope.$emit("openAlert", {
-                        textAlert: "Algo salio mal, orden no generada, "+err.data.message
-                    })
+                }, function (err) { 
+                    var messageDefault = err.data.message
+                    if (messageDefault == 'Formato inválido para "name".') {
+                        messageDefault = "El nombre de tu perfil, no es un nombre valido."
+                    }
+                    if (messageDefault == 'Formato inválido para "email".') {
+                        messageDefault = "El correo de tu perfil, no es un correo valido."
+                    }
+                    if (messageDefault == 'El parametro phone" es requerido.') {
+                        messageDefault = "El teléfono de tu perfil, no es un teléfono valido."
+                    }
+                    if (messageDefault == undefined || messageDefault == null) {
+                        alert(err.data.message)
+                        messageDefault = 'No se pudo guardar los datos de tu compra, intenta pagar con otro método por favor'
+                    }
+                    console.log(err)
+                    $rootScope.$emit("openAlert", { textAlert: messageDefault })
                 });                        
             };
 
