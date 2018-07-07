@@ -214,8 +214,18 @@ function (                                        typePrice,  geocodeService,  S
                         $scope.showFormCard = false
                     }, function (err) {
                         console.log(err)
-                        $rootScope.$emit("openAlert", { textAlert: err.data.message })
-
+                        var messageDefault = err.data.message
+                        if (messageDefault == 'Formato inválido para "name".') {
+                            messageDefault = "El nombre de tu perfil, no es un nombre valido."
+                        }
+                        if (messageDefault == 'Formato inválido para "email".') {
+                            messageDefault = "El correo de tu perfil, no es un correo valido."
+                        }
+                        if (messageDefault == 'Formato inválido para "phone".') {
+                            messageDefault = "El teléfono de tu perfil, no es un teléfono valido."
+                        }
+                        console.log(err)
+                        $rootScope.$emit("openAlert", { textAlert: messageDefault })
                     })              
                 }else{
                     $rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu tarjeta. Verifica tus datos por favor." })

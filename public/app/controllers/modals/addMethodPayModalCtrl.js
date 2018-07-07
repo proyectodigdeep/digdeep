@@ -47,7 +47,6 @@ function (                                 id_user,   $rootScope,   $uibModalIns
     this.cancel = function () {
         $uibModalInstance.close()
     }
-   
     this.agregarTarjetaNueva = function () {
        // Validacion de la tarjeta
         conektaService.validarTarjeta($scope.card).then(function (result) {                    
@@ -61,9 +60,18 @@ function (                                 id_user,   $rootScope,   $uibModalIns
                         $rootScope.$emit("openAlert", { textAlert: "Su tarjeta ha sido agregada correctamente." })
                         $uibModalInstance.close()
                     }, function (err) {
+                        var messageDefault = err.data.message
+                        if (messageDefault == 'Formato inválido para "name".') {
+                            messageDefault = "El nombre de tu perfil, no es un nombre valido."
+                        }
+                        if (messageDefault == 'Formato inválido para "email".') {
+                            messageDefault = "El correo de tu perfil, no es un correo valido."
+                        }
+                        if (messageDefault == 'Formato inválido para "phone".') {
+                            messageDefault = "El teléfono de tu perfil, no es un teléfono valido."
+                        }
                         console.log(err)
-                        $rootScope.$emit("openAlert", { textAlert: err.data.message })
-
+                        $rootScope.$emit("openAlert", { textAlert: messageDefault })
                     })              
                 }else{
                     $rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu tarjeta. Verifica tus datos por favor." })

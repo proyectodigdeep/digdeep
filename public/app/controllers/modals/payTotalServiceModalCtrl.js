@@ -128,8 +128,23 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                                 $uibModalInstance.close()
                             }, function (err) {
                                 console.log(err)
+                                var messageDefault = err.data.message
+                                if (messageDefault == 'Formato inválido para "name".') {
+                                    messageDefault = "El nombre de tu perfil, no es un nombre valido."
+                                }
+                                if (messageDefault == 'Formato inválido para "email".') {
+                                    messageDefault = "El correo de tu perfil, no es un correo valido."
+                                }
+                                if (messageDefault == 'Formato inválido para "phone".') {
+                                    messageDefault = "El teléfono de tu perfil, no es un teléfono valido."
+                                }
+                                if (messageDefault == undefined || messageDefault == null) {
+                                    messageDefault = 'No se pudo guardar los datos de tu compra, intenta pagar con otro metodo porfavor'
+                                }
+                                console.log(err)
+                                $rootScope.$emit("openAlert", { textAlert: messageDefault })
                                 //$rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu compra, contacta a DIGDEEP por favor." })
-                                $rootScope.$emit("openAlert", { textAlert: err.data.message })
+                                //$rootScope.$emit("openAlert", { textAlert: err.data.message })
                                 $uibModalInstance.close()
                             });                        
                         }else{
@@ -149,7 +164,7 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                     $rootScope.$emit("openAlert", { textAlert: "Servicio pagado correctamente, te enviaremos un correo con los detalles de tu compra, Gracias por Digdeépear con nostros." })
                     $uibModalInstance.close()
                 }, function (err) {
-                    $rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu compra, contacta a DIGDEEP por favor." })
+                    $rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu compra, intenta pagar con otro metodo por favor." })
                     $uibModalInstance.close()
                 }); 
             }
@@ -186,7 +201,19 @@ angular.module('digdeepApp.payTotalServiceModalCtrl', ['ui.bootstrap'])
                                 verifyMethodPay()
                             }, function (err) {
                                 console.log(err)
-                                $rootScope.$emit("openAlert", { textAlert: err.data.message })
+                                var messageDefault = err.data.message
+                                if (messageDefault == 'Formato inválido para "name".') {
+                                    messageDefault = "El nombre de tu perfil, no es un nombre valido."
+                                }
+                                if (messageDefault == 'Formato inválido para "email".') {
+                                    messageDefault = "El correo de tu perfil, no es un correo valido."
+                                }
+                                if (messageDefault == 'Formato inválido para "phone".') {
+                                    messageDefault = "El teléfono de tu perfil, no es un teléfono valido."
+                                }
+                                console.log(err)
+                                $rootScope.$emit("openAlert", { textAlert: messageDefault })
+                                //$rootScope.$emit("openAlert", { textAlert: err.data.message })
                             })              
                         }else{
                             $rootScope.$emit("openAlert", { textAlert: "No se pudo guardar los datos de tu tarjeta. Verifica tus datos por favor." })

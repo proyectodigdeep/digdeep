@@ -26,7 +26,7 @@ function(                 $http,   jwtHelper) {
                 onSuccess(response.data.payment_sources)
             }
             else{
-                onError(response.data.message)
+                onError("Lo sentimos tenemos problemas con nuestro servicios intentaló más tarde.")
             }
         }, onError)
     }
