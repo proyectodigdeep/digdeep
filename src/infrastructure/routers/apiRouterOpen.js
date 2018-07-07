@@ -98,6 +98,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 			if (req.files[i].mimetype === "image/jpeg" || req.files[i].mimetype === "image/png") {
 				arrayUrlsImg.push(req.files[i].path)
 				if (arrayUrlsImg.length === req.files.length) {
+					console.log("**subiendo logo**")
 					if (arrayUrlsImg.length > 0) {
 						cloudinary.uploader.upload (arrayUrlsImg[0], function (result) {
 							res.send(result.url)
