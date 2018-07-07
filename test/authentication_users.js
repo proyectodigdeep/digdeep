@@ -67,3 +67,29 @@ describe('GET TOKEN ACCESS FOR USER OR DIGDEEPER BY ID AUTH0, AFTER TO LOGIN IN 
       });
   });
 })*/
+
+describe('SEND EMAIL TO USER FROM AUTH0 FOR CHANGE PASSWORD',()=>{
+  it('it should GET string success sent and one email in your account', (done) => {
+    var email_prueba = "j.lpumas@hotmail.com"
+    var data = {
+      email: email_prueba
+    }
+    chai.request(url)
+      .post('/email_changepassword')
+      .send(data)
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        }else{
+          res.body.should.be.a('object');
+
+          res.body.status.should.be.a('string');
+          res.body.status.should.be.eql('success');
+
+          res.body.message.should.be.a('string');
+        }
+         
+        done();
+      });
+  });
+})

@@ -202,7 +202,8 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
                     })
                     this.removeAllFiles()
                 }else{
-                    $scope.digdeeperProfile.logo = response
+                	
+                	$scope.digdeeperProfile.logo = response
                     //$scope.newService.pictures = response
                     console.log(response)
                 }
@@ -220,7 +221,7 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
               //this.removeFile(file);
             })
         },
-        url             : 'v1/digdeeperImgServiceTemp/',
+        url             : 'v1/digdeeper_logo/',
         parallelUploads : 1,
         uploadMultiple  : true,
         maxFileSize     : 30,

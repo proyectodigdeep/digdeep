@@ -37,6 +37,8 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 	router.get('/users_auth0/:id', userService.getUserByIdAuth0)
 	//[ok] Obtener todos los eventos de un proveedor
 	router.get('/events_by_digdeeper/:id', calendarService.getEventsByDigdeeper)
+	//[ok] Enviar un email desde auth0 a un usuario que quiere cambiar su contraseña
+	router.post('/email_changepassword', emailService.changePasswordUser)
 	// Obtener todos los usuarios con una subcategoria especifica
 	router.get("/usersbysubcategory/:id", userService.getUsersBySubcategories)
 	// Cambiar la foto de perfil de un usuario con rol: 'user'
@@ -58,9 +60,6 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 	})
 	// Cambiar la foto de perfil de un usuario con rol: 'digdeeper'
 	router.post('/digdeepersImg', upload.single('file-to-upload'), function (req, res, next) {
-		// req.file is the `avatar` file
-		// req.body will hold the text fields, if there were any
-		// subir una imagen a cloudinary
 		cloudinary.uploader.upload (req.file.path, function (result) {
 			var data = {
 				url: result.url,
@@ -91,19 +90,34 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 			}
 		}
 	})
-	// Cambiar la foto de perfil de un usuario con rol: 'user'
-	router.post('/images_user', upload.single('file-to-upload'), function (req, res, next) {
-		cloudinary.uploader.upload (req.file.path, function (result) {
-			var data = {
-				url: result.url
+
+	// Subir imagenes desde un dropzone, a cloudinary
+	router.post('/digdeeper_logo',upload.any(), function (req, res, next) {
+		var arrayUrlsImg = []
+		for (var i = 0; i < req.files.length; i++) {
+			if (req.files[i].mimetype === "image/jpeg" || req.files[i].mimetype === "image/png") {
+				arrayUrlsImg.push(req.files[i].path)
+				if (arrayUrlsImg.length === req.files.length) {
+					if (arrayUrlsImg.length > 0) {
+						cloudinary.uploader.upload (arrayUrlsImg[0], function (result) {
+							res.send(result.url)
+						},{
+							// Ajusta el tamaño de la imagen y le asigna un id unico
+							crop: 'fill',
+							width: 100,
+							height: 100
+						})	
+					}else{
+						res.send("error")
+					}	
+				}
+			}else{
+				console.log("archivo no permitido")
+				res.send("error")
 			}
-			res.status(result.status).json(data);
-		},{
-			crop: 'fill',
-			width: 100,
-			height: 100
-		})
+		}
 	})
+	
 /***USUARIOS DIGDEEPER (PROVEEDORES)****/
 	// Obtener todas las fechas ocupadas de un digdeeper
 	router.get('/datesbydigdeeper/:id',orderService.getDatesByDigdeeper)
@@ -200,8 +214,7 @@ router.post('/whconekta', function (req, res) {
 	
 	// Ingresar las preferencias del usuario al registrarse con rol: user
 	router.put("/userspreferences/:id", userService.updatePreferencesUser)
-	// Enviar un email a un usuario
-	router.post('/email_changepassword', emailService.changePasswordUser)
+	
 	// Poner contraseña temporal a un usuario
 	router.put("/userspasswordforget/:id", userService.updatePasswordUserForget)
 /***********************************************/
