@@ -191,7 +191,29 @@ describe('ADMIN DISVALIDATE PROVIDER: ',()=>{
           res.body.status.should.be.a('string');
           res.body.status.should.be.eql('success');
           res.body.user.should.be.a('object');
+          res.body.user.verified.should.be.eql(false);
+          //res.body.orders.length.should.be.eql(0);
+        done();
+      });
+  });
+});
+
+describe('ADMIN VALIDATE PROVIDER: ',()=>{
+  it('it should GET user with roll: "digdeeper", with parameter verified: true', (done) => {
+    chai.request(url)
+      .get('/validateproviders/'+id_digdeeper_prueba)
+      .set('x-access-token', tokenPruebaAdmin)
+      .end((err, res) => {
+          //let rest_body = bodyParser.json(res.body)
+          //console.log(res.body)
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+
+          res.body.status.should.be.a('string');
+          res.body.status.should.be.eql('success');
           res.body.user.should.be.a('object');
+          res.body.user.verified.should.be.eql(true);
+
           //res.body.orders.length.should.be.eql(0);
         done();
       });

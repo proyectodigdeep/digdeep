@@ -19,38 +19,55 @@ exports.createService= function(req,res){
 	var data = req.body
  	var arrayImgTempService = req.body.pictures
  	var arrayCloudUrlsImgs =[] 
-	for (var i = 0; i < arrayImgTempService.length; i++) {
-		// Sube las fotos del serivicio a cloudinary
-		cloudinary.uploader.upload (arrayImgTempService[i], function (result) {
-			// Ingresa al arreglo las urls obtenidas por cloudinary de cada foto
-			arrayCloudUrlsImgs.push(result.url)
-			// Compara si el numero de imagenes subidas a cloudinary son el mismo numero de imagenes 
-			// que se querian subir para mandar el arreglo final(con url´s de las imagenes)
-			if (arrayCloudUrlsImgs.length === arrayImgTempService.length) {
-				data.pictures = arrayCloudUrlsImgs
-				serviceApp.create(data, function(service) {
-					res.status(201)
-					res.json({
-						status: "success",
-						message: "Servicio creado correctamente",
-						service: service
+ 	if (arrayImgTempService.length > 0) {
+		for (var i = 0; i < arrayImgTempService.length; i++) {
+			// Sube las fotos del serivicio a cloudinary
+			cloudinary.uploader.upload (arrayImgTempService[i], function (result) {
+				// Ingresa al arreglo las urls obtenidas por cloudinary de cada foto
+				arrayCloudUrlsImgs.push(result.url)
+				// Compara si el numero de imagenes subidas a cloudinary son el mismo numero de imagenes 
+				// que se querian subir para mandar el arreglo final(con url´s de las imagenes)
+				if (arrayCloudUrlsImgs.length === arrayImgTempService.length) {
+					data.pictures = arrayCloudUrlsImgs
+					serviceApp.create(data, function(service) {
+						res.status(201)
+						res.json({
+							status: "success",
+							message: "Servicio creado correctamente",
+							service: service
+						})
+					}, function(err) {
+						res.status(400)
+						res.json({
+							status: "failure",
+							message: err
+						})
 					})
-				}, function(err) {
-					res.status(400)
-					res.json({
-						status: "failure",
-						message: err
-					})
-				})
-			}
-		},{
-			// Ajusta el tamaño de la imagen y le asigna un id unico
-			//	public_id: req.body.idUserProfile, 
-			crop: 'fill',
-			width: 426,
-			height: 266
+				}
+			},{
+				// Ajusta el tamaño de la imagen y le asigna un id unico
+				//	public_id: req.body.idUserProfile, 
+				crop: 'fill',
+				width: 426,
+				height: 266
+			})
+		}
+ 	}else{
+		serviceApp.create(data, function(service) {
+			res.status(201)
+			res.json({
+				status: "success",
+				message: "Servicio creado correctamente",
+				service: service
+			})
+		}, function(err) {
+			res.status(400)
+			res.json({
+				status: "failure",
+				message: err
+			})
 		})
-	}
+ 	}
 }
 
 exports.getServices = function(req, res) {
@@ -69,6 +86,7 @@ exports.getServices = function(req, res) {
 }
 exports.getServicesByDigdeeper = function (req,res) {
 	serviceApp.getServicesByDigdeeper(req.params.id,function(services) {
+		res.status(201)
 		res.json({
 			status: "success",
 			services: services
@@ -133,18 +151,20 @@ exports.getServicesByDigdeeperComments = function(req, res) {
 			}
 			if (comments.length === 0) {
 				for (var s = 0; s < services.length; s++) {
-					var datat={
+					var datat = {
 						service: services[s],
 						comment1: null,
 						comment2: null
 					}
 					arrayTemp.push(datat)
 				}
+				res.status(201)
 				res.json({
 					status: "success",
 					services: arrayTemp
 				})
 			}else{
+				res.status(201)
 				res.json({
 					status: "success",
 					services: arrayTemp
@@ -200,6 +220,7 @@ exports.addComment = function (req,res) {
 		})
 	}
 }
+
 exports.updateService = function (req,res) {
 	
 	if (req.user.hasRole('digdeeper')){
@@ -247,6 +268,7 @@ exports.updateService = function (req,res) {
 		})
 	}
 }
+
 // Borrar un servicio de la cuenta de un usuario digdeeper
 exports.deleteService = function(req, res) {
 	var id = req.params.id

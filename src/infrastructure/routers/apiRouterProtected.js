@@ -11,7 +11,7 @@ module.exports = function() {
 
 	// RUTAS
 	
-	// Desbloquear un proveedor de la pagína web
+	//[ok] Desbloquear un proveedor de la pagína web
 	router.get('/validateproviders/:id', function(req, res, next) {
 		if (req.user.hasRole('root')){
 			userService.validateProvider(req, res, next)
@@ -22,7 +22,7 @@ module.exports = function() {
 		}
 	})
 	
-	// Bloquear un proveedor de la pagína web
+	//[ok] Bloquear un proveedor de la pagína web
 	router.get('/disvalidateproviders/:id', function(req, res, next) {
 		if (req.user.hasRole('root')){
 			userService.disvalidateProvider(req, res, next)
@@ -114,7 +114,7 @@ module.exports = function() {
 		}
 	})
 
-	// Agregar una tarjeta a un cliente
+	//[ok] Agregar una tarjeta a un cliente
 	router.post("/addmethodpay/:id", function (req, res, next) {
 		// Verificar si la petición la hace un usuario de la app
 		if (req.user.hasRole('user') || req.user.hasRole('digdeeper')) {
@@ -191,7 +191,7 @@ module.exports = function() {
 		}
 	})
 
-	// Crea una nueva solicitud de orden, de un usuario con rol "user"
+	//[ok] Crea una nueva solicitud de orden, de un usuario con rol "user"
 	router.post('/orders',orderService.postOrder)
 	// Obtener una orden en especifico
 	router.get('/orders/:id',orderService.getOrder)
@@ -216,11 +216,11 @@ module.exports = function() {
 	//[OK] Obtener todas las ordenes que ha echo un usuario con rol "user"
 	router.get('/ordersofuser/:id',orderService.getOrdersOfUser)
 	
-	// Confirmar una orden que tiene un usuario digdeeper
+	//[OK] Confirmar una orden que tiene un usuario digdeeper
 	router.post('/confirmorders',orderService.confirmOrder)
-	// Cancelar una orden
+	//[OK]Cancelar una orden
 	router.post('/cancelorders',orderService.cancelOrder)
-	// Finalizar una orden que tiene un usuario digdeeper
+	//[ok]Finalizar una orden que tiene un usuario digdeeper
 	router.post('/finishorders',orderService.finishOrder)
 	// Pagar una orden
 	router.post('/payorders',orderService.payOrder)

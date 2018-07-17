@@ -131,3 +131,102 @@ describe('UPDATE DATA USER WITH ROL: "DIGDEEPER"',()=>{
     });
   });
 });
+
+describe('DIGDEEPER CREATE SERVICE',()=>{
+  it('it should GET service created', (done) => {
+  //var id_user = "5b3d9bf38e57c80c8c2852ee"
+  var data = {
+    title: "Servicio de prueba",
+    category: "5a6f655d04150a34ec687097",
+    subcategory: "5a6f639104150a34ec687092",
+    price_athome: 300,
+    price_presencial: 250,
+    description: "Es un servicio de prueba",
+    userId: id_digdeeper_prueba,
+    pictures: []
+  }
+  chai.request(url)
+    .post('/services')
+    .send(data)
+    .end((err, res) => {
+      //console.log(err)
+      //console.log(res.body)
+      res.should.have.status(201);
+      res.body.should.be.a('object');
+
+      res.body.status.should.be.a('string');
+      res.body.status.should.be.eql('success');
+      //res.body.message.should.be.eql('Servicio creado correctamente');
+
+      res.body.service.should.be.a('object');
+      done();
+    });
+  });
+});
+
+describe('GET ALL SERVICES OF PROVIDER(DIGDEEPER)',()=>{
+  it('it should GET all services created for one provider', (done) => {
+  
+  chai.request(url)
+    .get('/servicesbydigdeeper/'+id_digdeeper_prueba)
+    .end((err, res) => {
+      //console.log(err)
+      //console.log(res.body)
+      res.should.have.status(201);
+      res.body.should.be.a('object');
+
+      res.body.status.should.be.a('string');
+      res.body.status.should.be.eql('success');
+      
+      res.body.services.should.be.a('array');
+      done();
+    });
+  });
+});
+
+describe('GET ALL SERVICES WITH COMMENTS OF PROVIDER(DIGDEEPER)',()=>{
+  it('it should GET all services with comments, of provider created for one provider', (done) => {
+  chai.request(url)
+    .get('/servicesbydigdeepercomments/'+id_digdeeper_prueba)
+    .end((err, res) => {
+      //console.log(err)
+      //console.log(res.body)
+      res.should.have.status(201);
+      res.body.should.be.a('object');
+
+      res.body.status.should.be.a('string');
+      res.body.status.should.be.eql('success');
+      
+      res.body.services.should.be.a('array');
+      done();
+    });
+  });
+});
+
+describe('CREATE EVENT IN CALENDAR',()=>{
+  it('it should GET all services with comments, of provider created for one provider', (done) => {
+  var data = {
+    title: "un evento",
+    hourInit: new Date(),
+    hourFinal: new Date(),
+    date: new Date(),
+    _digdeeper: id_digdeeper_prueba
+  }
+  chai.request(url)
+    .post('/events/')
+    .send(data)
+    .set('x-access-token', token_digdeeper_prueba)
+    .end((err, res) => {
+      //console.log(err)
+      //console.log(res.body)
+      res.should.have.status(201);
+      res.body.should.be.a('object');
+
+      res.body.status.should.be.a('string');
+      res.body.status.should.be.eql('success');
+      
+      res.body.event.should.be.a('object');
+      done();
+    });
+  });
+});

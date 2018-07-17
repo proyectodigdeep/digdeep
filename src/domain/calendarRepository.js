@@ -39,7 +39,14 @@ exports.findAll = function(onSuccess, onError) {
 		else return onSuccess(events)
 	})
 }
-
+exports.getForRangeDateByDigdeeper = function(id, dateInit, dateFinish, onSuccess, onError) {
+	
+	calendarEntity.find({ $and: [{"_digdeeper": id}, {'date': {"$gte": new Date(dateInit) }} , {'date': {"$lte": new Date(dateFinish)}} ]}).exec(function(err, events) {
+		//console.log(events)
+		if (err) return onError("Hubo un error al obtener todas los eventos: "+ err)
+		else return onSuccess(events)
+	})
+}
 exports.findAllByDigdeeper = function(id, onSuccess, onError) {
 	calendarEntity.find({"_digdeeper": id}).exec(function(err, events) {
 		if (err) return onError("Hubo un error al obtener todos los eventos: "+ err)

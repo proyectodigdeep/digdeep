@@ -3,7 +3,7 @@ var calendarApp = require("../../application/calendarApp")
 
 exports.createEvent= function(req,res){
  	var data = req.body
- 	console.log(data)
+ 	//console.log(data)
  	calendarApp.create(data, function(event) {
 		res.status(201)
 		res.json({
@@ -22,7 +22,7 @@ exports.createEvent= function(req,res){
 
 exports.getEvents = function(req, res) {
 	calendarApp.getEvents(function(events) {
-		console.log(events)
+		//console.log(events)
 		res.json({
 			status: "success",
 			events: events

@@ -1,6 +1,7 @@
 var orderApp 	= require('../../application/orderApp')
 var userApp 	= require('../../application/userApp')
 var serviceApp = require('../../application/serviceApp')
+var calendarApp = require('../../application/calendarApp')
 var conektaService 	= require('./conektaService')
 var emailService = require('./emailService');
 var async = require('async');
@@ -90,6 +91,7 @@ exports.cancelOrder = function(req, res) {
 	}
 }
 exports.finishOrder = function(req, res) {
+
 	if (req.user.hasRole('digdeeper')){
 		id_order = req.body.id_order
 		data = {
@@ -103,6 +105,7 @@ exports.finishOrder = function(req, res) {
 				async.waterfall([
 					// get full order
 					function (callback) {
+						
 						orderApp.getOrder(id_order, function (fullOrder) {					
 							callback(null, {
 								client: fullOrder.client,
@@ -116,6 +119,7 @@ exports.finishOrder = function(req, res) {
 					},
 					// get user
 					function (order, callback) {
+						
 						userApp.getUser(order.client, function (fullClient) {
 							callback(null, order, fullClient);
 						}, function (err) {
@@ -124,6 +128,7 @@ exports.finishOrder = function(req, res) {
 					},
 					// create a customer conekta
 					function (order, client, callback) {
+						
 						const customer = {
 							name: client.fullname,
 							email: client.email,
@@ -136,7 +141,6 @@ exports.finishOrder = function(req, res) {
 							if (client.customerId && client.customerId !== '') {
 								//client.id_paymentSource = tokenCard
 								conektaService.searchCustomer(client.customerId, function (customer) {
-									console.log(customer.payment_sources)
 									client.id_paymentSource = order.id_paymentSource
 									/*if (customer.payment_sources.data.length > 0) {
 										client.id_paymentSource = customer.payment_sources.data[0].id
@@ -149,7 +153,7 @@ exports.finishOrder = function(req, res) {
 							}else{
 								// if not contain customer then create a customer on conekta
 								callback(null, order, customer);
-								/*conektaService.createCustomer(customer, tokenCard, function (customer) {
+								conektaService.createCustomer(customer, tokenCard, function (customer) {
 									// add customer id to client					
 									client.customerId = customer.id;						
 									// update client with customer id
@@ -161,11 +165,10 @@ exports.finishOrder = function(req, res) {
 									});
 								}, function (err) {
 									callback({ errName: 'error to create customer', err: err });
-								});*/
+								});
 							}
 						}else {					
 							// SPEI
-							console.log(order, customer)
 							callback(null, order, customer);
 						}
 					},
@@ -178,6 +181,7 @@ exports.finishOrder = function(req, res) {
 							callback({ errName: 'error to create order', err: err });					
 						});*/
 						if (customer.default_payment_source_id) {
+					
 							var id_paymentSource = customer.default_payment_source_id
 							customer.customerId = customer.id
 							conektaService.createOrder(order, customer, paymentMethod, id_paymentSource, function (_order) {
@@ -189,13 +193,16 @@ exports.finishOrder = function(req, res) {
 							if (customer.id_paymentSource) {
 								var id_paymentSource = customer.id_paymentSource
 								conektaService.createOrder(order, customer, paymentMethod, id_paymentSource, function (_order) {
+									//console.log(_order.err.err)
+									//console.log(_order.err.details)
 									callback(null, _order);
 								}, function (err) {
+									//console.log(err.err.details)
 									callback({ errName: 'error to create order', err: err });					
 								});	
 							}else{
+
 								// Orden SPEI
-								console.log(paymentMethod)
 								conektaService.createOrder(order, customer, paymentMethod, id_paymentSource, function (_order) {
 									callback(null, _order);
 								}, function (err) {
@@ -230,7 +237,6 @@ exports.finishOrder = function(req, res) {
 							message: message
 						});*/
 					}
-					console.log('order: ', order );
 							
 					// Para el pago vía tarjeta o spei el estatus de pago siempre sera pendiente
 					// guardar el id de orden de conekta en la orden para 
@@ -271,7 +277,6 @@ exports.finishOrder = function(req, res) {
 						})
 					}else {
 						data.paymentMethod = "Spei"
-						console.log("generando orden spei")
 						// se envia mail de notificacion con la informacion SPEI
 						emailService.notificacionDatosSPEI(
 							{
@@ -463,7 +468,7 @@ exports.payOrder = function(req, res) {
 					message: message
 				});
 			}
-			console.log('order: ', order );
+			//console.log('order: ', order );
 					
 			// Para el pago vía tarjeta o spei el estatus de pago siempre sera pendiente
 			// guardar el id de orden de conekta en la orden para 
@@ -489,7 +494,7 @@ exports.payOrder = function(req, res) {
 				})
 			}else {
 				data.paymentMethod = "Spei"
-				console.log("generando orden spei")
+				//console.log("generando orden spei")
 				// se envia mail de notificacion con la informacion SPEI
 				emailService.notificacionDatosSPEI(
 					{
@@ -889,34 +894,118 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 	var id_user = req.params.id
 	var dateDefaultInit = req.body.dateDefaultInit
 	var dateDefaultFinish = req.body.dateDefaultFinish
+	//////////////777
 
-	orderApp.getForRangeDateByDigdeeper(id_user, dateDefaultInit, dateDefaultFinish, function(orders) {
-		console.log(orders)
-		// Obtener los horarios
-		var ordersDates = []
-		for (var i = 0; i < orders.length; i++) {
-			var orderdate = {
-				dateInit: orders[i].dataService.dateInit,
-				dateFinish: orders[i].dataService.dateFinish,
-				hourInit: orders[i].dataService.hourInit,
-				hourFinish: orders[i].dataService.hourFinish
+	let tasks = {
+			// Borrar Propiedad parcialmente o totalmente si es que existe por lo menos un match pagado o no.
+			FechasServiciosDentro: function (callback) {
+				orderApp.getForRangeDateByDigdeeper(id_user, dateDefaultInit, dateDefaultFinish, function(orders) {
+					//console.log(orders)
+					// Obtener los horarios
+					var ordersDates = []
+					for (var i = 0; i < orders.length; i++) {
+						var orderdate = {
+							dateInit: orders[i].dataService.dateInit,
+							dateFinish: orders[i].dataService.dateFinish,
+							hourInit: orders[i].dataService.hourInit,
+							hourFinish: orders[i].dataService.hourFinish
+						}
+						ordersDates.push(orderdate)
+					}
+					callback(null ,ordersDates)
+					/*res.status(201)
+					res.json({
+						status: "success",
+						message: "Fechas obtenidas correctamente",
+						orders: ordersDates
+					})*/
+				}, function(err) {
+					callback(err, null)
+					/*res.status(400)
+					res.json({
+						status: "failure",
+						message: "No se ha´podido obtener las fechas."
+					})*/
+				})
+			},
+			// Borrar Match No pagados, que tienen esta propiedad.
+			FechasServiciosFuera: function (callback) {
+				var ordersDates = []
+				///
+				fecha = new Date(dateDefaultInit);
+			    entrega1 = new Date(dateDefaultInit);
+			    dia = fecha.getDate();
+			    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
+			    anio = fecha.getFullYear();
+			    entrega1.setDate(entrega1.getDate());
+
+				/*fecha = new Date(dateDefaultInit);
+			    entrega1 = new Date();
+			    dia = fecha.getDate()-1;
+			    mes = fecha.getMonth();// +1 porque los meses empiezan en 0
+			    anio = fecha.getFullYear();
+			    entrega1.setDate(entrega1.getDate());*/
+
+
+			    fecha = new Date(dateDefaultFinish);
+			    entrega2 = new Date(dateDefaultFinish);
+			    dia = fecha.getDate();
+			    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
+			    anio = fecha.getFullYear();
+			    entrega2.setDate(entrega2.getDate()+1);
+
+
+			    /*fecha = new Date(dateDefaultFinish);
+			    entrega2 = new Date();
+			    dia = fecha.getDate()+1;
+			    mes = fecha.getMonth();// +1 porque los meses empiezan en 0
+			    anio = fecha.getFullYear();
+			    entrega2.setDate(entrega2.getDate());*/
+
+			    //console.log(entrega1)
+			    //console.log(entrega2)
+				///
+				calendarApp.getForRangeDateByDigdeeper(id_user, entrega1, entrega2, function (events) {
+					//console.log(events)
+					for (var i = 0; i < events.length; i++) {
+						var orderdate = {
+							dateInit: events[i].date,
+							dateFinish: events[i].date,
+							hourInit: events[i].hourInit,
+							hourFinish: events[i].hourFinal
+						}
+						ordersDates.push(orderdate)
+					}
+					callback(null, ordersDates)
+				}, function (err) {
+					callback(err, null)
+					/*res.status(400)
+					res.json({
+						status: "failure",
+						message: "No se ha´podido obtener las fechas."
+					})	*/
+				})
 			}
-			ordersDates.push(orderdate)
 		}
-		res.status(201)
-		res.json({
-			status: "success",
-			message: "Fechas obtenidas correctamente",
-			//dates: dates,
-			orders: ordersDates
-		})
-	}, function(err) {
-		res.status(400)
-		res.json({
-			status: "failure",
-			message: "No se ha´podido obtener las fechas."
-		})
-	})
+		async.parallel(async.reflectAll(tasks), function(err, results) {
+			if (err) {
+				res.status(400)
+				res.json({
+					status: "failure",
+					message: err
+				})
+			}else{
+				//console.log(results)
+				var ordersReult = results.FechasServiciosDentro.value.concat(results.FechasServiciosFuera.value)
+				//console.log(ordersReult)
+				res.status(201)
+		 		res.json({
+		 			status: "success",
+		 			message: "Fechas encontradas correctamente",
+		 			orders: ordersReult
+		 		})
+			}
+		});
 }
 
 // Obtener todas las ordenes de un usuario con rol "user"

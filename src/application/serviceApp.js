@@ -22,7 +22,6 @@ exports.create = function (data, onSuccess, onError){
             onError("No existe la categoría")
     }, onError) 
 }
-
 exports.getService = function(id,onSuccess, onError) {
 	serviceRepository.find(id,onSuccess, onError)
 }
@@ -44,7 +43,6 @@ exports.updateService = function (id, data, onSuccess, onError) {
         }
     }, onError)
 }
-
 exports.deleteService = function(id, onSuccess, onError) {
     serviceRepository.find(id, function(service) {
         if (service != null) {

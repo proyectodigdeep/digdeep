@@ -45,7 +45,6 @@ module.exports = {
         conekta.Order.create(order, function (err, _order) {
 
             if (!err) {
-                console.log(err)
                 return onSucces(_order.toObject());
             }
             return onError(err);
@@ -84,8 +83,8 @@ module.exports = {
                 console.log(err)
                 onError(err)
             }else{
-                console.log(customer.toObject())
-                console.log(customer.toObject().payment_sources)
+                //console.log(customer.toObject())
+                //console.log(customer.toObject().payment_sources)
                 onSuccess(customer.toObject())
             }
         });
@@ -109,8 +108,8 @@ module.exports = {
                         console.log(err)
                         onError(err)
                     }else{
-                        console.log(customer.toObject())
-                        console.log(customer.toObject().payment_sources)
+                        //console.log(customer.toObject())
+                        //console.log(customer.toObject().payment_sources)
                         onSuccess(customer.toObject())
                     }
                 })
@@ -146,7 +145,7 @@ module.exports = {
                 console.log(err);
                 onError(err.type)
             }else{
-                console.log(res.toObject());    
+                //console.log(res.toObject());    
                 onSuccess(res.toObject())
             }
         });

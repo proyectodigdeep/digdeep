@@ -23,6 +23,9 @@ exports.getEvent = function(id,onSuccess, onError) {
 exports.getEvents = function(onSuccess, onError) {
 	calendarRepository.findAll(onSuccess, onError)
 }
+exports.getForRangeDateByDigdeeper = function(id, dateInit, dateFinal, onSuccess, onError) {
+    calendarRepository.getForRangeDateByDigdeeper(id, dateInit, dateFinal, onSuccess, onError)
+}
 exports.getEventsByDigdeeper = function(id, onSuccess, onError) {
 	calendarRepository.findAllByDigdeeper(id, onSuccess, onError)
 }

@@ -55,6 +55,7 @@ function (                     $localStorage,   $scope,   $state,	 $rootScope,  
     }
 
     function addNewEvent(date) {
+        //console.log(date)
         console.log("agregar nueva fecha "+date.format())
         $scope.openNewEventCalendar(date.format(), $scope.user._id)
     }

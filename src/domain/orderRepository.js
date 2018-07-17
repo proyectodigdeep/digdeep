@@ -13,18 +13,16 @@ exports.create = function (data, onSuccess, onError){
 		order.endDateService 	= data.endDateService
 		order.value 			= data.value 
 		order.placeService 		= data.placeService
-
 		order.dataDelivery.name 	= data.deliveryData.name	
 		order.dataDelivery.email 	= data.deliveryData.email
 		order.dataDelivery.phone 	= data.deliveryData.phone
 		order.dataDelivery.address 	= data.deliveryData.address
 		
-
 		order.dataBilling.name 	= data.dataBilling.name
 		order.dataBilling.rfc 	= data.dataBilling.rfc
 		order.dataBilling.phone = data.dataBilling.phone
 		order.dataBilling.cp 	= data.dataBilling.cp
-
+		
 		order.dataService.dateInit  	= data.dateInit
 		order.dataService.dateFinish 	= data.dateFinal
 		order.dataService.hourInit 		= data.hourInit
@@ -40,11 +38,12 @@ exports.create = function (data, onSuccess, onError){
 		order.dataService.imgUser 		= data.imgUser
 		order.dataService.coordinates.lat 	= data.coordinates.lat
 		order.dataService.coordinates.lng 	= data.coordinates.lng
-
+		
 		order.idOrderConekta 			= ""
 		order.idMethodPay 				= data.idMethodPay
-		
+		//console.log(order)
 	order.save(function(err,order){
+
 		if(err) return onError(err)
 		else return onSuccess(order)
 	})

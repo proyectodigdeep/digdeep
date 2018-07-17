@@ -43,8 +43,10 @@ exports.addMethodPayToCustomer = function(req, res){
 	userApp.find(id_user, function (user) {
 		var id_customer = user.customerId
 		if (id_customer) {
+			
 			conektaService.addCardCustomer(id_customer, tokenCard, function (customer) {
 				if (customer) {
+					res.status(201)
 					res.json({
 						status: 'success', 
 						payment_sources: customer.payment_sources,
@@ -188,7 +190,7 @@ exports.createUser = function(req, res){
 
 exports.verifyMethodPay = function (req, res) {
 	var id_user = req.params.id
-	console.log(id_user)
+	//console.log(id_user)
 	userApp.find(id_user , function (user) {
 		if (user) {
 			var id_customer = user.customerId
@@ -303,9 +305,9 @@ exports.getUser = function(req,res){
 
 exports.getUserByIdAuth0 = function(req,res){
 	var id_auth0 = req.params.id
-	console.log(id_auth0)
+	//console.log(id_auth0)
 	userApp.getUserByIdAuth0(id_auth0, function(user) {
-		console.log(user)
+		//console.log(user)
 		var token = null
 		if (user != null) {
 			token = jwt.sign(user, config.jwt_secret, {
@@ -350,7 +352,7 @@ exports.updatePreferencesUser= function(req,res){
  		categoriesServices: req.body.categoriesServices
  	}
  	userApp.updatePreferencesUser(idUsr, data, function(user) {
- 		console.log("Preferencias guardadas con exito "+user)
+ 		//console.log("Preferencias guardadas con exito "+user)
  		res.json({status: 'success', user: user})
 	}, function(err) {
 		res.status(400)

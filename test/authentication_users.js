@@ -15,7 +15,7 @@ let url = config.server_test
 chai.use(chaiHttp);
 let id_user_prueba_auth0 = "auth0|383722734283423423421"
 
-/*describe('REGISTER ONE USER WITH ROL:"USER OR DIGDEEPER", AFTER TO REGISTER IN AUTH0: ',()=>{
+describe('REGISTER ONE USER WITH ROL:"USER OR DIGDEEPER", AFTER TO REGISTER IN AUTH0: ',()=>{
   it('it should GET ONE USER WITH ROL: "USER OR DIGDEEPER" REGISTERED', (done) => {
     let user = {
       name: 'Fulanito Perez',
@@ -66,7 +66,7 @@ describe('GET TOKEN ACCESS FOR USER OR DIGDEEPER BY ID AUTH0, AFTER TO LOGIN IN 
         done();
       });
   });
-})*/
+})
 
 describe('SEND EMAIL TO USER FROM AUTH0 FOR CHANGE PASSWORD',()=>{
   it('it should GET string success sent and one email in your account', (done) => {
