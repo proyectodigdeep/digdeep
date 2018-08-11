@@ -2,6 +2,140 @@ var nodemailer 	= require('nodemailer')
 var swig  		= require('swig')
 var config 		= require('../../../config')
 var request 	= require("request");
+var handlebars = require('handlebars');
+var fs = require('fs');
+var path = require('path');
+
+var transporter = nodemailer.createTransport({
+	host: config.emailFromData.host,
+	port: config.emailFromData.port,
+	auth: {
+		user: config.emailFromData.user,
+		pass: config.emailFromData.password
+	}
+})
+var mailOptions = {
+	from: config.emailFromData.from,
+	to: "j.lpumas@hotmail.com",
+	subject: "",
+	text: "",
+	html: null
+}
+var pathTemplates = "public/views"
+/**
+ * Funcion que lee un archivo html
+ * @param  {String}   path     ruta del archivo a leer
+ * @param  {Function} callback retorna el resultado del archivo 
+*/
+
+function readHTMLFile(path, callback) {
+	
+	//read file
+	fs.readFile(path, {encoding: 'utf-8'}, (err, html) => {
+		// Se verifica si ocurrio un error
+        if (err) {
+        	console.log('Error readHTMLFile: '+err);
+            callback(err);
+        } else {
+            callback(null, html);
+        }
+    });
+}
+
+exports.notificacionServicioPagado = function(client, order, callback) {
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/notificationServicePaid.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {
+				fullname: client.fullname,
+				hostPath: config.hostPath,
+				phone: client.phone,
+				email: client.email,
+				service: order.title,
+				cost: order.cost
+			}
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = client.email;
+		    mailOptions.subject = '¡Notificación de estatus de pago!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	console.log('Error notificación estatus de pago sendMail: '+error)
+			        callback("Mensaje no enviado");
+			    }
+			    callback("Mensaje enviado con exito")
+			    console.log('Message %s sent: %s', info.messageId, info.response);
+			})
+		}
+	})
+}
+
+exports.contact = function(req, res) {
+	var data = req.body.contact_data
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/contact.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {
+				name: data.name,
+                phone: data.phone,
+                email: data.email,
+                message: data.message,
+             	lastname: data.lastname   
+			}
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = "managerdigeep@gmail.com";
+		    mailOptions.subject = '¡Contactacto DigDeep!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
 
 function send(HTML, subject, to, text, callback) {	
 	var HTML = HTML;
@@ -64,7 +198,7 @@ exports.send = function(req,res) {
 	});
 }
 
-exports.notificacionServicioPagado = function (client, order, callback) {	
+/*exports.notificacionServicioPagado = function (client, order, callback) {	
 	var dateComments = new Date()
 	var d = dateComments.getDate();
 	var m = dateComments.getMonth();
@@ -106,7 +240,7 @@ exports.notificacionServicioPagado = function (client, order, callback) {
 	send(HTML, subject, client.email, text, function (result) {
 		callback(result);
 	});
-}
+}*/
 
 // Obtener el més segun un número
     function getMonth(monthNumber) {

@@ -133,6 +133,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 /****EMAILS****/
 	// Enviar un email
 	router.post("/emails", emailService.send)
+	router.post("/emailscontact", emailService.contact)
 /****ORDENES****/
 	// Obtener ordenes para conekta
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)

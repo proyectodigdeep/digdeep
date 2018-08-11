@@ -16,6 +16,7 @@ module.exports = {
 		host: "mail.dreamhost.com",
 		port: 587,
 	},
+	hostPath: 'http://digdeep.mx/',
 	conekta: {
 		apiKey: 'key_RbynxeQNr9WAh7JPXyyxkw',
 		locale: 'es',

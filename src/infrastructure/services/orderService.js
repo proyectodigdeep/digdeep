@@ -6,6 +6,19 @@ var conektaService 	= require('./conektaService')
 var emailService = require('./emailService');
 var async = require('async');
 
+/*emailService.notificacionServicioPagado(
+	{
+		fullname: "Jose Luis",
+		phone: "213123",
+		email: "patosoak@gmail.com"		
+	},
+	{
+		title: "hola servicio de prueba",
+		cost: "232"
+	}, function (resultMail) {
+		console.log('resultMail: ', resultMail);
+	}
+)*/
 exports.postOrder = function(req, res) {
 	if (req.user.hasRole('user')){
 		var data = req.body
