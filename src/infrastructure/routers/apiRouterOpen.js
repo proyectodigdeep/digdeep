@@ -215,6 +215,7 @@ router.post('/whconekta', function (req, res) {
 									digdeeper_name: order.dataService.nameDD,
 									digdeeper_picture: order.dataService.imgDD
 								}
+								cons
 								emailService.notificacionServicioPagado(clientData, orderData, function (result) {
 									res.status(result.status).json(result.body);
 								})
@@ -236,7 +237,45 @@ router.post('/whconekta', function (req, res) {
 		res.status(400);
 	}
 })
-
+// Obtener el més segun un número
+    function getMonth(monthNumber) {
+        if (monthNumber === 0) {
+            return "Enero"
+        }
+        if (monthNumber === 1) {
+            return "Febrero"
+        }
+        if (monthNumber === 2) {
+            return "Marzo"
+        }
+        if (monthNumber === 3) {
+            return "Abril"
+        }
+        if (monthNumber === 4) {
+            return "Mayo"
+        }
+        if (monthNumber === 5) {
+            return "Junio"
+        }
+        if (monthNumber === 6) {
+            return "Julio"
+        }
+        if (monthNumber === 7) {
+            return "Agosto"
+        }
+        if (monthNumber === 8) {
+            return "Septiembre"
+        }
+        if (monthNumber === 9) {
+            return "Octubre"
+        }
+        if (monthNumber === 10) {
+            return "Noviembre"
+        }
+        if (monthNumber === 11) {
+            return "Diciembre"
+        }
+    }
 /**** ROOT ****/
 // Iniciar sesión administrador
 	router.post("/authenticate", securityService.authenticate)
