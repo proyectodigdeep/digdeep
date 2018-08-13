@@ -34,8 +34,8 @@ function (                             $rootScope,   $scope,   $uibModal,   $doc
 
 }])
 
-.controller('confirmOrderModalInstanceCtrl', ['$rootScope', '$uibModalInstance', 'ordersService', '$localStorage', 'idOrder', 'done', '$scope','$state','userService','$http',
-function (                                     $rootScope,   $uibModalInstance,   ordersService,   $localStorage,   idOrder,   done,   $scope,  $state,  userService,  $http) {
+.controller('confirmOrderModalInstanceCtrl', ['$rootScope', '$uibModalInstance', 'ordersService', '$localStorage', 'idOrder', 'done', '$scope','$state','userService','$http', 'serviceService',
+function (                                     $rootScope,   $uibModalInstance,   ordersService,   $localStorage,   idOrder,   done,   $scope,  $state,  userService,  $http, serviceService) {
     // Aceptar y confirmar un servicio
 
     this.confirmOrder = function () {
