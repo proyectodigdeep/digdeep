@@ -215,7 +215,6 @@ router.post('/whconekta', function (req, res) {
 									digdeeper_name: order.dataService.nameDD,
 									digdeeper_picture: order.dataService.imgDD
 								}
-								cons
 								emailService.notificacionServicioPagado(clientData, orderData, function (result) {
 									res.status(result.status).json(result.body);
 								})
