@@ -100,6 +100,7 @@ function (                                    rolCancel,  $rootScope,   $uibModa
                             "<div><img src='"+order.dataService.picture+"'></div>"+
                             "<p>Ponte en contacto con DIGDEEP Tel: (222) 290-9180 (222) 431-8868 </p>"
                             
+                    
                     // Obtener los datos del proveedor
                     userService.getUser(order.digdeeper,function (digdeeper) {
                         var data = {
@@ -108,7 +109,21 @@ function (                                    rolCancel,  $rootScope,   $uibModa
                         to:         digdeeper.email+","+"manager@digdeep.com.mx",
                         text:       "Gracias por digdeepear"
                         }
-                        $http.post("v1/emails", data)
+                        var dataEmail = {
+                            cancelReasons: order.dataCancelOrder.cancelReasons,
+                            client_name: client.fullname,
+                            service: {
+                                title: order.dataService.title,
+                                date_init: dateInit,
+                                date_finish: dateFinish,
+                                hour_init: hourInit,
+                                hour_finish: hourFinish,
+                                cost: order.dataService.cost,
+                                picture: order.dataService.picture
+                            },
+                            to_send_users: digdeeper.email
+                        }
+                        $http.post("v1/emailscancel_user", dataEmail)
                         .then(function(response) {
                             if(response.data.status === "success"){
                                 $rootScope.$emit("openAlertDigdeepModal", {textAlert:"Se le ha enviado un correo a tu proveedor"})
@@ -156,7 +171,22 @@ function (                                    rolCancel,  $rootScope,   $uibModa
                             to:         client.email+","+"manager@digdeep.com.mx",
                             text:       "Gracias por digdeepear"
                             }
-                            $http.post("v1/emails", data)
+                            var dataEmail = {
+                                cancelReasons: order.dataCancelOrder.cancelReasons,
+                                digdeeper_name: digdeeper.fullname,
+                                service: {
+                                    title: order.dataService.title,
+                                    date_init: dateInit,
+                                    date_finish: dateFinish,
+                                    hour_init: hourInit,
+                                    hour_finish: hourFinish,
+                                    cost: order.dataService.cost,
+                                    picture: order.dataService.picture
+                                },
+                                to_send_users: client.email
+                            }
+
+                            $http.post("v1/emailscancel_digdeeper", dataEmail)
                             .then(function(response) {
                                 if(response.data.status === "success"){
                                     $rootScope.$emit("openAlertDigdeepModal", {textAlert:"Se le ha enviado un correo a tu cliente"})

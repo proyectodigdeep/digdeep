@@ -5,8 +5,8 @@
 	<div class="row backgroundBar" >
 		<div class="col-md-1 col-sm-1 col-xs-12" style="width: 6.8%"></div>
 		<div class="col-md-2 col-sm-2 col-xs-12 text-left">
-			<a ui-sref="homeLS">
-				<img src="img/livestyle/digPinkLogoBar.png" class="logoBar">
+			<a ui-sref="homeES">
+				<img src="img/socialevents/digPurpleLogoBar.png" class="logoBar">
 			</a>
 		</div>
 		<div class="col-md-9 col-sm-9 col-xs-12" >
@@ -42,7 +42,7 @@
 							DELIVERY
 						</span>	
 					</div>
-				</a>
+				</a>	
 				<a ui-sref="homeHO">
 					<div class="col-md-2 col-sm-3 col-xs-6 colRabbitIcon colRabbitIconGR linkBarRabbits">
 						<img src="img/digVerde.png" class="rabbitColor">
@@ -50,36 +50,36 @@
 							HOGAR
 						</span>	
 					</div>
-				</a>	
+				</a>
 			</div>	
 		</div>	
 	</div>
 </div>
 <!--Content-->
-<div class="container-fluid containerLSImg">
-	<div style="height: 100%;background-color: #f61a5e8a"></div>
+<div class="container-fluid containerESImg">
+	<div style="height: 100%;background-color: #9c76c44a"></div>		
 </div>
 <div class="container containerServicesContent" >
 	<div class="row">
 		<div class="col-md-3 col-sm-4 col-xs-12" >
 			<div class="row div-searchServices2">
-				<div class="row serviceLabel2LS" ng-repeat="subcat in subcategories">
-					<button class="col-md-10 col-sm-10 col-xs-10 labelServiceLS btn" ng-click="goDigdeepersLs(subcat._id, subcat.title)">
+				<div class="row serviceLabel2ES" ng-repeat="subcat in subcategories">
+					<button class="col-md-10 col-sm-10 col-xs-10 labelServiceS btn" ng-click="goDigdeepersBe(subcat._id, subcat.title)">
 						{{subcat.title}}
 					</button>
 					<div class="col-md-2 col-sm-2 col-xs-2 buttonSearchService">
-						<button class="btn btn-default" style="height: 37px" ng-click="goDigdeepersLs(subcat._id,subcat.title)">
-							<img src="img/livestyle/pinkLens.png" style="max-width: 18px">
+						<button class="btn btn-default" style="height: 37px" ng-click="goDigdeepersBe(subcat._id, subcat.title)">
+							<img src="img/socialevents/lupa.png" style="max-width: 18px">
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-9 col-sm-8 col-xs-12">
-			<h3 class="titleLSservices">{{titleSubcat}}</h3>
+			<h3 class="titleSEservices">{{titleSubcat}}</h3>
 			<div class="row">
 				<div class="col-md-4 col-sm-6 col-xs-12 cardContainer" ng-repeat="digdeeper in digdeepers">
-					<div class="cardSubContainerLS">
+					<div class="cardSubContainerES">
 						<div ng-click="openDetailsDigdeeperModal(digdeeper)" style="cursor: pointer">
 							<div style="padding: 10px">
 								<img class="img-responsive imgprofileCard" src="{{digdeeper.urlImg}}" >
@@ -108,7 +108,7 @@
 							</div>
 						</div>
 						<div class="text-center" ng-click="goServicesToDigdeeper(digdeeper._id)">
-							<button class="btn btn-block buttonContractCardLS">IR A SERVICIOS</button>
+							<button class="btn btn-block buttonContractCardES">IR A SERVICIOS</button>
 						</div>
 					</div>
 				</div>

@@ -28,7 +28,7 @@ var app = angular.module('digdeepApp', [
 
 	"digdeepApp.homeESCtrl",
 	"digdeepApp.homeLSCtrl",
-	"digdeepApp.homeENCtrl",
+	"digdeepApp.homeBECtrl",
 	"digdeepApp.homeDECtrl",
 	"digdeepApp.homeHOCtrl",
 
@@ -39,6 +39,7 @@ var app = angular.module('digdeepApp', [
 	"digdeepApp.profilesESCtrl",
 	"digdeepApp.profilesLSCtrl",
 	"digdeepApp.profilesHOCtrl",
+	"digdeepApp.profilesBECtrl",
 	
 	"digdeepApp.userProfileCtrl",
 	"digdeepApp.digdeeperProfileCtrl",

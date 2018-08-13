@@ -100,7 +100,24 @@ function (                                            serviceService,  $rootScop
             to:         "manager@digdeep.com.mx",// correo de Digdeep
             text:       "Gracias por digdeepear"
             }
-            $http.post("v1/emails", data)
+            var dataEmail = {
+                date_comments: dateCommentsString,
+                client_name: client.fullname,
+                client_email: client.email,
+                comments: $scope.comments,
+                service: {
+                    title: Order.dataService.title,
+                    digdeeper_name: Order.dataService.nameDD,
+                    digdeeper_picture: Order.dataService.imgDD,
+                    date_init: dateInit,
+                    date_finish: dateFinish,
+                    hour_init: hourInit,
+                    hour_finish: hourFinish,
+                    cost: Order.dataService.cost,
+                    picture: Order.dataService.picture
+                }
+            }
+            $http.post("v1/emails_comments", dataEmail)
             .then(function(response) {
                 if(response.data.status === "success"){
                     //$uibModalInstance.close()

@@ -1399,7 +1399,7 @@ a.text-topnavMenuG:hover{
     width: 15%;
 }
 .colRabbitIconRe{
-    width: 20%;
+    width: 15%;
 }
 .colRabbitIconBl{
     width: 15%;
@@ -1457,8 +1457,15 @@ a.text-topnavMenuG:hover{
     margin-right: 160px;
     margin-bottom: 35px;
 }
-.panelHLS{
+/*.panelHLS{
     background-color: #f61a5eb0;
+    margin-top: 190px;
+    margin-left: 287px;
+    margin-right: 160px;
+    margin-bottom: 35px;
+}*/
+.panelHLS{
+    background-color: #8fbc1f82;
     margin-top: 190px;
     margin-left: 287px;
     margin-right: 160px;
@@ -1538,6 +1545,17 @@ a.text-topnavMenuG:hover{
     margin-left: -2px;
 }
 .labelServiceS{
+    font-family: "FjallaOne-Regular";
+    font-size: 19px;
+    background-color: #9c76c7;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    text-align: left;
+    border-radius: initial;
+}
+.labelServiceBloqued{
     font-family: "FjallaOne-Regular";
     font-size: 19px;
     background-color: #9c76c7;

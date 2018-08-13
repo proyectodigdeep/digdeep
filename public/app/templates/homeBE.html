@@ -20,21 +20,11 @@
 				<!-- Categorias activas -->
 				<div class="row" ng-repeat="subcat in subcategories" >
 					<div class="serviceLabel">
-						<button class="col-md-10 col-sm-10 col-xs-10 labelServiceS btn" ng-click="goServicesEs(subcat._id, subcat.title)" ng-if="subcat.slug != 'wedding-planner'">
+						<button class="col-md-10 col-sm-10 col-xs-10 labelServiceS btn" ng-click="goServicesBe(subcat._id, subcat.title)" ng-if="subcat.slug != 'wedding-planner'">
 							{{subcat.title}}
 						</button>
-						<div class="col-md-2 col-sm-2 col-xs-2 buttonSearchService" ng-if="subcat.slug != 'wedding-planner'">
-							<button class="btn btn-default" style="height: 37px" ng-click="goServicesEs(subcat._id, subcat.title)">
-								<img src="img/socialevents/lupa.png" style="max-width: 19px">
-							</button>
-						</div>	
-					</div>
-					<div>
-						<button class="col-md-10 col-sm-10 col-xs-10 labelServiceBloqued btn" ng-if="subcat.slug == 'wedding-planner'" style="opacity: 0.5;cursor: not-allowed;">
-							{{subcat.title}}
-						</button>
-						<div class="col-md-2 col-sm-2 col-xs-2 buttonSearchService" ng-if="subcat.slug == 'wedding-planner'" style="opacity: 0.5;">
-							<button class="btn btn-default" style="height: 37px;cursor: not-allowed;">
+						<div class="col-md-2 col-sm-2 col-xs-2 buttonSearchService">
+							<button class="btn btn-default" style="height: 37px" ng-click="goServicesBe(subcat._id, subcat.title)">
 								<img src="img/socialevents/lupa.png" style="max-width: 19px">
 							</button>
 						</div>	

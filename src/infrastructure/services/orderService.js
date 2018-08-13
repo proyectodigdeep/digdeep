@@ -6,11 +6,11 @@ var conektaService 	= require('./conektaService')
 var emailService = require('./emailService');
 var async = require('async');
 
-/*emailService.notificacionServicioPagado(
+/*emailService.notification_contact(
 	{
 		fullname: "Jose Luis",
 		phone: "213123",
-		email: "patosoak@gmail.com"		
+		email: "j.lpumas@hotmail.com"		
 	},
 	{
 		title: "hola servicio de prueba",
@@ -110,7 +110,7 @@ exports.finishOrder = function(req, res) {
 		data = {
 			endDateService: req.body.endDateService
 		}
-		orderApp.finishOrder(id_order,data,function(order_finished) {
+		orderApp.finishOrder(id_order,data, function(order_finished) {
 			////
 				var id_order = order_finished._id
 				var paymentMethod = 'card'
@@ -460,9 +460,7 @@ exports.payOrder = function(req, res) {
 							callback({ errName: 'error to create order', err: err });					
 						});	
 					}
-					
 				}
-				
 			}
 		], 
 		// err : Error en algun paso anterior de las funciones de serie

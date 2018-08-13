@@ -87,8 +87,8 @@ exports.notificacionServicioPagado = function(client, order, callback) {
 	})
 }
 
-exports.contact = function(req, res) {
-	var data = req.body.contact_data
+exports.notification_contact = function(req, res) {
+	var data = req.body
 	//get absoulte path to template
 	var absolutePath = path.resolve(pathTemplates+'/contact.html');
 	//call function to read html file
@@ -113,8 +113,243 @@ exports.contact = function(req, res) {
 			var htmlToSend = template(replacements);
 
 			//options for body mail
-			mailOptions.to = "managerdigeep@gmail.com";
+			mailOptions.to = config.email_digdeep;
 		    mailOptions.subject = '¡Contactacto DigDeep!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
+
+exports.notification_contract = function(req, res) {
+	//console.log(req.body)
+	var data = req.body
+	console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/contract.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {}
+				replacements = data
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = data.to_send_users+","+config.email_digdeep;
+		    mailOptions.subject = '¡Nuevo Servicio Contratado!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
+
+exports.notification_cancel_user = function(req, res) {
+	//console.log(req.body)
+	var data = req.body
+	console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/cancel_service_user.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {}
+				replacements = data
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = data.to_send_users+","+config.email_digdeep;
+		    mailOptions.subject = '¡Cancelación de servicio!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
+
+exports.notification_cancel_digdeeper = function(req, res) {
+	//console.log(req.body)
+	var data = req.body
+	console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/cancel_service_digdeeper.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {}
+				replacements = data
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = data.to_send_users+","+config.email_digdeep;
+		    mailOptions.subject = '¡Cancelación de servicio!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
+
+exports.notification_confirm_service = function(req, res) {
+	//console.log(req.body)
+	var data = req.body
+	console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/confirm_service.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {}
+				replacements = data
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = data.to_send_users
+		    mailOptions.subject = '¡Confirmación de servicio!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
+
+exports.notification_comments = function(req, res) {
+	//console.log(req.body)
+	var data = req.body
+	console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/comments_service.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {}
+				replacements = data
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = config.email_digdeep
+		    mailOptions.subject = '¡Comentarios de un servicio!';
 		    mailOptions.html = htmlToSend;
 
 		    // send mail with defined transport object

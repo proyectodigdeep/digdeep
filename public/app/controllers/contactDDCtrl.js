@@ -48,7 +48,7 @@ function (                  	$scope,   $state,	$rootScope,   $interval,   $http)
                             "<p><h3>MENSAJE</h3></p>"+
                             "<p><ul style='list-style-type: none'><li>"+$scope.contact.message+"</li></ul></p>"+
                         "</div>"
-            var contact_data ={
+            var dataEmail ={
                 name: $scope.contact.name,
                 lastname: $scope.contact.lastname,
                 phone: $scope.contact.phone,
@@ -60,9 +60,9 @@ function (                  	$scope,   $state,	$rootScope,   $interval,   $http)
                 subject:    "Mensaje de contacto",
                 to:         $scope.emailDigdeep,//Correo de digdeep a quien va llegar los correos que manda el contacto
                 text:       $scope.contact.message,
-                contact_data: contact_data
+                dataEmail: dataEmail
             }
-            $http.post("v1/emailscontact", data)
+            $http.post("v1/emailscontact", dataEmail)
             .then(function(response) {
                 console.log("here")
                 if(response.data.status === "success"){

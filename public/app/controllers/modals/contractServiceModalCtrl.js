@@ -906,33 +906,55 @@ function (                                        typePrice,  geocodeService,  S
                             "<div style='text-align:center'><h3>PRECIO</h3>"+
                             "<p>$"+Order.dataService.cost+".00 MXN</p>"+
                             "</div>"
-
-                var emailusers = client.email+","+digdeeper.email+","+"manager@digdeep.com.mx" //en el ultimo correo poner a digdeep
-                var data = {
-                HTML:       html,
-                subject:    "ORDEN DE SERVICIO CONTRATADO",
-                to:         emailusers,
-                text:       "Gracias por digdeepear"
+                var emailData = {
+                    date_contract: dateCommentsString,
+                    client_name: {
+                        name: client.fullname,
+                        picture: client.urlImg,
+                        email: client.email,
+                        phone: client.phone
+                    },
+                    digdeeper: {
+                        name: digdeeper.fullname,
+                        picture: digdeeper.urlImg,
+                        email: digdeeper.email,
+                        phone: digdeeper.phone
+                    },
+                    service: {
+                        title: Order.dataService.title,
+                        date_init: dateInit,
+                        date_finish: dateFinish,
+                        hour_init: hourInit,
+                        hour_finish: hourFinish,
+                        picture: Order.dataService.picture,
+                        cost: Order.dataService.cost,
+                        id: Order._id
+                    },
+                    to_send_users: client.email+","+digdeeper.email
                 }
-                $http.post("v1/emails", data)
+                //var emailusers = client.email+","+digdeeper.email+","+"manager@digdeep.com.mx" //en el ultimo correo poner a digdeep
+                /*var data = {
+                    HTML:       html,
+                    subject:    "ORDEN DE SERVICIO CONTRATADO",
+                    to:         emailusers,
+                    text:       "Gracias por digdeepear"
+                }*/
+                console.log(emailData)
+                $http.post("v1/emailscontract", emailData)
                 .then(function(response) {
                     if(response.data.status === "success"){
-                        //$uibModalInstance.close()
-                        //$rootScope.$emit("openAlert", {textAlert:"Se ha enviado tus comentarios a DIGDEEP, Gracias por ayudarnos a mejorar para ti."})
+                        console.log("Mensaje enviado correctamente.")
                     }
                     else{
                         $rootScope.$emit("openAlert", {textAlert:"Mensaje NO enviado, no se le pudo avisar a DIGDEEP contactalo..."})
                     }
                 })
-
-                //
-                },function (err) {
-                    console.log(err)
-                })       
-            
             },function (err) {
                 console.log(err)
-            })
+            })       
+        },function (err) {
+            console.log(err)
+        })
     }
     
     // Para mandar a la directive de mapa la lat, lng debe ser un objeto simple tipo {latitude:123,longitude:456}

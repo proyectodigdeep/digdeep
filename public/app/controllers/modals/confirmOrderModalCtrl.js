@@ -93,7 +93,20 @@ function (                                     $rootScope,   $uibModalInstance, 
                     to:         client.email,
                     text:       "Gracias por digdeepear"
                     }
-                    $http.post("v1/emails", data)
+                    var dataEmail = {
+                        digdeeper_name: digdeeper.fullname,
+                        service:{
+                            title: order.dataService.title,
+                            date_init: dateInit,
+                            date_finish: dateFinish,
+                            hour_init: hourInit,
+                            hour_finish: hourFinish,
+                            cost: order.dataService.cost,
+                            picture: order.dataService.picture
+                        },
+                        to_send_users: client.email
+                    }
+                    $http.post("v1/emailsconfirm", dataEmail)
                     .then(function(response) {
                         if(response.data.status === "success"){
                             $rootScope.$emit("openAlertDigdeepModal", {textAlert:"Se le ha enviado un correo a tu cliente"})
