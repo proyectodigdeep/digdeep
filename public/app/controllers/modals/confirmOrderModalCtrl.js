@@ -68,9 +68,7 @@ function (                                     $rootScope,   $uibModalInstance, 
             hh = dateFormated.getHours();
             mm = dateFormated.getMinutes();
             var hourFinish = String(hh)+":"+String(mm)
-            $rootScope.$emit("openAlertDigdeepModal",{
-                textAlert: "Orden confirmada correctamente"
-            })
+
             // Obtener los datos del digdeeper para enviarselos a el cliente
             userService.getUser(order.digdeeper,function (digdeeper) {
                 serviceService.getService(Order.dataService._service, function (service) {
@@ -113,6 +111,10 @@ function (                                     $rootScope,   $uibModalInstance, 
                         $http.post("v1/emailsconfirm", dataEmail)
                         .then(function(response) {
                             if(response.data.status === "success"){
+                                console.log(response)
+                                $rootScope.$emit("openAlertDigdeepModal",{
+                                    textAlert: "Orden confirmada correctamente"
+                                })
                                 $state.go("historyservices")
                                 $rootScope.$emit("openAlertDigdeepModal", {textAlert:"Se le ha enviado un correo a tu cliente"})
                             }
