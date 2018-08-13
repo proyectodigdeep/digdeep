@@ -16,8 +16,8 @@ module.exports = {
 		host: "mail.dreamhost.com",
 		port: 587,
 	},
-	//email_digdeep: "managerdigeep@gmail.com",
-	email_digdeep: "j.lpumas@hotmail.com",
+	/email_digdeep: "managerdigeep@gmail.com",
+	//email_digdeep: "j.lpumas@hotmail.com",
 	
 	hostPath: 'http://digdeep.mx/',
 	conekta: {
