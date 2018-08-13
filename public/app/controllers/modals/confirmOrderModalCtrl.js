@@ -44,9 +44,7 @@ function (                                     $rootScope,   $uibModalInstance, 
         ordersService.confirmOrder(idOrder,startDateService,$localStorage.token, function (order) {
             $uibModalInstance.close()
             
-            $rootScope.$emit("openAlertDigdeepModal",{
-                textAlert: "Orden confirmada correctamente"
-            })
+            
             var dateFormated = new Date(order.dataService.dateInit)
             var d = dateFormated.getDate();
             var m = dateFormated.getMonth();
@@ -70,7 +68,9 @@ function (                                     $rootScope,   $uibModalInstance, 
             hh = dateFormated.getHours();
             mm = dateFormated.getMinutes();
             var hourFinish = String(hh)+":"+String(mm)
-
+            $rootScope.$emit("openAlertDigdeepModal",{
+                textAlert: "Orden confirmada correctamente"
+            })
             // Obtener los datos del digdeeper para enviarselos a el cliente
             userService.getUser(order.digdeeper,function (digdeeper) {
                 serviceService.getService(Order.dataService._service, function (service) {
