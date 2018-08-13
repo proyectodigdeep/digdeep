@@ -888,67 +888,73 @@ function (                                        typePrice,  geocodeService,  S
         userService.getUser(Order.client,function (client) {
             // obtener los datos del proveedor
             userService.getUser(Order.digdeeper,function (digdeeper) {
-                //
-                // Configurando datos para genarar el correo a enviar a Soporte Digdeeper
-                var html =  "<div style='text-align:right'><p>Fecha: "+dateCommentsString+"</p></div>"+
-                            "<p>Hola un coordial saludo "+client.fullname+"<br>Tu orden ha sido generada correctamente</p>"+
-                            "<hr>"+
-                            "<p>Datos del Proveedor</p>"+
-                            "<p>Nombre: "+Order.dataService.nameDD+"</p>"+
-                            "<img src='"+Order.dataService.imgDD+"' style='margin: 0 auto;'>"+
-                            "<p>Titulo del servicio: "+Order.dataService.title+"</p>"+
-                            "<p>Fecha de inicio: "+dateInit+"</p>"+
-                            "<p>Fecha en que termina: "+dateFinish +"</p>"+
-                            "<p>Hora de inicio: "+hourInit+" hrs.</p>"+
-                            "<p>Hora en que termina: "+hourFinish+" hrs.</p>"+
-                            "<img src='"+Order.dataService.picture+"' style='margin: 0 auto'>"+
-                            "<hr>"+
-                            "<div style='text-align:center'><h3>PRECIO</h3>"+
-                            "<p>$"+Order.dataService.cost+".00 MXN</p>"+
-                            "</div>"
-                var emailData = {
-                    date_contract: dateCommentsString,
-                    client_name: {
-                        name: client.fullname,
-                        picture: client.urlImg,
-                        email: client.email,
-                        phone: client.phone
-                    },
-                    digdeeper: {
-                        name: digdeeper.fullname,
-                        picture: digdeeper.urlImg,
-                        email: digdeeper.email,
-                        phone: digdeeper.phone
-                    },
-                    service: {
-                        title: Order.dataService.title,
-                        date_init: dateInit,
-                        date_finish: dateFinish,
-                        hour_init: hourInit,
-                        hour_finish: hourFinish,
-                        picture: Order.dataService.picture,
-                        cost: Order.dataService.cost,
-                        id: Order._id
-                    },
-                    to_send_users: client.email+","+digdeeper.email
-                }
-                //var emailusers = client.email+","+digdeeper.email+","+"manager@digdeep.com.mx" //en el ultimo correo poner a digdeep
-                /*var data = {
-                    HTML:       html,
-                    subject:    "ORDEN DE SERVICIO CONTRATADO",
-                    to:         emailusers,
-                    text:       "Gracias por digdeepear"
-                }*/
-                console.log(emailData)
-                $http.post("v1/emailscontract", emailData)
-                .then(function(response) {
-                    if(response.data.status === "success"){
-                        console.log("Mensaje enviado correctamente.")
+                serviceService.getService(Order.dataService._service, function (service) {
+                    //
+                    // Configurando datos para genarar el correo a enviar a Soporte Digdeeper
+                    var html =  "<div style='text-align:right'><p>Fecha: "+dateCommentsString+"</p></div>"+
+                                "<p>Hola un coordial saludo "+client.fullname+"<br>Tu orden ha sido generada correctamente</p>"+
+                                "<hr>"+
+                                "<p>Datos del Proveedor</p>"+
+                                "<p>Nombre: "+Order.dataService.nameDD+"</p>"+
+                                "<img src='"+Order.dataService.imgDD+"' style='margin: 0 auto;'>"+
+                                "<p>Titulo del servicio: "+Order.dataService.title+"</p>"+
+                                "<p>Fecha de inicio: "+dateInit+"</p>"+
+                                "<p>Fecha en que termina: "+dateFinish +"</p>"+
+                                "<p>Hora de inicio: "+hourInit+" hrs.</p>"+
+                                "<p>Hora en que termina: "+hourFinish+" hrs.</p>"+
+                                "<img src='"+Order.dataService.picture+"' style='margin: 0 auto'>"+
+                                "<hr>"+
+                                "<div style='text-align:center'><h3>PRECIO</h3>"+
+                                "<p>$"+Order.dataService.cost+".00 MXN</p>"+
+                                "</div>"
+                    var emailData = {
+                        date_contract: dateCommentsString,
+                        client: {
+                            name: client.fullname,
+                            picture: client.urlImg,
+                            email: client.email,
+                            phone: client.phone
+                        },
+                        digdeeper: {
+                            name: digdeeper.fullname,
+                            picture: digdeeper.urlImg,
+                            email: digdeeper.email,
+                            phone: digdeeper.phone
+                        },
+                        service: {
+                            title: Order.dataService.title,
+                            date_init: dateInit,
+                            date_finish: dateFinish,
+                            hour_init: hourInit,
+                            hour_finish: hourFinish,
+                            picture: Order.dataService.picture,
+                            cost: Order.dataService.cost,
+                            id: Order._id,
+                            description: service.description
+                        },
+                        to_send_users: client.email
                     }
-                    else{
-                        $rootScope.$emit("openAlert", {textAlert:"Mensaje NO enviado, no se le pudo avisar a DIGDEEP contactalo..."})
-                    }
+                    //var emailusers = client.email+","+digdeeper.email+","+"manager@digdeep.com.mx" //en el ultimo correo poner a digdeep
+                    /*var data = {
+                        HTML:       html,
+                        subject:    "ORDEN DE SERVICIO CONTRATADO",
+                        to:         emailusers,
+                        text:       "Gracias por digdeepear"
+                    }*/
+                    console.log(emailData)
+                    $http.post("v1/emailscontract", emailData)
+                    .then(function(response) {
+                        if(response.data.status === "success"){
+                            console.log("Mensaje enviado correctamente.")
+                        }
+                        else{
+                            $rootScope.$emit("openAlert", {textAlert:"Mensaje NO enviado, no se le pudo avisar a DIGDEEP contactalo..."})
+                        }
+                    })
+                }, function (err) {
+                    console.log(err)
                 })
+                
             },function (err) {
                 console.log(err)
             })       

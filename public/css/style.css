@@ -197,11 +197,18 @@ a,
     background-color: #662480;
     margin-top: initial;
 }
+.titleBEservices{
+    font-family: FjallaOne-Regular;
+    color: white;
+    padding: 2px 12px;
+    background-color: #e72161;
+    margin-top: initial;
+}
 .titleLSservices{
     font-family: FjallaOne-Regular;
     color: white;
     padding: 2px 12px;
-    background-color: #f61a5e;
+    background-color: #8fbc1f;
     margin-top: initial;
 }
 .cardServicebtnDE:hover{
@@ -324,6 +331,12 @@ a,
 }
 .linkBarRabbits:hover .rabbitColor{
     width: 50px;
+    transition: all 0.5s ease !important;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 .linkSubTopnav:hover .text-subtopnavMenu,
 .linkSubTopnav:hover .fa-sort-desc{
@@ -662,14 +675,14 @@ input[type=checkbox].checkLS {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    border: double 2px #f61a5e;
+    border: double 2px #8fbc1f;
     border-radius: 50%;
     width: 15px;
     height: 15px;
     margin: 0 5px 0 0;
 }
 input[type=checkbox].checkLS:checked {
-    background-color: #f61a5e;
+    background-color: #8fbc1f;
 }
 .modal-content{
     border-radius: 19px;
@@ -1032,7 +1045,14 @@ button.btn.btn-default.btn-sm:hover {
     cursor: pointer;
 }
 .iconsDigColors:hover {
-    max-width: 70px;
+    max-width: 75px;
+    width: 75px;
+    transition: all 0.5s ease !important;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .imgPeopleServices{
@@ -1330,12 +1350,12 @@ a.text-topnavMenuG:hover{
     visibility: visible;
 }
 
-.tituloConejoRed{
+.tituloConejoSinColor{
     visibility: hidden;
     font-family: FjallaOne-Regular;
     color: #DE0613;
 }  
-.envolturaConejoRed:hover .tituloConejoRed {
+.envolturaConejoSinColor:hover .tituloConejoSinColor {
     visibility: visible;
 }
 
@@ -1450,6 +1470,13 @@ a.text-topnavMenuG:hover{
     margin-right: 160px;
     margin-bottom: 35px;
 }
+.panelBEA{
+    background-color: #e7216187;
+    margin-top: 190px;
+    margin-left: 287px;
+    margin-right: 160px;
+    margin-bottom: 35px;
+}
 .panelHEN{
     background-color: #de0613cc;
     margin-top: 190px;
@@ -1519,11 +1546,17 @@ a.text-topnavMenuG:hover{
     padding-right: 5px;
     background-color: #9c76c7;
 }
+.serviceLabel2BE{
+    margin: 0px;
+    margin-bottom: 10px;
+    padding-right: 5px;
+    background-color: #e72161;
+}
 .serviceLabel2LS{
     margin: 0px;
     margin-bottom: 10px;
     padding-right: 5px;
-    background-color: #f61a5e;
+    background-color: #8fbc1f;
 }
 .divFiltersES{
     margin: 0px;
@@ -1534,7 +1567,7 @@ a.text-topnavMenuG:hover{
 .divFiltersLS{
     margin: 0px;
     margin-bottom: 10px;
-    background-color: #f61a5e;
+    background-color: #8fbc1f;
     margin-top: 30px;
 }
 .buttonSearchService{
@@ -1555,6 +1588,7 @@ a.text-topnavMenuG:hover{
     text-align: left;
     border-radius: initial;
 }
+
 .labelServiceBloqued{
     font-family: "FjallaOne-Regular";
     font-size: 19px;
@@ -1570,10 +1604,26 @@ a.text-topnavMenuG:hover{
     background-color: #9c76c7bd;
     color: #214158;
 }
+.labelServiceBE{
+    font-family: "FjallaOne-Regular";
+    font-size: 19px;
+    background-color: #e72161;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    text-align: left;
+    border-radius: initial;
+}
+.labelServiceBE:hover{
+    background-color: #e72161bd;
+    color: #214158;
+}
+
 .labelServiceLS{
     font-family: "FjallaOne-Regular";
     font-size: 19px;
-    background-color: #f61a5e;
+    background-color: #8fbc1f;
     color: white;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -1583,7 +1633,7 @@ a.text-topnavMenuG:hover{
 }
 .labelServiceLS:hover{
     color: #214158;
-    background-color: #f61a5ea6 !important;
+    background-color: #8fbc1fa6 !important;
 }
 .containerHEN,
 .containerHDE,
@@ -1650,7 +1700,7 @@ a.text-topnavMenuG:hover{
     height: 100%;
 }
 .cardSubContainerLS{
-    background-color: #f61a5e;
+    background-color: #8fbc1f;
     border-radius: 8px;
     color: white;
     height: 100%;
@@ -1687,7 +1737,7 @@ a.text-topnavMenuG:hover{
     -webkit-appearance: none;
     width: 100%;
     height: 5px;
-    background: #f61a5e;
+    background: #8fbc1f;
     outline: none;
     -webkit-transition: .2s;
     transition: opacity .2s;
@@ -1748,7 +1798,7 @@ a.text-topnavMenuG:hover{
 .contentFiltersLS{
     background-color: white; 
     border-style: solid;
-    border-color: #f61a5e;
+    border-color: #8fbc1f;
 }
 .textTitleCard{
     font-family: "Ubuntu-Bold";
@@ -1794,14 +1844,14 @@ a.text-topnavMenuG:hover{
     font-family: "Ubuntu-Bold";
     font-size: 18px;
     color: white;
-    background-color:#b91447;
+    background-color:#6d9016;
 }
 .buttonContractCardLS:hover,
 .buttonContractCardLS:focus{
     font-family: "Ubuntu-Bold";
     font-size: 18px;
     color: white;
-    background-color:#b914478c;
+    background-color:#6d90168c;
 }
 
 .labelFilterOption{
@@ -1893,7 +1943,9 @@ button.formRegister:active{
 .panelHESContent,
 .panelHENContent,
 .panelHDEContent,
-.panelHHOContent{
+.panelHHOContent,
+.panelBEAContent,
+{
     margin: 0px;
     margin-right: -70px;
 }
@@ -2065,7 +2117,8 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .panelHLS,
     .panelHES,
     .panelHEN,
-    .panelHDE {
+    .panelHDE,
+    .panelBEA {
         margin-top: 200px;
         margin-left: 45px;
         margin-right: 45px;
@@ -2075,7 +2128,8 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .panelHESContent,
     .panelHDEContent,
     .panelHENContent,
-    .panelHHOContent{
+    .panelHHOContent
+    .panelBEAContent{
         margin: initial;
     }
     .containerLSImg{
@@ -2089,7 +2143,7 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
         background-position-y: 0px;
         margin-top: 130px;
     }
-    .envolturaConejoRed{
+    .envolturaConejoSinColor{
         float: none !important;
     }
     .envolturaConejoPink{
@@ -2234,7 +2288,7 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .iconsDigColors{
         max-width: 60px;
     }
-    .envolturaConejoRed,
+    .envolturaConejoSinColor,
     .envolturaConejoPink,
     .envolturaConejoPurple,
     .envolturaConejoBlue,
@@ -2248,7 +2302,8 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .panelHESContent,
     .panelHDEContent,
     .panelHENContent,
-    .panelHHOContent{
+    .panelHHOContent
+    .panelBEAContent{
         margin: initial;
     }
     .containerLSImg {
@@ -2267,7 +2322,8 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .panelHEN,
     .panelHLS,
     .panelHDE,
-    .panelHHO{
+    .panelHHO
+    .panelBEA{
         margin-top: 275px;
         margin-left: 0px;
         margin-right: 0px;
@@ -2524,4 +2580,19 @@ and (orientation : portrait) {
     display: block;
     margin-top: -10px;
     margin-bottom: 15px;
+}
+.rabbitdesactived{
+    filter: url(#grayscale) !important;
+    -webkit-filter: grayscale(100%) !important;
+    -moz-filter: grayscale(100%) !important;
+    -ms-filter: grayscale(100%) !important;
+    -o-filter: grayscale(100%) !important;
+    filter: grayscale(100%) !important;
+    filter: Gray() !important;
+}
+.finalizado{
+    background-color: red;
+}
+.statusDefault{
+    background-color: #04456b;
 }

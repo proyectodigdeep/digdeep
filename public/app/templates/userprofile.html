@@ -192,7 +192,7 @@
 			<div class="row" style="margin-top: 20px" ng-if="orders.length > 0">
 				<!-- card description-->
 				<div class="col-md-4 col-sm-4 col-xs-12" style="padding: 23px" ng-repeat="order in orders | orderBy:'-requestedDate'" ng-if="([$index] < finalIndex && [$index] >= initIndex)">
-					<div class="row" style="background-color: #04456b;padding: 15px;height: 665px">
+					<div class="row" style="padding: 15px;height: 665px" ng-class="{statusDefault: order.status != 3, finalizado: order.status == 3}">
 						<div class="text-center digdeperTitleCard"><span>{{order.dataService.title}}</span></div>
 						<div class="text-center" style="width: 213px;height: 133px;margin: 0 auto;display: block;">
 							<img class="img-responsive" src="{{order.dataService.picture}}" style="display: block;margin: 0 auto">
@@ -340,6 +340,13 @@
 										Fecha/Finalización: 
 									</span><br>
 									<span>{{order.endDateService | date:'dd-MM-yyyy'}}</span><br>
+									<div ng-if="order.status === 3">
+										<span class="digdeperSubTitleCard">
+										Adeudo por: 
+										</span><br>
+										<span>{{order.dataService.cost | currency}}</span>
+									</div>
+									
 								</div>
 								<div ng-if="order.status === 5">	
 									<span class="digdeperSubTitleCard">

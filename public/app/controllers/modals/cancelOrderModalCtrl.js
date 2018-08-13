@@ -112,6 +112,7 @@ function (                                    rolCancel,  $rootScope,   $uibModa
                         var dataEmail = {
                             cancelReasons: order.dataCancelOrder.cancelReasons,
                             client_name: client.fullname,
+                            client_urlImg: client.urlImg,
                             service: {
                                 title: order.dataService.title,
                                 date_init: dateInit,
@@ -174,6 +175,8 @@ function (                                    rolCancel,  $rootScope,   $uibModa
                             var dataEmail = {
                                 cancelReasons: order.dataCancelOrder.cancelReasons,
                                 digdeeper_name: digdeeper.fullname,
+                                client_name: client.fullname,
+                                digdeeper_urlImg: digdeeper.urlImg,
                                 service: {
                                     title: order.dataService.title,
                                     date_init: dateInit,

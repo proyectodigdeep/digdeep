@@ -1,17 +1,17 @@
-angular.module('digdeepApp.servicesHOCtrl', [])
+angular.module('digdeepApp.servicesBECtrl', [])
 
 .config(['$stateProvider', function ($stateProvider) {
-	$stateProvider.state('servicesHO', {
-		url: '/servicesHO',
-		templateUrl: '/app/templates/servicesHO.html',
-		controller: 'servicesHOCtrl',
+	$stateProvider.state('servicesBE', {
+		url: '/servicesBE',
+		templateUrl: '/app/templates/servicesBE.html',
+		controller: 'servicesBECtrl',
 		params: {
         	idDigdeeper: ""
     	}
 	})
 }])
 
-.controller('servicesHOCtrl', [ '$scope', '$state', '$rootScope', 'serviceService', '$localStorage','categoryService', '$interval','userService',
+.controller('servicesBECtrl', [ '$scope', '$state', '$rootScope', 'serviceService', '$localStorage','categoryService', '$interval','userService',
 function (                  	 $scope,   $state,   $rootScope,   serviceService,   $localStorage,  categoryService,   $interval,  userService) {
 	
 	// Obtener los datos del usuario para mostrar su perfil
@@ -69,7 +69,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
         $scope.chooseFilter()
     }
 
-	$scope.goServicesHo = function (idSubcategory, titleSubcat) {
+	$scope.goServicesBE = function (idSubcategory, titleSubcat) {
 		//$state.go('servicesES', {idSubcat:idSubcategory})
 		//$scope.titleSubcat = titleSubcat
 		//$localStorage.idSubcategory = idSubcategory

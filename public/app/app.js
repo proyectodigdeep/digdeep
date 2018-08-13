@@ -34,7 +34,7 @@ var app = angular.module('digdeepApp', [
 
 	"digdeepApp.servicesESCtrl",
 	"digdeepApp.servicesLSCtrl",
-	"digdeepApp.servicesHOCtrl",
+	"digdeepApp.servicesBECtrl",
 
 	"digdeepApp.profilesESCtrl",
 	"digdeepApp.profilesLSCtrl",

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>DIGDEEP | Notificación de confirmación de compra</title>
+    <title>DIGDEEP | Notificación de orden de compra</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />   
@@ -197,9 +197,11 @@
             border-color: #b3acac;">
             <tr width="600px" height="auto"  align="center" bgcolor="#ffffff">
                 <td  style="padding: 20px 10px 0px 10px; color: #58297a; line-height: 30px; font-family: Arial, sans-serif; font-weight:bold; font-size: 20px;">
-                    <span class="textoTitle">¡CONFIRMAMOS TU COMPRA!</span><br>
-                    <span><label class="subtituloNota">¡Hola {{client.fullname}}!</label> </span><br>
-                    <span><label class="subtituloNota">Confirmamos tu compra</label> </span><br><br>
+                    <span class="textoTitle">¡SOLICITUD DE SERVICIO!</span><br>
+                    <span><label class="subtituloNota">Hola {{digdeeper.name}}</label> </span><br>
+                    <span><label class="subtituloNota">Tienes una nueva solicitud de venta</label> </span><br><br>
+                    <span><label class="subtituloNota">{{client.name}}</label> </span><br>
+                    <span><label class="subtituloNota">a digdeepeado tu servicio</label> </span><br>
 
                 </td>
              </tr>
@@ -210,21 +212,20 @@
             border-width: 2px;
             border-color: #b3acac;">    
             <tr width="600px" height="auto"  align="left">
-                <td style="width: 400px;padding-left: 60px; color: #888888;font-family: Helvetica Neue,Helvetica,  sans-serif; font-size: 15px; line-height:1.5; text-align: left;" bgcolor="#ffffff">
+                <td style="width: 300px;padding-left: 60px; color: #888888;font-family: Helvetica Neue,Helvetica,  sans-serif; font-size: 15px; line-height:1.5; text-align: left;" bgcolor="#ffffff">
                     <br>
-                    <span class="subtituloNota" style="text-align: left;">DATOS DEL PROVEEDOR DEL SERVICIO CONTRATADO</span><br>
-                    <span><label class="textoNota">Nombre del proveedor:</label>{{order.digdeeper_name}}</span><br>
-                    <img src="{{order.picture}}" width="50px"><br>
-                    <span><label class="textoNota">Nombre del servicio:</label>{{order.title}}</span><br> 
-                    <span><label class="textoNota">Fecha de inicio del servicio:</label>{{order.date_init}}</span><br>        
-                    <span><label class="textoNota">Fecha de finalización del servicio:</label>{{order.date_finish}}</span><br>        
-                    <span><label class="textoNota">Hora de inicio del servicio:</label>{{order.hour_init}}hrs.</span><br>
-                    <span><label class="textoNota">Hora de finalización del servicio:</label>{{order.hour_finish}}hrs.</span><br>
-                    <span><label class="textoNota">Precio:</label>${{order.cost}} MXN</span><br>
+                    <span class="subtituloNota" style="text-align: left;">DATOS DEL USUARIO</span><br>
+                    <span><label class="textoNota">Nombre del proveedor:</label>{{client.name}}</span><br>
+                    <img src="{{client.picture}}" width="50px"><br>
+                    <span><label class="textoNota">Nombre del servicio:</label>{{service.title}}</span><br> 
+                    <span><label class="textoNota">Fecha de inicio del servicio:</label>{{service.date_init}}</span><br>        
+                    <span><label class="textoNota">Fecha de finalización del servicio:</label>{{service.date_finish}}</span><br>        
+                    <span><label class="textoNota">Hora de inicio del servicio:</label>{{service.hour_init}}hrs.</span><br>
+                    <span><label class="textoNota">Hora de finalización del servicio:</label>{{service.hour_finish}}hrs.</span><br>
                 </td>   
-                <td style="width: 200px;padding: 0px 60px 10px 60px; color: #888888;font-family: Helvetica Neue,Helvetica,  sans-serif; font-size: 15px; line-height:1.5; text-align: center;" bgcolor="#ffffff">
+                <td style="width: 300px;padding: 0px 60px 10px 60px; color: #888888;font-family: Helvetica Neue,Helvetica,  sans-serif; font-size: 15px; line-height:1.5; text-align: center;" bgcolor="#ffffff">
 
-                    <img src="{{order.picture}}" width="200px">
+                    <img src="{{service.picture}}" width="200px">
                 </td>    
             </tr>
         </table>
@@ -235,7 +236,7 @@
             border-color: #b3acac;">    
             <tr width="600px" height="auto"  align="left"  >
                 <td style="padding: 0px 60px 10px 60px; color: #888888;font-family: Helvetica Neue,Helvetica,  sans-serif; font-size: 17px; line-height:1.5;" bgcolor="#ffffff"> 
-                    <span class="textFooter" style="font-weight: bold;">¡Sigue DIGDEEPEANDO!</span><br>
+                                
                 </td> 
             </tr>
         </table> 
@@ -249,8 +250,7 @@
             height: 20px">    
             <tr width="600px" height="auto"  align="center"  >
                 <td style="padding: 0px 60px 10px 60px; color: #888888;font-family: Helvetica Neue,Helvetica,  sans-serif; font-size: 17px; line-height:1.5;" bgcolor="#ffffff"> 
-                  <span class="textFooter"><label >Si algún dato no coincide o no fuiste tu quien realizó esta compra, comunícate con nosotros:</label> </span><br>
-                  <span class="textFooterseparado"><a>www.digdeep.mx</a> / (222) 3909180 (222) 4 31 88 68</span>
+                  <span class="textFooter"><label >Para aceptar o rechazar ingresa a <a href="https://www.digdeep.mx/">https://www.digdeep.mx/</a></label> </span><br>
             </tr>
         </table>
 

@@ -96,6 +96,7 @@ exports.putStatusOrderPaid = function (idOrder,onSuccess, onError) {
 	orderRepository.find(idOrder,function (order) {
 		if (order) {
 			order.status = 5 // poner orden en pagada
+			order.payDateService = new Date()
 			orderRepository.update(order, function (order) {
 				onSuccess(order)
 			}, onError)

@@ -3,8 +3,8 @@
 <div ng-include="'app/templates/barRabbitsColors.html'" scope="" onload=""></div>
 <!-- Content -->
 <div class="container-fluid containerHES">
-	<div class="row panelHES">
-		<div class="row panelHESContent" >
+	<div class="row panelBEA">
+		<div class="row panelBEAContent" >
 			<div class="col-md-10 texts-panels">	
 				<p style="font-size: 25px">¿Bodas? ¿Cumpleaños?</p>
 				<p style="font-size: 25px">¡Nosotros te lo armamos!</p>
@@ -20,7 +20,7 @@
 				<!-- Categorias activas -->
 				<div class="row" ng-repeat="subcat in subcategories" >
 					<div class="serviceLabel">
-						<button class="col-md-10 col-sm-10 col-xs-10 labelServiceS btn" ng-click="goServicesBe(subcat._id, subcat.title)" ng-if="subcat.slug != 'wedding-planner'">
+						<button class="col-md-10 col-sm-10 col-xs-10 labelServiceBE btn" ng-click="goServicesBe(subcat._id, subcat.title)" ng-if="subcat.slug != 'wedding-planner'">
 							{{subcat.title}}
 						</button>
 						<div class="col-md-2 col-sm-2 col-xs-2 buttonSearchService">

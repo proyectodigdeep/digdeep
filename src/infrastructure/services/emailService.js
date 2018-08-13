@@ -5,6 +5,7 @@ var request 	= require("request");
 var handlebars = require('handlebars');
 var fs = require('fs');
 var path = require('path');
+var async 			= require('async');
 
 var transporter = nodemailer.createTransport({
 	host: config.emailFromData.host,
@@ -56,12 +57,8 @@ exports.notificacionServicioPagado = function(client, order, callback) {
 			//define data for template html file
 			
 			var replacements = {
-				fullname: client.fullname,
-				hostPath: config.hostPath,
-				phone: client.phone,
-				email: client.email,
-				service: order.title,
-				cost: order.cost
+				client: client,
+				order: order
 			}
 
 			//send data to html template
@@ -143,6 +140,121 @@ exports.notification_contract = function(req, res) {
 	console.log(data)
 	//get absoulte path to template
 	var absolutePath = path.resolve(pathTemplates+'/contract.html');
+	var absolutePath2 = path.resolve(pathTemplates+'/contract2.html');
+
+	let tasks = {
+			EmailUsuario: function (callback) {
+				//call function to read html file
+				readHTMLFile(absolutePath, (err, html) => {
+
+					//if read file success
+					if(html) {
+						// complile html file
+						var template = handlebars.compile(html);
+						
+						//define data for template html file
+						
+						var replacements = {}
+							replacements = data
+
+						//send data to html template
+						var htmlToSend = template(replacements);
+
+						//options for body mail
+						mailOptions.to = data.client.email+","+config.email_digdeep;
+					    mailOptions.subject = '¡Orden de compra!';
+					    mailOptions.html = htmlToSend;
+
+					    // send mail with defined transport object
+						transporter.sendMail(mailOptions, (error, info) => {
+						    // Se verifica si ocurrio un error
+						    if (error) {
+						    	callback(err, null);
+						    	/*res.json({
+									status: "failure",
+									message: "Mensaje no enviado"
+								})*/
+						    }else{
+						    	callback(null, "success");
+						    	/*res.status(201)
+						    	res.json({
+									status: "success",
+									message: "Mensaje enviado con exito"
+								})*/
+						    }
+						})
+					}
+				})
+			},
+			EmailDigdeeper: function (callback) {
+				//call function to read html file
+				readHTMLFile(absolutePath2, (err, html) => {
+
+					//if read file success
+					if(html) {
+						// complile html file
+						var template = handlebars.compile(html);
+						
+						//define data for template html file
+						
+						var replacements = {}
+							replacements = data
+
+						//send data to html template
+						var htmlToSend = template(replacements);
+
+						//options for body mail
+						mailOptions.to = data.digdeeper.email+","+config.email_digdeep;
+					    mailOptions.subject = '¡Solicitud de servicio!';
+					    mailOptions.html = htmlToSend;
+
+					    // send mail with defined transport object
+						transporter.sendMail(mailOptions, (error, info) => {
+						    // Se verifica si ocurrio un error
+						    if (error) {
+						    	callback(err, null);
+						    	/*res.json({
+									status: "failure",
+									message: "Mensaje no enviado"
+								})*/
+						    }else{
+						    	callback(null, "success");
+						    	/*res.status(201)
+						    	res.json({
+									status: "success",
+									message: "Mensaje enviado con exito"
+								})*/
+						    }
+						})
+					}
+				})
+			}
+		}
+		async.parallel(async.reflectAll(tasks), function(err, result) {
+			if (err) {
+				res.status(400)
+				res.json({
+					status: "failure",
+					message: err
+				})
+			}else{
+				console.log(result)
+				res.status(200)
+		 		res.json({
+		 			status: "success",
+		 			message: "Mensajes enviados"
+		 		})
+			}
+		});
+
+	
+}
+exports.notification_contract2 = function(req, res) {
+	//console.log(req.body)
+	var data = req.body
+	console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/contract2.html');
 	//call function to read html file
 	readHTMLFile(absolutePath, (err, html) => {
 
@@ -161,7 +273,7 @@ exports.notification_contract = function(req, res) {
 
 			//options for body mail
 			mailOptions.to = data.to_send_users+","+config.email_digdeep;
-		    mailOptions.subject = '¡Nuevo Servicio Contratado!';
+		    mailOptions.subject = '¡Solicitud de servicio!';
 		    mailOptions.html = htmlToSend;
 
 		    // send mail with defined transport object
