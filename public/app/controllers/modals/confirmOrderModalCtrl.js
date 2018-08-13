@@ -43,7 +43,7 @@ function (                                     $rootScope,   $uibModalInstance, 
         var html = ""
         ordersService.confirmOrder(idOrder,startDateService,$localStorage.token, function (order) {
             $uibModalInstance.close()
-            $state.go("historyservices")
+            
             $rootScope.$emit("openAlertDigdeepModal",{
                 textAlert: "Orden confirmada correctamente"
             })
@@ -113,6 +113,7 @@ function (                                     $rootScope,   $uibModalInstance, 
                         $http.post("v1/emailsconfirm", dataEmail)
                         .then(function(response) {
                             if(response.data.status === "success"){
+                                $state.go("historyservices")
                                 $rootScope.$emit("openAlertDigdeepModal", {textAlert:"Se le ha enviado un correo a tu cliente"})
                             }
                             else{
