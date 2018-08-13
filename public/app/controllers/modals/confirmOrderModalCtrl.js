@@ -71,7 +71,7 @@ function (                                     $rootScope,   $uibModalInstance, 
 
             // Obtener los datos del digdeeper para enviarselos a el cliente
             userService.getUser(order.digdeeper,function (digdeeper) {
-                serviceService.getService(Order.dataService._service, function (service) {
+                serviceService.getService(order.dataService._service, function (service) {
                     // Configurando datos para genarar el correo a enviar a el cliente
                     html =  "<p>Hola un coordial saludo por parte de DIGDEEP<br>Tenemos buenas noticias, TU SOLICITUD DEL SERVICIO HA SIDO ACEPTADA POR EL PROVEEDOR</p>"+
                             "<p>Datos del Proveedor del servicio</p>"+
