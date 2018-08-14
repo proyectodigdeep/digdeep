@@ -45,6 +45,7 @@ function (                  	 $scope,   $state,   $rootScope,   serviceService, 
     }
 	serviceService.getServicesByDigdeeperComments($localStorage.idDigdeeper,function (services) {
         $scope.services = services
+        console.log(services)
     },function (err) {
         console.log(err)
     })

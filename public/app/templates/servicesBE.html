@@ -1,12 +1,11 @@
 <div ng-include="'app/templates/topnav.html'"></div>
-
 <!-- nav bar rabbits -->
 <div class="container-fluid containerRabbit" >
 	<div class="row backgroundBar" >
 		<div class="col-md-1 col-sm-1 col-xs-12" style="width: 6.8%"></div>
 		<div class="col-md-2 col-sm-2 col-xs-12 text-left">
-			<a ui-sref="homeES">
-				<img src="img/socialevents/digPurpleLogoBar.png" class="logoBar">
+			<a ui-sref="homeLS">
+				<img src="img/beauty/digPinkLogoBar.png" class="logoBar img-responsive">
 			</a>
 		</div>
 		<div class="col-md-9 col-sm-9 col-xs-12" >
@@ -52,18 +51,19 @@
 					</div>
 				</a>
 			</div>
-		</div>	
+		</div>		
 	</div>
 </div>
+
 <!--Content-->
-<div class="container-fluid containerESImg">
-	<div style="height: 100%;background-color: #9c76c44a"></div>		
+<div class="container-fluid containerBEImg">
+	<div style="height: 100%;background-color: #e7216175"></div>
 </div>
 <div class="container containerServicesContent" >
 	<div class="row">
 		<div class="col-md-3 col-sm-4 col-xs-12" >
 			<div class="row div-searchServices2">
-				<div class="row serviceLabel2ES">
+				<div class="row serviceLabel2BE">
 					<div style="padding: 10px">
 						<img class="img-responsive imgprofileCard" src="{{digdeeperData.urlImg}}" style="border-color: white">
 					</div>
@@ -71,41 +71,41 @@
 						<span class="textTitleCard">{{digdeeperData.fullname}}</span>
 					</div>
 				</div>
-				<div class="row divFiltersES">
+				<div class="row divFiltersBE">
 					<div class="titleFilters">
-						<span >Filtros de busqueda</span>
+						<span>Filtros de búsqueda</span>
 					</div>
-					<div class="contentFiltersSE">
+					<div class="contentFiltersBE">
 						<div class="row" style="margin:0px;margin-top: 30px">
 							<div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 2px;padding-right: 2px;">
 								<ul style="padding-left: 10px">
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.decorations" ng-click="chooseFilter()">Decoraciones
+										<input type="checkbox" class="checkBE" ng-model="filters.decorations" ng-click="chooseFilter()">Decoraciones
 									</li>
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.fashion" ng-click="chooseFilter()">Moda
+										<input type="checkbox" class="checkBE" ng-model="filters.fashion" ng-click="chooseFilter()">Moda
 									</li>
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.cocktails" ng-click="chooseFilter()">Cocteles
+										<input type="checkbox" class="checkBE" ng-model="filters.cocktails" ng-click="chooseFilter()">Cocteles
 									</li>
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.nutrition" ng-click="chooseFilter()">Nutrición
+										<input type="checkbox" class="checkBE" ng-model="filters.nutrition" ng-click="chooseFilter()">Nutrición
 									</li>
 								</ul>		
 							</div>
 							<div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 2px;padding-right: 2px;">
 								<ul style="padding-left: 10px">
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.concerts" ng-click="chooseFilter()">Conciertos
+										<input type="checkbox" class="checkBE" ng-model="filters.concerts" ng-click="chooseFilter()">Conciertos
 									</li>
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.parties" ng-click="chooseFilter()">Fiestas
+										<input type="checkbox" class="checkBE" ng-model="filters.parties" ng-click="chooseFilter()">Fiestas
 									</li>
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.culture" ng-click="chooseFilter()">Cultura
+										<input type="checkbox" class="checkBE" ng-model="filters.culture" ng-click="chooseFilter()">Cultura
 									</li class="labelFilterOption">
 									<li class="labelFilterOption">
-										<input type="checkbox" class="checkES" ng-model="filters.food" ng-click="chooseFilter()">Comida
+										<input type="checkbox" class="checkBE" ng-model="filters.food" ng-click="chooseFilter()">Comida
 									</li>
 								</ul>		
 							</div>
@@ -121,14 +121,14 @@
 						</div>
 						<div style="margin-top: 20px">
 							<div class="col-md-6 text-left costRangeText" style="padding-left: 10px">
-								$1500.00
+								$0.00
 							</div>
 							<div class="col-md-6 text-right costRangeText" style="padding-right: 10px">
 								$10,000.00									
 							</div>
 
 							<div class="text-center" style="padding:10px;padding-top: 35px">
-								<input type="range" class="sliderRangeES" min="1500" max="10000" ng-model="rangePrice" ng-change="choosePrice()">
+								<input type="range" class="sliderRangeBE" min="0" max="10000" ng-model="rangePrice" ng-change="choosePrice()">
 							</div>
 						</div>
 					</div>
@@ -136,42 +136,50 @@
 			</div>
 		</div>
 		<div class="col-md-9 col-sm-8 col-xs-12">
-			<h3 class="titleSEservices">{{titleSubcat}}</h3>
+			<h3 class="titleBEservices">Servicios</h3>
 			<!--Card service-->
 			<div class="row">
 				<div class="col-md-4 col-sm-6 col-xs-12 cardContainer" ng-repeat="service in services">
-					<div class="cardSubContainerES" >
-						<div>
+					<div class="cardSubContainerBE">
+						<div ng-click="openDetailsServiceModal(service.service,typePrice)" style="cursor: pointer">
 							<div style="padding: 10px">
-								<img class="img-responsive" src="{{service.pictures[0]}}" style="border-radius: 5px;margin: 0 auto;">
+								<div style="width: 213px;height: 133px;display: block;margin: 0 auto;">
+									<img class="img-responsive" src="{{service.service.pictures[0]}}" style="border-radius: 5px;margin: 0 auto">
+								</div>
 							</div>
 							<div class="text-center contentCardServiceESLS">
 								<p>
-									<span class="textTitleCard">{{service.title}}</span><br>
-									<span class="textContentCard">Servicio 2</span>
+									<span class="textTitleCard">{{service.service.title}}</span><br>
+									<span class="textContentCard">Servicio {{$index + 1}}</span>
 								</p>
 								<p>
 									<span class="textSubTitleCard">
-										Descripción
+										{{service.service.description}}
 									</span><br>
-									<span class="textDescriptionCard">
-										{{service.description}}
-									</span>
 								</p>
 							</div>
 							<div class="text-center">
-								<strong><a ng-click="openDetailsServiceModal(service)">ver más</a></strong>
-							</div>
-							<div class="text-center">
-								<p class="textCostCard">{{service.price | currency }}</p>
+								<p class="textCostCard" ng-if="typePrice === 1 || typePrice ===2">
+									<i class="fa fa-home" style="color: white;font-size: 14px"></i><span style="font-size: 14px">A domicilio</span><br>{{service.service.price_athome | currency }}
+								</p>
+								<p class="textCostCard" ng-if="typePrice === 1 || typePrice ===3">
+									<i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i><span style="font-size: 14px">En establecimiento</span><br>{{service.service.price_presencial | currency }}
+								</p>
 							</div>
 						</div>
-						<div class="text-center" ng-click="openContractServiceModal(service, user)">
-							<button class="btn btn-block buttonContractCardES">CONTRATAR</button>
+						<div class="text-center">
+							<p ng-if="typeUser === 'root'">
+								<strong>
+									<a ng-click="openCommentsServiceModal(service.comment1,service.comment2)">ver comentarios</a>
+								</strong>
+							</p>
+						</div>
+						<div class="text-center" ng-click="openContractServiceModal(service.service,user,typePrice)">
+							<button class="btn btn-block buttonContractCardBE">CONTRATAR</button>
 						</div>
 					</div>
 				</div>
-			</div>			
+			</div>
 		</div>
 	</div>
 </div>

@@ -671,6 +671,20 @@ input[type=checkbox].checkES {
 input[type=checkbox].checkES:checked {
     background-color: #9c76c4;
 }
+
+input[type=checkbox].checkBE {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: double 2px #e72161;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin: 0 5px 0 0;
+}
+input[type=checkbox].checkBE:checked {
+    background-color: #e72161;
+}
 input[type=checkbox].checkLS {
     appearance: none;
     -moz-appearance: none;
@@ -1564,6 +1578,12 @@ a.text-topnavMenuG:hover{
     background-color: #9c76c7;
     margin-top: 30px;
 }
+.divFiltersBE{
+    margin: 0px;
+    margin-bottom: 10px;
+    background-color: #e72161;
+    margin-top: 30px;
+}
 .divFiltersLS{
     margin: 0px;
     margin-bottom: 10px;
@@ -1712,6 +1732,12 @@ a.text-topnavMenuG:hover{
     color: white;
     height: 100%;
 }
+.cardSubContainerBE{
+    background-color: #e72161;
+    border-radius: 8px;
+    color: white;
+    height: 100%;
+}
 .cardSubContainerLS{
     background-color: #8fbc1f;
     border-radius: 8px;
@@ -1746,6 +1772,16 @@ a.text-topnavMenuG:hover{
     transition: opacity .2s;
     border-radius: 5px;
 }
+.sliderRangeBE{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    background: #e72161;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 5px;
+}
 .sliderRangeLS{
     -webkit-appearance: none;
     width: 100%;
@@ -1768,7 +1804,8 @@ a.text-topnavMenuG:hover{
 }
 .sliderRangeES::-webkit-slider-thumb,
 .sliderRangeLS::-webkit-slider-thumb,
-.sliderRangeRU::-webkit-slider-thumb{
+.sliderRangeRU::-webkit-slider-thumb,
+.sliderRangeBE::-webkit-slider-thumb{
     -webkit-appearance: none;
     appearance: none;
     width: 10px;
@@ -1807,6 +1844,11 @@ a.text-topnavMenuG:hover{
     background-color: white; 
     border-style: solid;
     border-color: #9c76c7;
+}
+.contentFiltersBE{
+    background-color: white; 
+    border-style: solid;
+    border-color: #e72161;
 }
 .contentFiltersLS{
     background-color: white; 
@@ -1851,6 +1893,21 @@ a.text-topnavMenuG:hover{
     font-size: 18px;
     color: white;
     background-color:#9c76c480;
+}
+
+.buttonContractCardBE,
+.buttonContractCardBE:active{
+    font-family: "Ubuntu-Bold";
+    font-size: 18px;
+    color: white;
+    background-color:#bb2354;
+}
+.buttonContractCardBE:hover,
+.buttonContractCardBE:focus{
+    font-family: "Ubuntu-Bold";
+    font-size: 18px;
+    color: white;
+    background-color:#bb235480;
 }
 .buttonContractCardLS,
 .buttonContractCardLS:active{

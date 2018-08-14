@@ -101,6 +101,7 @@ exports.getServicesByDigdeeper = function (req,res) {
 }
 exports.getServicesByDigdeeperComments = function(req, res) {
 	serviceApp.getServicesByDigdeeper(req.params.id,function(services) {
+		//console.log(services)
 		commentApp.findAllByDigdeeper(req.params.id,function (comments) {
 			var arrayTemp = []
 			var i = 0 // servicios
@@ -158,12 +159,14 @@ exports.getServicesByDigdeeperComments = function(req, res) {
 					}
 					arrayTemp.push(datat)
 				}
+				//console.log(arrayTemp)
 				res.status(201)
 				res.json({
 					status: "success",
 					services: arrayTemp
 				})
 			}else{
+				//console.log(arrayTemp)
 				res.status(201)
 				res.json({
 					status: "success",
