@@ -1639,7 +1639,8 @@ a.text-topnavMenuG:hover{
 .containerHDE,
 .containerHES,
 .containerHLS,
-.containerHHO{
+.containerHHO,
+.containerBEA{
     margin-top: -12px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1659,6 +1660,9 @@ a.text-topnavMenuG:hover{
 .containerHES{
     background-image: url('../img/socialevents/backgroundDj.png');
 }
+.containerBEA{
+    background-image: url('../img/beauty/backgroundBeauty.jpg');
+}
 .containerHLS{
     background-image: url('../img/livestyle/backgroundYoga.png');
 }
@@ -1674,6 +1678,15 @@ a.text-topnavMenuG:hover{
     height: 350px;
     margin-top: 50px;
     background-image: url('../img/socialevents/backgroundDj.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 0px;
+    background-position-y: -180px;
+}
+.containerBEImg{
+    height: 350px;
+    margin-top: 50px;
+    background-image: url('../img/beauty/backgroundBeauty.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     padding: 0px;
@@ -2143,6 +2156,10 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
         background-position-y: 0px;
         margin-top: 130px;
     }
+    .containerBEImg{
+        background-position-y: 0px;
+        margin-top: 130px;
+    }
     .envolturaConejoSinColor{
         float: none !important;
     }
@@ -2313,6 +2330,12 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
         background-position-y: 0px;
     }
     .containerESImg {
+        height: 200px;
+        margin-top: 260px;
+        background-position-x: 0px;
+        background-position-y: 0px;
+    }
+    .containerBEImg {
         height: 200px;
         margin-top: 260px;
         background-position-x: 0px;
