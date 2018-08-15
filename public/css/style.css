@@ -201,7 +201,7 @@ a,
     font-family: FjallaOne-Regular;
     color: white;
     padding: 2px 12px;
-    background-color: #e72161;
+    background-color: #e14e8f;
     margin-top: initial;
 }
 .titleLSservices{
@@ -676,14 +676,14 @@ input[type=checkbox].checkBE {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    border: double 2px #e72161;
+    border: double 2px #e14e8f;
     border-radius: 50%;
     width: 15px;
     height: 15px;
     margin: 0 5px 0 0;
 }
 input[type=checkbox].checkBE:checked {
-    background-color: #e72161;
+    background-color: #e14e8f;
 }
 input[type=checkbox].checkLS {
     appearance: none;
@@ -1180,7 +1180,7 @@ button.btn.btn-default.btn-sm:hover {
     font-size: 15px;
 }
 .colorPinkRabbit{
-    color: #e72161;
+    color: #e77aab;
     font-family: "FjallaOne-Regular";
     font-size: 15px;
 }
@@ -1210,7 +1210,7 @@ button.btn.btn-default.btn-sm:hover {
     font-size: 16px;
 }
 .colorPinkRabbitServices{
-    color: #8A1943;
+    color: #e77aab;
     font-family: "FjallaOne-Regular";
     font-size: 16px;
 }
@@ -1358,7 +1358,7 @@ a.text-topnavMenuG:hover{
 .tituloConejoPink{
     visibility: hidden;
     font-family: FjallaOne-Regular;
-    color: #DF1A5E;
+    color: #e2508d;
 }  
 .envolturaConejoPink:hover .tituloConejoPink {
     visibility: visible;
@@ -1485,7 +1485,7 @@ a.text-topnavMenuG:hover{
     margin-bottom: 35px;
 }
 .panelBEA{
-    background-color: #e7216187;
+    background-color: #e14e8f87;
     margin-top: 190px;
     margin-left: 287px;
     margin-right: 160px;
@@ -1564,7 +1564,7 @@ a.text-topnavMenuG:hover{
     margin: 0px;
     margin-bottom: 10px;
     padding-right: 5px;
-    background-color: #e72161;
+    background-color: #e14e8f;
 }
 .serviceLabel2LS{
     margin: 0px;
@@ -1581,7 +1581,7 @@ a.text-topnavMenuG:hover{
 .divFiltersBE{
     margin: 0px;
     margin-bottom: 10px;
-    background-color: #e72161;
+    background-color: #e14e8f;
     margin-top: 30px;
 }
 .divFiltersLS{
@@ -1627,7 +1627,7 @@ a.text-topnavMenuG:hover{
 .labelServiceBE{
     font-family: "FjallaOne-Regular";
     font-size: 19px;
-    background-color: #e72161;
+    background-color: #e14e8f;
     color: white;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -1636,7 +1636,7 @@ a.text-topnavMenuG:hover{
     border-radius: initial;
 }
 .labelServiceBE:hover{
-    background-color: #e72161bd;
+    background-color: #e14e8fbd;
     color: #214158;
 }
 
@@ -1733,7 +1733,7 @@ a.text-topnavMenuG:hover{
     height: 100%;
 }
 .cardSubContainerBE{
-    background-color: #e72161;
+    background-color: #e14e8f;
     border-radius: 8px;
     color: white;
     height: 100%;
@@ -1776,7 +1776,7 @@ a.text-topnavMenuG:hover{
     -webkit-appearance: none;
     width: 100%;
     height: 5px;
-    background: #e72161;
+    background: #e14e8f;
     outline: none;
     -webkit-transition: .2s;
     transition: opacity .2s;
@@ -1848,7 +1848,7 @@ a.text-topnavMenuG:hover{
 .contentFiltersBE{
     background-color: white; 
     border-style: solid;
-    border-color: #e72161;
+    border-color: #e14e8f;
 }
 .contentFiltersLS{
     background-color: white; 
@@ -1900,14 +1900,14 @@ a.text-topnavMenuG:hover{
     font-family: "Ubuntu-Bold";
     font-size: 18px;
     color: white;
-    background-color:#bb2354;
+    background-color:#e879a9;
 }
 .buttonContractCardBE:hover,
 .buttonContractCardBE:focus{
     font-family: "Ubuntu-Bold";
     font-size: 18px;
     color: white;
-    background-color:#bb235480;
+    background-color:#e879a980;
 }
 .buttonContractCardLS,
 .buttonContractCardLS:active{
