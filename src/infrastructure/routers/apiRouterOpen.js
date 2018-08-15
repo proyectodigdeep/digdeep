@@ -141,6 +141,8 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 	router.post("/emailscancel_digdeeper", emailService.notification_cancel_digdeeper)
 	router.post("/emailsconfirm", emailService.notification_confirm_service)
 	router.post("/emails_comments", emailService.notification_comments)
+	router.post("/emailsconfirm_digdeeper", emailService.notification_confirm_digdeeper)
+	router.post("/emailsnoconfirm_digdeeper", emailService.notification_noconfirm_digdeeper)
 
 /****ORDENES****/
 	// Obtener ordenes para conekta

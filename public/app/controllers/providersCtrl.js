@@ -56,7 +56,7 @@ function (                  	$localStorage,   $scope,   $state,	 $rootScope,   $
     }
     $scope.aprobar = function (idProvider,emailDD) {
         userService.validateProvider(idProvider,$localStorage.token,function (user) {
-            sendEmailDigdeeperTrue(emailDD)
+            sendEmailDigdeeperTrue(user)
         },function (err) {
             $rootScope.$emit("openAlertDigdeepModal",{
                 textAlert: "No se pudo actualizar el proveedor intentelo más tarde"
@@ -66,7 +66,7 @@ function (                  	$localStorage,   $scope,   $state,	 $rootScope,   $
 
     $scope.desaprobar = function (idProvider,emailDD) {
         userService.disvalidateProvider(idProvider,$localStorage.token,function (user) {
-            sendEmailDigdeeperFalse(emailDD)
+            sendEmailDigdeeperFalse(user)
         },function (err) {
             $rootScope.$emit("openAlertDigdeepModal",{
                 textAlert: "No se pudo actualizar el proveedor intentelo más tarde"
@@ -88,7 +88,12 @@ function (                  	$localStorage,   $scope,   $state,	 $rootScope,   $
             to:         emailDD,// Aqui poner el correo de DIGDEEP
             text:       "Gracias por digdeepear"
         }
-        $http.post("v1/emails", data)
+        var dataEmail = {
+            name: emailDD.fullname,
+            email: emailDD.email
+        }
+        
+        $http.post("v1/emailsconfirm_digdeeper", dataEmail)
         .then(function(response) {
             if(response.data.status === "success"){
                 location.reload()
@@ -112,7 +117,11 @@ function (                  	$localStorage,   $scope,   $state,	 $rootScope,   $
             to:         emailDD,// Aqui poner el correo de DIGDEEP
             text:       "Gracias por digdeepear"
         }
-        $http.post("v1/emails", data)
+        var dataEmail = {
+            name: emailDD.fullname,
+            email: emailDD.email
+        }
+        $http.post("v1/emailsnoconfirm_digdeeper", dataEmail)
         .then(function(response) {
             if(response.data.status === "success"){
                 location.reload()

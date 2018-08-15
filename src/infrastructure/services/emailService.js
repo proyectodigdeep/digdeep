@@ -84,6 +84,101 @@ exports.notificacionServicioPagado = function(client, order, callback) {
 	})
 }
 
+exports.notification_confirm_digdeeper = function(req, res) {
+	var data = req.body
+	//console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/notificationConfirmDD.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {
+				name: data.name,
+				email: data.email
+			}
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = data.email;
+		    mailOptions.subject = '¡Activación de cuenta DigDeeper!';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
+
+exports.notification_noconfirm_digdeeper = function(req, res) {
+	var data = req.body
+	//console.log(data)
+	//get absoulte path to template
+	var absolutePath = path.resolve(pathTemplates+'/notificationNoConfirmDD.html');
+	//call function to read html file
+	readHTMLFile(absolutePath, (err, html) => {
+
+		//if read file success
+		if(html) {
+			// complile html file
+			var template = handlebars.compile(html);
+			
+			//define data for template html file
+			
+			var replacements = {
+				name: data.name,
+				email: data.email
+			}
+
+			//send data to html template
+			var htmlToSend = template(replacements);
+
+			//options for body mail
+			mailOptions.to = data.email;
+		    mailOptions.subject = 'Estatus de solicitud para ser DigDeeper';
+		    mailOptions.html = htmlToSend;
+
+		    // send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    // Se verifica si ocurrio un error
+			    if (error) {
+			    	res.json({
+						status: "failure",
+						message: "Mensaje no enviado"
+					})
+			    }else{
+			    	res.status(201)
+			    	res.json({
+						status: "success",
+						message: "Mensaje enviado con exito"
+					})
+			    }
+			})
+		}
+	})
+}
 exports.notification_contact = function(req, res) {
 	var data = req.body
 	//get absoulte path to template
