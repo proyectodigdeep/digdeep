@@ -882,6 +882,8 @@ button.btn.btn-default.btn-sm:hover {
 .divHour{
     padding-left: 27%;
     padding-right: 27%;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 .uib-time input {
     width: 60px;
@@ -2675,4 +2677,9 @@ and (orientation : portrait) {
 }
 .statusDefault{
     background-color: #04456b;
+}
+.selectHoursContract{
+    color: #05456b;
+    font-family: "Ubuntu-Regular";
+    font-size: 17px;
 }

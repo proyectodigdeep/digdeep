@@ -36,7 +36,74 @@ function (                                        typePrice,  geocodeService,  S
     if ($scope.typeUser === "userNoLogin") {
         $scope.lockLogin.show()
     }
+    var date_temp = new Date()
+    var arrayHoursDefault = []
 
+    /*for (var i = 0; i < 24; i++) {
+        if ((i % 2) == 0) {
+            arrayHoursDefault.push(date_temp.toISOString(date_temp.setHours(i, 0, 0)))
+        }else{
+            arrayHoursDefault.push(date_temp.toISOString(date_temp.setHours(i, 30, 0)))
+        }
+    }*/
+    console.log(arrayHoursDefault)
+    var arrayHoursDefault = [date_temp.toISOString(date_temp.setHours(0, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(0, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(1, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(1, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(2, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(2, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(3, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(3, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(4, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(4, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(5, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(5, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(6, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(6, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(7, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(7, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(8, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(8, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(9, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(9, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(10, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(10, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(11, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(11, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(12, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(12, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(13, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(13, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(14, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(14, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(15, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(15, 30, 0)),
+
+
+                             date_temp.toISOString(date_temp.setHours(16, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(16, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(17, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(17, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(18, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(18, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(19, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(19, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(20, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(20, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(21, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(21, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(22, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(22, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(23, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(23, 30, 0))]
+                             console.log(arrayHoursDefault)
+    $scope.arrayHoursInit = arrayHoursDefault
+    $scope.arrayHoursFinal = arrayHoursDefault
     // tipo de precio que tiene activo el proveedor, segun el lugar donde será el servicio
     // 1 ambos tipos (a domicilio y en establecimiento)
     // 2 solo el tipo a domicilio
@@ -431,6 +498,7 @@ function (                                        typePrice,  geocodeService,  S
                 $scope.alertError = "Debes seleccionar una fecha primero."
                 $scope.errAlert = true
             }else{
+                reloadDatesOcuped()
                 nextFormTrue()
                 return true
             }
@@ -454,6 +522,15 @@ function (                                        typePrice,  geocodeService,  S
 
                                 var hourInitTempNewOrder = new Date($scope.orderService.hourInit)
                                 var hourFinalTempNewOrder = new Date($scope.orderService.hourFinal)
+                                
+                                /*console.log($scope.orderService.hourInit)
+                                console.log($scope.orderService.hourFinal)
+                                var hourInitTempNewOrder = new Date()
+                                    hourInitTempNewOrder.setHours($scope.orderService.hourInit.getHours(), $scope.orderService.hourInit.getMinutes(), 00)
+                                var hourFinalTempNewOrder = new Date()
+                                    hourFinalTempNewOrder.setHours($scope.orderService.hourFinal.getHours(), $scope.orderService.hourFinal.getMinutes(), 00)
+                                */
+
                                 console.log(hourInitTemp.getHours())
                                 console.log(hourFinalTemp.getHours())
                                 console.log(hourInitTempNewOrder.getHours())
@@ -509,7 +586,48 @@ function (                                        typePrice,  geocodeService,  S
     this.showFormFacturation = function () {
         $scope.tabMenuCurrency = "facturation"
     }
+    function reloadDatesOcuped() {
+        var hoursOcuped = []
+        // Verificar que no interfiera con ningun horario
+        ordersService.getDatesAndHoursByRangeDate($scope.orderService.digdeeper, $scope.orderService.dateInit ,$scope.orderService.dateFinal, function (orders) {
+            if (orders.length > 0) {
+                for (var i = 0; i < orders.length; i++) {
+                    var hourInitTemp = new Date(orders[i].hourInit)
+                    var hourFinalTemp = new Date(orders[i].hourFinish)
 
+                    var date_temp = new Date(hourInitTemp)
+                    var initDate = date_temp.toISOString(date_temp.setHours(hourInitTemp.getHours(), hourInitTemp.getMinutes(), 0))
+                    hoursOcuped.push(initDate)
+                    
+                    var date_temp = new Date(hourFinalTemp)
+                    var initFinal = date_temp.toISOString(date_temp.setHours(hourFinalTemp.getHours(), hourFinalTemp.getMinutes(), 0))
+                    hoursOcuped.push(initFinal)
+                }
+            }
+            console.log(hoursOcuped)
+            $scope.listHorarios = []
+            for (var i = 0; i < arrayHoursDefault.length; i++) {
+                var datetmp = new Date(arrayHoursDefault[i])
+                var hora_temp = datetmp.getHours() + ":" +datetmp.getMinutes()
+                var insert = true
+                for (var j = 0; j < hoursOcuped.length; j++) {
+                    var datetmp = new Date(hoursOcuped[j])
+                    var hora_temp2 = datetmp.getHours() + ":" +datetmp.getMinutes()
+                    if (hora_temp == hora_temp2) {
+                       insert = false
+                       j = hoursOcuped.length + 1
+                    }  
+                }
+                if (insert) {
+                    $scope.listHorarios.push(arrayHoursDefault[i])
+                }
+                
+            }
+            console.log($scope.listHorarios)
+        }, function (err) {
+            $rootScope.$emit("openAlert", {textAlert:"Lo sentimos no se pudo agendar tu horario. intentaló más tarde."})
+        }) 
+    }
     // Poner estilos a los dias no disponibles en el calendario
     function getDayClass(data) {
         var date = data.date
