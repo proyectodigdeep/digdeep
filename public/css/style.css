@@ -2016,7 +2016,7 @@ button.formRegister:active{
 .panelHENContent,
 .panelHDEContent,
 .panelHHOContent,
-.panelBEAContent,
+.panelBEAContent
 {
     margin: 0px;
     margin-right: -70px;
@@ -2200,7 +2200,7 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .panelHESContent,
     .panelHDEContent,
     .panelHENContent,
-    .panelHHOContent
+    .panelHHOContent,
     .panelBEAContent{
         margin: initial;
     }
@@ -2378,7 +2378,7 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .panelHESContent,
     .panelHDEContent,
     .panelHENContent,
-    .panelHHOContent
+    .panelHHOContent,
     .panelBEAContent{
         margin: initial;
     }
@@ -2404,7 +2404,7 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
     .panelHEN,
     .panelHLS,
     .panelHDE,
-    .panelHHO
+    .panelHHO,
     .panelBEA{
         margin-top: 275px;
         margin-left: 0px;
@@ -2464,7 +2464,7 @@ and (min-width : 321px) and (max-device-width : 767px)  and (orientation: landsc
         padding: 0px;
     }
     .colRabbitIconGR{
-        width: 100% !important;
+        width: 60% !important;
     }
     .divHeader{
         margin-top: 205px;

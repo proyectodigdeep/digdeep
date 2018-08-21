@@ -598,11 +598,43 @@ function (                                        typePrice,  geocodeService,  S
                     var date_temp = new Date(hourInitTemp)
                     var initDate = date_temp.toISOString(date_temp.setHours(hourInitTemp.getHours(), hourInitTemp.getMinutes(), 0))
                     hoursOcuped.push(initDate)
-                    
-                    var date_temp = new Date(hourFinalTemp)
-                    var initFinal = date_temp.toISOString(date_temp.setHours(hourFinalTemp.getHours(), hourFinalTemp.getMinutes(), 0))
-                    hoursOcuped.push(initFinal)
+
+                    var date_temp2 = new Date(hourFinalTemp)
+                    var initDate2 = date_temp2.toISOString(date_temp2.setHours(hourFinalTemp.getHours(), hourFinalTemp.getMinutes(), 0))
+                    hoursOcuped.push(initDate2)
+
+                    for (var i = 0; i < arrayHoursDefault.length; i++) {
+                        
+                        var hour_temp = new Date(arrayHoursDefault[i])
+                            //console.log()
+                        var fecha_default_v1 = hour_temp.toISOString(hour_temp.getHours(), hour_temp.getMinutes(), 0)
+                        var fecha_temp = new Date(hourInitTemp)
+                        var fecha_init_v1 = fecha_temp.toISOString(fecha_temp.getHours(), fecha_temp.getMinutes(), 0)
+                        var fecha_temp = new Date(hourFinalTemp)
+                        var fecha_final_v1 = fecha_temp.toISOString(fecha_temp.getHours(), fecha_temp.getMinutes(), 0)
+
+                        //hora_default_temp = hora_default_temp.toISOString(hora_default_temp.setHours(hora_default_temp.getHours(), hora_default_temp.getMinutes(), 0))
+                        //var fecha_def = hora_default_temp.getHours() + ":" + hora_default_temp.getMinutes()
+                        //var hora_temp1 = fecha1.getHours() + ":" + fecha1.getMinutes()
+                        //var hora_temp2 = fecha2.getHours() + ":" + fecha2.getMinutes()
+                        
+                        //fecha_default_v1 = fecha_default_v1.toISOString()
+                        console.log(fecha_default_v1)
+                        console.log(fecha_init_v1)
+                        console.log(fecha_final_v1)
+                            
+                            //format_default_temp = hora_default_temp.toISOString(hora_default_temp.setHours(hora_default_temp.getHours(), hora_default_temp.getMinutes(), 0))
+                        if (fecha_default_v1 > fecha_init_v1 && fecha_default_v1 < fecha_final_v1) {
+                            /*var fecha_ocupada = new Date()
+                                fecha_ocupada = fecha_ocupada.toISOString(hora_default_temp.setHours(hora_default_temp.getHours(), hora_default_temp.getMinutes(), 0))
+                              console.log(fecha_ocupada)*/
+                              hoursOcuped.push(fecha_default_v1)
+                              console.log(fecha_default_v1)
+                        }
+
+                    }
                 }
+                console.log(hoursOcuped)
             }
             console.log(hoursOcuped)
             $scope.listHorarios = []
