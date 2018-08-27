@@ -35,7 +35,11 @@ function (                         $rootScope,   $scope,   $uibModal,   $documen
 .controller('dateInfoOutModalInstanceCtrl', [ 'eventOut', '$rootScope', '$uibModalInstance', '$localStorage', '$scope','$state', 'calendarService',
 function (                                  eventOut,   $rootScope,   $uibModalInstance,   $localStorage,   $scope,  $state, calendarService) {
     $scope.eventOut = eventOut
-    console.log($scope.eventOut)
+    var dateTemp = new Date($scope.eventOut.date)
+    var dd = dateTemp.getDate() + 1
+    dateTemp.setDate(dd)
+    $scope.dateFormated = dateTemp
+
     this.cancel = function () {
         //location.reload()
         $uibModalInstance.close()

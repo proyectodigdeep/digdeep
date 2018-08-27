@@ -102,13 +102,14 @@ function (                     $localStorage,   $scope,   $state,	 $rootScope,  
                     
                     var m_init = new Date(events[i].date).getMonth() + 1
                     var m_final = new Date(events[i].date).getMonth() + 1
-                    
+                    var dateTemp = new Date(events[i].date).getDate() + 1
+                    console.log(dateTemp)
                     var noDisponibleDateTemp = {
                         title: events[i].title,
-                        start: new Date(events[i].date).getFullYear() + "-" + m_init + "-" + new Date(events[i].date).getDate()+ " " + hourInit,
+                        start: new Date(events[i].date).getFullYear() + "/" + m_init + "/" + dateTemp + " " + hourInit,
                         //start: events[i].dateInit,
                         //end: events[i].dateFinal,
-                        end: new Date(events[i].date).getFullYear() + "-" + m_final + "-" + new Date(events[i].date).getDate()+ " " + hourFinal,
+                        end: new Date(events[i].date).getFullYear() + "/" + m_final + "/" + dateTemp + " " + hourFinal,
                         identificador: events[i]._id ,
                         type: "externo",
                         color: '#3c763d'
