@@ -143,8 +143,8 @@ function (                     $localStorage,   $scope,   $state,	 $rootScope,  
                     
                     var m_init = new Date(orders[i].dataService.dateInit).getMonth() + 1
                     var m_final = new Date(orders[i].dataService.dateFinish).getMonth() + 1
-                    var d_init = new Date(orders[i].dataService.dateInit).getDate()
-                    var d_final = new Date(orders[i].dataService.dateFinish).getDate()
+                    var d_init = new Date(orders[i].dataService.dateInit).getDate() + 1
+                    var d_final = new Date(orders[i].dataService.dateFinish).getDate() + 1
 
                     var noDisponibleDateTemp = {
                         title: 'DigDeep',
