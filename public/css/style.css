@@ -41,8 +41,8 @@
     background-color: #80808091;
     background-image: url(../img/plusCalendar.png) !important;
     opacity: 0.35;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
     background-size: 50px;
 }
 /*.fc-event-container:hover{

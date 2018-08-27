@@ -37,7 +37,8 @@ function (                          dateSelected, userId, $rootScope,   $uibModa
     $scope.event = {}
     $scope.dateSelected = new Date(dateSelected)
     $scope.event.date = $scope.dateSelected.setDate($scope.dateSelected.getDate())
-    $scope.event.date = new Date($scope.event.date)
+    var dd = $scope.dateSelected.getDate() + 1
+    $scope.dateSelected.setDate(dd)
     this.cancel = function () {
         $uibModalInstance.close()
     }

@@ -143,13 +143,15 @@ function (                     $localStorage,   $scope,   $state,	 $rootScope,  
                     
                     var m_init = new Date(orders[i].dataService.dateInit).getMonth() + 1
                     var m_final = new Date(orders[i].dataService.dateFinish).getMonth() + 1
-                    
+                    var d_init = new Date(orders[i].dataService.dateInit).getDate() + 1
+                    var d_final = new Date(orders[i].dataService.dateFinish).getDate() + 1
+
                     var noDisponibleDateTemp = {
                         title: 'DigDeep',
-                        start: new Date(orders[i].dataService.dateInit).getFullYear() + "-" + m_init + "-" + new Date(orders[i].dataService.dateInit).getDate()+ " " + hourInit,
+                        start: new Date(orders[i].dataService.dateInit).getFullYear() + "-" + m_init + "-" + d_init+ " " + hourInit,
                         //start: orders[i].dataService.dateInit,
                         //end: orders[i].dataService.dateFinal,
-                        end: new Date(orders[i].dataService.dateFinish).getFullYear() + "-" + m_final + "-" + new Date(orders[i].dataService.dateFinish).getDate()+ " " + hourFinish,
+                        end: new Date(orders[i].dataService.dateFinish).getFullYear() + "-" + m_final + "-" + d_final+ " " + hourFinish,
                         identificador: orders[i]._id,
                         type: "digdeep",
                         color: '#26a5dc'

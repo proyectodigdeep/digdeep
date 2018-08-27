@@ -36,12 +36,12 @@ function (                         $rootScope,   $scope,   $uibModal,   $documen
 function (                                  order,   $rootScope,   $uibModalInstance,   $localStorage,   $scope,  $state) {
     $scope.order = order
     var dateTemp = new Date($scope.order.dataService.dateInit)
-    var dd = dateTemp.getDate() - 1
+    var dd = dateTemp.getDate()
     dateTemp.setDate(dd)
     $scope.dateFormatedInit = dateTemp
 
     var dateTemp2 = new Date($scope.order.dataService.dateFinish)
-    var dd = dateTemp2.getDate() - 1
+    var dd = dateTemp2.getDate()
     dateTemp2.setDate(dd)
     $scope.dateFormatedFinish = dateTemp2
 
