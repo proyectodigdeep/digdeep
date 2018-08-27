@@ -124,7 +124,7 @@ function (                     $localStorage,   $scope,   $state,	 $rootScope,  
         },function(err) {
             console.log(err)
         })
-    }
+    }//
     function reloadOrders() {
         ordersService.getOrdersDigdeeper($scope.user._id,$localStorage.token, function (orders) {
             $scope.orders = orders
