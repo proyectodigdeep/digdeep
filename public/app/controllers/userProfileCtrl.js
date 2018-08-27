@@ -102,7 +102,8 @@ angular.module('digdeepApp.userProfileCtrl', [])
 				newPassword: 		"",
 				currencyPassword: 	"",
 				birthdate: 			user.birthdate,
-				urlImg: 			user.urlImg
+				urlImg: 			user.urlImg,
+				id: 				user._id
 			}
 			// Separar la fecha de nacimiento para poder mostrarla en formulario 
 			if (user.birthdate) {

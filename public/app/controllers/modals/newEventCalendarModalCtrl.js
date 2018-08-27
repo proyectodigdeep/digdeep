@@ -36,7 +36,7 @@ function (                $rootScope,   $scope,   $uibModal,   $document) {
 function (                          dateSelected, userId, $rootScope,   $uibModalInstance,   $localStorage,   $scope,  $state, calendarService) {
     $scope.event = {}
     $scope.dateSelected = new Date(dateSelected)
-    $scope.event.date = $scope.dateSelected.setDate($scope.dateSelected.getDate() + 1)
+    $scope.event.date = $scope.dateSelected.setDate($scope.dateSelected.getDate())
     $scope.event.date = new Date($scope.event.date)
     this.cancel = function () {
         $uibModalInstance.close()
@@ -48,6 +48,9 @@ function (                          dateSelected, userId, $rootScope,   $uibModa
         if(validateForm()){
             console.log($scope.event)  
             $scope.event.digdeeper = userId
+            var date_temp = new Date($scope.event.date)
+            var dateEvent = date_temp.toISOString()
+            console.log(dateEvent)
             calendarService.createEvent($scope.event, $localStorage.token, function (event) {
                 $uibModalInstance.close()
                 location.reload()
@@ -55,7 +58,7 @@ function (                          dateSelected, userId, $rootScope,   $uibModa
                 console.log(err)
                 location.reload()
                 alert("Lo sentimos tenemos problemas con nuestros servicios, intentalo más tarde")
-            }) 
+            })
         }
     }
     function validateForm() {

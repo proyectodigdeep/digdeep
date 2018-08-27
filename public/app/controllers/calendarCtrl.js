@@ -85,6 +85,7 @@ function (                     $localStorage,   $scope,   $state,	 $rootScope,  
     function reloadOutEvents() {
         // Obtener los eventos externos
         calendarService.getEventsByDigdeeper($scope.user._id, $localStorage.token, function (events) {
+            console.log(events)
             //$scope.events = events
             if (events.length > 0) {
                 // Clasificar las fechas ya ocupadas

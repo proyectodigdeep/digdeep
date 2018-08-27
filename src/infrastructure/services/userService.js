@@ -383,8 +383,8 @@ exports.disvalidateProvider= function(req,res){
 		res.json({status: 'failure', message: err})
 	})
 }
-exports.updateImgUsr= function(req,res){
- 	var data = req.body
+exports.updateImgUsr= function(data){
+ 	//console.log(data)
  	userApp.updateImgProfile(data.id, data.url, function(user) {
  		orderApp.getOrders(function (orders) {
  			for (var i = 0; i < orders.length; i++) {

@@ -74,7 +74,8 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 				fanPage: 			user.fanPage,
 				instagram: 			user.instagram,
 				rfc: 				user.rfc,
-				logo: 				user.logo
+				logo: 				user.logo,
+				id: 				user._id
 			}
 			if (user.kindServices === undefined || user.kindServices.length === 0) {
 				$scope.digdeeperProfile.kindServices = []

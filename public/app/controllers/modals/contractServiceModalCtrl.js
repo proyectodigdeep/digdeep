@@ -350,7 +350,7 @@ function (                                        typePrice,  geocodeService,  S
     //Obtener las fechas del proveedor fuera de digdeep
     calendarService.getEventsByDigdeeper(Service._digdeeper, $localStorage.token, function (eventsOut) {
         noDisponiblesDates = eventsOut
-        //console.log(dates)
+        console.log(eventsOut)
         //$scope.optionsCalendar.dateDisabled = dates
         // Clasificar las fechas ya ocupadas
         for (var i = 0; i < noDisponiblesDates.length; i++) {
