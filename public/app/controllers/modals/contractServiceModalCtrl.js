@@ -93,7 +93,6 @@ function (                                        typePrice,  geocodeService,  S
                              date_temp.toISOString(date_temp.setHours(22, 30, 0)),
                              date_temp.toISOString(date_temp.setHours(23, 0, 0)),
                              date_temp.toISOString(date_temp.setHours(23, 30, 0))]
-    console.log($scope.arrayHoursInit)       
     $scope.arrayHoursInit = arrayHoursDefault
     $scope.arrayHoursFinal = arrayHoursDefault
     // tipo de precio que tiene activo el proveedor, segun el lugar donde será el servicio
@@ -267,8 +266,6 @@ function (                                        typePrice,  geocodeService,  S
                 if (response.success) {                        
                     $scope.errorMessage = null;
                     userService.addMethodPayToCustomer(User._id, response.token.id, $localStorage.token, function (methodsPay) {
-                        console.log(methodsPay)
-                        //$scope.methodPayDefault = methodsPay.data[0].id
                         verifyMethodPay()
                         $scope.showFormCard = false
                     }, function (err) {
@@ -299,16 +296,13 @@ function (                                        typePrice,  geocodeService,  S
     this.selectMethodPay = function (methodPay) {
         $scope.methodPayDefault = methodPay
         $scope.orderService.idMethodPay = methodPay.id
-        console.log($scope.orderService.idMethodPay)
     }
     this.addCard = function () {
         $scope.showFormCard = true
     }
     function verifyMethodPay() {
-        //$rootScope.$emit("openAlertDigdeepModal", { textAlert: "Preparando todo..." });
         userService.verifyMethodPay(User._id, $localStorage.token, function (methodsPay) {
             if (methodsPay != undefined && methodsPay.data.length > 0) {
-                console.log(methodsPay)
                 $scope.methodsPay = methodsPay.data
             }
         }, function (err) {
@@ -319,12 +313,9 @@ function (                                        typePrice,  geocodeService,  S
     $scope.selectPlaceService = function (place) {
         $scope.orderService.placeService = place
     }
-
     //Obtener las fechas del proveedor dentro de digdeep
     ordersService.getDatesByDigdeeper(Service._digdeeper, function (dates,ordersDates) {
         noDisponiblesDates = dates
-        //console.log(dates)
-        //$scope.optionsCalendar.dateDisabled = dates
         // Clasificar las fechas ya ocupadas
         for (var i = 0; i < noDisponiblesDates.length; i++) {
             var noDisponibleDateTemp = {
@@ -334,7 +325,6 @@ function (                                        typePrice,  geocodeService,  S
             $scope.events.push(noDisponibleDateTemp)
         }
         $scope.optionsCalendar.customClass = getDayClass
-        //$scope.optionsCalendar.dateDisabled = disabledDates
     },function (err) {
         console.log(err)
     })
@@ -342,8 +332,6 @@ function (                                        typePrice,  geocodeService,  S
     //Obtener las fechas del proveedor fuera de digdeep
     calendarService.getEventsByDigdeeper(Service._digdeeper, $localStorage.token, function (eventsOut) {
         noDisponiblesDates = eventsOut
-        console.log(eventsOut)
-        //$scope.optionsCalendar.dateDisabled = dates
         // Clasificar las fechas ya ocupadas
         for (var i = 0; i < noDisponiblesDates.length; i++) {
             var dateTemp = new Date(noDisponiblesDates[i].date)
@@ -356,7 +344,6 @@ function (                                        typePrice,  geocodeService,  S
             $scope.events.push(noDisponibleDateTemp)
         }
         $scope.optionsCalendar.customClass = getDayClass
-        //$scope.optionsCalendar.dateDisabled = disabledDates
     },function (err) {
         console.log(err)
     })
@@ -438,8 +425,6 @@ function (                                        typePrice,  geocodeService,  S
         $scope.orderService.coordinates.lng = $scope.deliveryMap.center.longitude
     }
     function reloadHours(hinit,hfinish) {
-        console.log(hinit)
-        console.log(hfinish)
         var arrayClean = []
         for (var i = 0; i < arrayHoursDefault.length; i++) {
             if(arrayHoursDefault[i] >= hinit && arrayHoursDefault[i] <= hfinish){
@@ -447,7 +432,6 @@ function (                                        typePrice,  geocodeService,  S
             }
         }
         arrayHoursDefault = arrayClean
-        console.log(arrayClean)
     }
     this.nextForm = function () {
         calculateTotal()

@@ -868,7 +868,7 @@ exports.getOrdersByDigdeeper = function(req, res) {
 }
 
 // Obtener todas las fechas de un proveedor
-exports.getDatesByDigdeeper = function(req, res) {
+/*exports.getDatesByDigdeeper = function(req, res) {
 	var dates = []
 	var ordersDates = []
 	orderApp.getOrdersByDigdeeper(req.params.id, function(orders) {
@@ -897,7 +897,402 @@ exports.getDatesByDigdeeper = function(req, res) {
 			message: "No se ha´podido obtener las fechas."
 		})
 	})
+}*/
+
+function reloadHours(hinit,hfinish,arrayHoursDefault) {
+    var arrayClean = []
+    for (var i = 0; i < arrayHoursDefault.length; i++) {
+        if(arrayHoursDefault[i] >= hinit && arrayHoursDefault[i] <= hfinish){
+            arrayClean.push(arrayHoursDefault[i])
+        }
+    }
+    //arrayHoursDefault = arrayClean
+    return arrayClean
 }
+exports.getDatesByDigdeeper = function(req, res) {
+	var dates = []
+	var id_user = req.params.id
+	var fecha_inicial_digdeeper = new Date()
+	var fecha_final_digdeeper = new Date()
+	var fechas_result = []
+	orderApp.getOrdersByDigdeeper(id_user, function(orders) {
+		calendarApp.getEventsByDigdeeper(id_user, function (events) {
+
+			for (var i = 0; i < orders.length; i++) {
+				/*var dd = orders[i].dataService.dateInit.getDate()
+				var mm = orders[i].dataService.dateInit.getMonth() + 1
+				var yy = orders[i].dataService.dateInit.getFullYear()
+				var di = new Date(dd+"/"+mm+"/"+yy)
+
+				var dd = orders[i].dataService.dateFinish.getDate()
+				var mm = orders[i].dataService.dateFinish.getMonth() + 1
+				var yy = orders[i].dataService.dateFinish.getFullYear()
+				var df = new Date(dd+"/"+mm+"/"+yy)
+				*/
+				var date_temp = new Date(orders[i].dataService.dateInit)
+				var di = date_temp.toISOString(0, 0, 0)
+				console.log(di)
+				var fecha = {
+					date_init: orders[i].dataService.dateInit,
+					date_finish: orders[i].dataService.dateFinish,
+					origin: 'pagina'
+				}
+				var ingresar = true
+				for (var j = 0; j < dates.length; j++) {
+					dates[j]
+					if (String(dates[j].date_init) == String(fecha.date_init) && String(dates[j].date_finish) == String(fecha.date_finish)) {
+						console.log("repetido")
+						ingresar = false
+						j = dates.length + 1
+					}
+				}
+				if (ingresar) {
+					dates.push(fecha)
+				}
+			}
+			for (var i = 0; i < events.length; i++) {
+				var date_temp = new Date(events[i].date)
+					date_temp.setHours(0, 0, 0)
+
+				var di = date_temp.toISOString(0, 0, 0)
+				console.log("fecha"+di)
+
+				var di = new Date(events[i].date)
+				var df = new Date(events[i].date)
+				var fecha = {
+					date_init: di.toISOString(),
+					date_finish: df.toISOString(),
+					origin: 'calendario'
+				}
+				var ingresar = true
+				for (var j = 0; j < dates.length; j++) {
+					dates[j]
+					var date1 = new Date(fecha.date_init)
+					//console.log(date1)
+					var date2 = new Date(fecha.date_finish)
+					//console.log(date2)
+					var date3 = new Date(dates[j].date_init)
+					//console.log(date3)
+					var date4 = new Date(dates[j].date_finish)
+					//console.log(date4)
+					
+					if (String(date3) == String(date1) && String(date4) == String(date2)) {
+						console.log("repetido")
+						ingresar = false
+						j = dates.length + 1
+					}
+				}
+				if (ingresar) {
+					dates.push(fecha)
+				}
+			}
+		console.log("Fechas del Digdeeper*****************")
+		console.log(dates)
+		console.log("*************************************")
+		async.eachOfSeries(dates, function (value, key, callback) {
+			if (value != null) {
+		    	//
+		    	 var date_temp = new Date()
+				 var arrayHoursDefault = [   date_temp.toISOString(date_temp.setHours(0, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(0, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(1, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(1, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(2, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(2, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(3, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(3, 30, 0)),
+
+				                             date_temp.toISOString(date_temp.setHours(4, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(4, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(5, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(5, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(6, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(6, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(7, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(7, 30, 0)),
+
+				                             date_temp.toISOString(date_temp.setHours(8, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(8, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(9, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(9, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(10, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(10, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(11, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(11, 30, 0)),
+
+				                             date_temp.toISOString(date_temp.setHours(12, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(12, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(13, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(13, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(14, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(14, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(15, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(15, 30, 0)),
+
+
+				                             date_temp.toISOString(date_temp.setHours(16, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(16, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(17, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(17, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(18, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(18, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(19, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(19, 30, 0)),
+
+				                             date_temp.toISOString(date_temp.setHours(20, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(20, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(21, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(21, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(22, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(22, 30, 0)),
+				                             date_temp.toISOString(date_temp.setHours(23, 0, 0)),
+				                             date_temp.toISOString(date_temp.setHours(23, 30, 0))]
+		    	//
+		    	//console.log(value.dateInit)
+		    	var dateDefaultInit = new Date(value.date_init)
+		    	var dateDefaultFinish = new Date(value.date_finish)
+		    	//console.log(arrayClean)
+                var horario = {
+                	date_init: dateDefaultInit,
+                	date_finish: dateDefaultFinish,
+                	horarios: []
+                }
+
+                var fecha = new Date(value.date_init);
+			    dateDefaultInit2 = new Date(value.date_init);
+			    dia = fecha.getDate();
+			    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
+			    anio = fecha.getFullYear();
+			    dateDefaultInit2.setDate(dia);
+
+			    var fecha = new Date(value.date_finish);
+			    dateDefaultFinish2 = new Date(value.date_finish);
+			    dia2 = fecha.getDate();
+			    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
+			    anio = fecha.getFullYear();
+			    dateDefaultFinish2.setDate(dia2);
+
+	            console.log(dateDefaultInit)
+	            console.log(dateDefaultFinish)
+	            console.log(dateDefaultInit2)
+	            console.log(dateDefaultFinish2)
+		    	// Ejecutar tareas
+				let tasks = {
+					FechasServiciosDentro: function (callback) {
+						var array_horarios = []
+						orderApp.getForRangeDateByDigdeeper(id_user, dateDefaultInit, dateDefaultFinish, function(orders) {
+							calendarApp.getForRangeDateByDigdeeper(id_user, dateDefaultInit2, dateDefaultFinish2, function (events) {
+								console.log("events *************************"+events)
+								console.log(events.length)
+								console.log("*****************************************")
+								for (var i = 0; i < orders.length; i++) {
+									var orderdate = {
+										dateInit: orders[i].dataService.dateInit,
+										dateFinish: orders[i].dataService.dateFinish,
+										hourInit: orders[i].dataService.hourInit,
+										hourFinish: orders[i].dataService.hourFinish
+									}
+									array_horarios.push(orderdate)
+								}
+								for (var i = 0; i < events.length; i++) {
+									var orderdate = {
+										dateInit: events[i].date,
+										dateFinish: events[i].date,
+										hourInit: events[i].hourInit,
+										hourFinish: events[i].hourFinal
+									}
+									array_horarios.push(orderdate)
+								}
+								console.log("Ordenes del Digdeeper segun la fecha "+dateDefaultInit +", "+dateDefaultFinish)
+								console.log(array_horarios)
+								console.log("*************************************")
+								var ordersDates = []
+								var fechas = []
+								////////
+								async.eachOfSeries(array_horarios, function (value, key, callback) {
+								    if (value != null) {
+										var orderdate = {
+											dateInit: value.dateInit,
+											dateFinish: value.dateFinish,
+											hourInit: value.hourInit,
+											hourFinish: value.hourFinish
+										}
+										//ordersDates.push(orderdate)
+										var hourTemp_init = new Date(orderdate.hourInit)
+		                				var hourTemp_finish = new Date(orderdate.hourFinish)
+										var timeTemp = {
+						                    init: date_temp.toISOString(date_temp.setHours(hourTemp_init.getHours(), hourTemp_init.getMinutes(), 0)),
+						                    finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
+						                }
+						                //console.log(timeTemp)
+
+									    //console.log(arrayHoursDefault)
+									    //console.log(arrayHoursDefault.length)
+						                //var horarios_dia = reloadHours(timeTemp.init,timeTemp.finish, arrayHoursDefault)
+						                var arrayClean = []
+									    for (var i = 0; i < arrayHoursDefault.length; i++) {
+									        if((arrayHoursDefault[i] >= timeTemp.init && arrayHoursDefault[i] <= timeTemp.finish)){
+									            
+									        }else{
+									        	arrayClean.push(arrayHoursDefault[i])
+									        }
+									    }
+									    //console.log(arrayClean)
+						                /*var horario = {
+						                	date_init: orderdate.dateInit,
+						                	dates_finish: orderdate.dateFinish,
+						                	horarios: arrayClean
+						                }*/
+						                horario.horarios = arrayClean
+						                arrayHoursDefault = arrayClean
+						                //fechas.push(horario)
+						                console.log("Horarios disponibles de la fecha"+dateDefaultInit +", "+dateDefaultFinish)
+										console.log(horario)
+										console.log(horario.horarios.length)
+										console.log("*************************************")
+						                callback()
+									}else{
+										callback()
+									}
+								}, function (err) {
+								    if (err) {
+								        console.error(err.message);
+								        callback()
+								    }else{
+								    	fechas.push(horario)
+									   	//console.log(horario)
+						                /*console.log("FECHAS CON HORARIOS DISPONIBLES******")
+										console.log(fechas)
+										console.log(fechas.length)
+										console.log("*************************************")
+										*/callback(null, fechas)
+								    }
+								});
+							}, function (err) {
+								callback(err, null)
+							})
+							//callback(null ,horario)
+						}, function(err) {
+							callback(err, null)
+						})
+					}
+					/*FechasServiciosFuera: function (callback) {
+						var ordersDates = []
+						
+						fecha = new Date(dateDefaultInit);
+					    entrega1 = new Date(dateDefaultInit);
+					    dia = fecha.getDate()-1;
+					    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
+					    anio = fecha.getFullYear();
+					    entrega1.setDate(dia);
+
+					    fecha = new Date(dateDefaultFinish);
+					    entrega2 = new Date(dateDefaultFinish);
+					    dia2 = fecha.getDate();
+					    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
+					    anio = fecha.getFullYear();
+					    entrega2.setDate(dia2);
+
+						calendarApp.getForRangeDateByDigdeeper(id_user, dateDefaultInit, dateDefaultFinish, function (events) {
+							for (var i = 0; i < events.length; i++) {
+								var orderdate = {
+									dateInit: events[i].date,
+									dateFinish: events[i].date,
+									hourInit: events[i].hourInit,
+									hourFinish: events[i].hourFinal
+								}
+								ordersDates.push(orderdate)
+								var hourTemp_init = new Date(orderdate.hourInit)
+                				var hourTemp_finish = new Date(orderdate.hourFinish)
+								var timeTemp = {
+				                    init: date_temp.toISOString(date_temp.setHours(hourTemp_init.getHours(), hourTemp_init.getMinutes(), 0)),
+				                    finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
+				                }
+				                var horarios_dia = reloadHours(timeTemp.init,timeTemp.finish, arrayHoursDefault)
+				                var horario = {
+				                	date_init: orderdate.dateInit,
+				                	dates_finish: orderdate.dateFinish,
+				                	horarios: horarios_dia
+				                }
+				                //console.log(horario)
+							}
+							callback(null, horario)
+						}, function (err) {
+							callback(err, null)
+						})
+					}*/
+				}
+				async.parallel(async.reflectAll(tasks), function(err, results) {
+					if (err) {
+						/*res.status(400)
+						res.json({
+							status: "failure",
+							message: err
+						})*/
+						callback(err)
+					}else{
+						//console.log(results.FechasServiciosDentro.value)
+						//var ordersFueraReult = results.FechasServiciosFuera.value.concat(results.FechasServiciosFuera.value)
+						//var ordersReult = results.FechasServiciosDentro.value.concat(results.FechasServiciosFuera.value)
+						//console.log(ordersReult)
+						console.log("FECHAS CON HORARIOS DISPONIBLES DIGDEEP******")
+						console.log(results.FechasServiciosDentro.value)
+						console.log(results.FechasServiciosDentro.value.length)
+						console.log("*************************************")
+						fechas_result = fechas_result.concat(results.FechasServiciosDentro.value)
+						/*res.status(201)
+				 		res.json({
+				 			status: "success",
+				 			message: "Fechas encontradas correctamente",
+				 			orders: ordersReult
+				 		})*/
+				 		console.log("FECHAS RESULT******")
+						console.log(fechas_result)
+						console.log("*************************************")
+				 		callback()
+					}
+				});
+			}else{
+				callback()
+			}
+		}, function (err) {
+		    if (err) {
+		        console.error(err);
+		        res.status(400)
+				res.json({
+					status: "failure",
+					message: "No se ha´podido obtener las fechas."
+				})
+		    }else{
+		    	console.log("process finish***************"+fechas_result[0].horarios.length)
+		    	console.log("process finish***************"+fechas_result[1].horarios.length)
+		    	res.status(201)
+		 		res.json({
+		 			status: "success",
+		 			message: "Fechas encontradas correctamente",
+		 			orders: fechas_result
+		 		})
+
+		    }
+		    
+		});
+		///
+		},function (err) {
+			res.status(400)
+			res.json({
+				status: "failure",
+				message: "No se ha´podido obtener las fechas."
+			})
+		})
+	}, function(err) {
+		res.status(400)
+		res.json({
+			status: "failure",
+			message: "No se ha´podido obtener las fechas."
+		})
+	})
+}
+
 
 
 // Obtener todos los horarios no disponibles de un proveedor(digdeeper), segun una fecha especifica
@@ -908,11 +1303,8 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 	//////////////777
 
 	let tasks = {
-			// Borrar Propiedad parcialmente o totalmente si es que existe por lo menos un match pagado o no.
 			FechasServiciosDentro: function (callback) {
 				orderApp.getForRangeDateByDigdeeper(id_user, dateDefaultInit, dateDefaultFinish, function(orders) {
-					//console.log(orders)
-					// Obtener los horarios
 					var ordersDates = []
 					for (var i = 0; i < orders.length; i++) {
 						var orderdate = {
@@ -924,39 +1316,19 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 						ordersDates.push(orderdate)
 					}
 					callback(null ,ordersDates)
-					/*res.status(201)
-					res.json({
-						status: "success",
-						message: "Fechas obtenidas correctamente",
-						orders: ordersDates
-					})*/
 				}, function(err) {
 					callback(err, null)
-					/*res.status(400)
-					res.json({
-						status: "failure",
-						message: "No se ha´podido obtener las fechas."
-					})*/
 				})
 			},
-			// Borrar Match No pagados, que tienen esta propiedad.
 			FechasServiciosFuera: function (callback) {
 				var ordersDates = []
-				///
+				
 				fecha = new Date(dateDefaultInit);
 			    entrega1 = new Date(dateDefaultInit);
 			    dia = fecha.getDate()-1;
 			    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
 			    anio = fecha.getFullYear();
 			    entrega1.setDate(dia);
-
-				/*fecha = new Date(dateDefaultInit);
-			    entrega1 = new Date();
-			    dia = fecha.getDate()-1;
-			    mes = fecha.getMonth();// +1 porque los meses empiezan en 0
-			    anio = fecha.getFullYear();
-			    entrega1.setDate(entrega1.getDate());*/
-
 
 			    fecha = new Date(dateDefaultFinish);
 			    entrega2 = new Date(dateDefaultFinish);
@@ -965,19 +1337,7 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 			    anio = fecha.getFullYear();
 			    entrega2.setDate(dia2);
 
-
-			    /*fecha = new Date(dateDefaultFinish);
-			    entrega2 = new Date();
-			    dia = fecha.getDate()+1;
-			    mes = fecha.getMonth();// +1 porque los meses empiezan en 0
-			    anio = fecha.getFullYear();
-			    entrega2.setDate(entrega2.getDate());*/
-
-			    console.log(entrega1)
-			    console.log(entrega2)
-				///
 				calendarApp.getForRangeDateByDigdeeper(id_user, entrega1, entrega2, function (events) {
-					//console.log(events)
 					for (var i = 0; i < events.length; i++) {
 						var orderdate = {
 							dateInit: events[i].date,
@@ -990,34 +1350,29 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 					callback(null, ordersDates)
 				}, function (err) {
 					callback(err, null)
-					/*res.status(400)
-					res.json({
-						status: "failure",
-						message: "No se ha´podido obtener las fechas."
-					})	*/
 				})
 			}
 		}
-		async.parallel(async.reflectAll(tasks), function(err, results) {
-			if (err) {
-				res.status(400)
-				res.json({
-					status: "failure",
-					message: err
-				})
-			}else{
-				console.log(results.FechasServiciosFuera.value)
-				//var ordersFueraReult = results.FechasServiciosFuera.value.concat(results.FechasServiciosFuera.value)
-				var ordersReult = results.FechasServiciosDentro.value.concat(results.FechasServiciosFuera.value)
-				console.log(ordersReult)
-				res.status(201)
-		 		res.json({
-		 			status: "success",
-		 			message: "Fechas encontradas correctamente",
-		 			orders: ordersReult
-		 		})
-			}
-		});
+	async.parallel(async.reflectAll(tasks), function(err, results) {
+		if (err) {
+			res.status(400)
+			res.json({
+				status: "failure",
+				message: err
+			})
+		}else{
+			console.log(results.FechasServiciosFuera.value)
+			//var ordersFueraReult = results.FechasServiciosFuera.value.concat(results.FechasServiciosFuera.value)
+			var ordersReult = results.FechasServiciosDentro.value.concat(results.FechasServiciosFuera.value)
+			console.log(ordersReult)
+			res.status(201)
+	 		res.json({
+	 			status: "success",
+	 			message: "Fechas encontradas correctamente",
+	 			orders: ordersReult
+	 		})
+		}
+	});
 }
 
 // Obtener todas las ordenes de un usuario con rol "user"
