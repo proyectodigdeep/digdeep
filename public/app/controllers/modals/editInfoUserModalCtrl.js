@@ -3,14 +3,21 @@ angular.module('digdeepApp.editInfoUserModalCtrl', ['ui.bootstrap'])
 .controller('editInfoUserModalCtrl', ['$rootScope', '$scope', '$uibModal', '$document',
 function (                             $rootScope,   $scope,   $uibModal,   $document) {
     
-    $scope.openEditInfoUserModal = function (idUser,dataUsr,userTemp,rol,athome,presencial,size, parentSelector) {
+    $scope.openEditInfoUserModal = function (idUser,dataUsr,userTemp,rol,athome,presencial,service_time,size, parentSelector) {
         dataUsr.kindServices = []
         if (athome == true) {
             dataUsr.kindServices.push("athome")
         }
+        console.log(service_time)
         if (presencial == true) {
             dataUsr.kindServices.push("presencial")
         }
+        dataUsr.service_time = service_time
+        if (service_time) {
+            dataUsr.service_time.init = service_time.init
+            dataUsr.service_time.finish = service_time.finish
+        }
+        
         console.log(dataUsr)
         $uibModal.open({
             animation: true,

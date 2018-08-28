@@ -547,6 +547,8 @@ exports.updateUserDDiper = function(req, res, next) {
 		req.body.instagram 		? userData.instagram = req.body.instagram : null
 		req.body.rfc			? userData.rfc = req.body.rfc: null
 		req.body.logo 			? userData.logo = req.body.logo : null
+		req.body.service_time 	? userData.service_time = req.body.service_time : null
+		
 		userApp.update(req.params.id, userData, function(user) {
 			res.status(201)
 			res.json({status: 'success', user: user})

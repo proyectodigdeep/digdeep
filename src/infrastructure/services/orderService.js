@@ -945,10 +945,10 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 				///
 				fecha = new Date(dateDefaultInit);
 			    entrega1 = new Date(dateDefaultInit);
-			    dia = fecha.getDate();
+			    dia = fecha.getDate()-1;
 			    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
 			    anio = fecha.getFullYear();
-			    entrega1.setDate(entrega1.getDate());
+			    entrega1.setDate(dia);
 
 				/*fecha = new Date(dateDefaultInit);
 			    entrega1 = new Date();
@@ -960,10 +960,10 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 
 			    fecha = new Date(dateDefaultFinish);
 			    entrega2 = new Date(dateDefaultFinish);
-			    dia = fecha.getDate();
+			    dia2 = fecha.getDate();
 			    mes = fecha.getMonth()+1;// +1 porque los meses empiezan en 0
 			    anio = fecha.getFullYear();
-			    entrega2.setDate(entrega2.getDate()+1);
+			    entrega2.setDate(dia2);
 
 
 			    /*fecha = new Date(dateDefaultFinish);
@@ -973,8 +973,8 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 			    anio = fecha.getFullYear();
 			    entrega2.setDate(entrega2.getDate());*/
 
-			    //console.log(entrega1)
-			    //console.log(entrega2)
+			    console.log(entrega1)
+			    console.log(entrega2)
 				///
 				calendarApp.getForRangeDateByDigdeeper(id_user, entrega1, entrega2, function (events) {
 					//console.log(events)
@@ -1006,9 +1006,10 @@ exports.getForRangeDateByDigdeeper = function(req, res) {
 					message: err
 				})
 			}else{
-				//console.log(results)
+				console.log(results.FechasServiciosFuera.value)
+				//var ordersFueraReult = results.FechasServiciosFuera.value.concat(results.FechasServiciosFuera.value)
 				var ordersReult = results.FechasServiciosDentro.value.concat(results.FechasServiciosFuera.value)
-				//console.log(ordersReult)
+				console.log(ordersReult)
 				res.status(201)
 		 		res.json({
 		 			status: "success",

@@ -160,6 +160,8 @@ exports.update = function(id, data, onSuccess, onError) {
 			data.calf 				? user.calf 				= data.calf : null
 			data.values 			? user.values 				= data.values : null
 			data.kindServices 		? user.kindServices 		= data.kindServices : null
+			user.service_time 		= data.service_time
+
 			userRepository.update(user,false, onSuccess, onError)
 		}	
 	},onError)

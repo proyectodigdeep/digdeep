@@ -40,7 +40,6 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 		$rootScope.$emit('checkRollUser',{done: function() {
    		}})
 	}, 3000)
-
 	// Obtener todas las categorias para mostrarlas en el formulario
     categoryService.getSubcategories(function (subcategories) {
         //console.log(subcategories)
@@ -48,10 +47,70 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
     },function (err) {
         console.log("Algo salio mal")
     })
-	$scope.initDataProfileUser = function () {
+    var date_temp = new Date()
+    console.log(date_temp.toISOString(date_temp.setHours(0, 0, 0)))
+    $scope.arrayHoursDefault = [date_temp.toISOString(date_temp.setHours(0, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(0, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(1, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(1, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(2, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(2, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(3, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(3, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(4, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(4, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(5, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(5, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(6, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(6, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(7, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(7, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(8, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(8, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(9, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(9, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(10, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(10, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(11, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(11, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(12, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(12, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(13, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(13, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(14, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(14, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(15, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(15, 30, 0)),
+
+
+                             date_temp.toISOString(date_temp.setHours(16, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(16, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(17, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(17, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(18, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(18, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(19, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(19, 30, 0)),
+
+                             date_temp.toISOString(date_temp.setHours(20, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(20, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(21, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(21, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(22, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(22, 30, 0)),
+                             date_temp.toISOString(date_temp.setHours(23, 0, 0)),
+                             date_temp.toISOString(date_temp.setHours(23, 30, 0))]
+                            	console.log($scope.arrayHoursDefault)
+                             
+    $scope.initDataProfileUser = function () {
 		$scope.athome = false
     	$scope.presencial = false
+    	$scope.service_time = {}
 		userService.getUser($scope.user._id, function (user) {
+			console.log(user)
 			$scope.digdeeperProfile = {
 				fullname: 			user.fullname,
 				address: 			user.address,
@@ -77,6 +136,22 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 				logo: 				user.logo,
 				id: 				user._id
 			}
+			if (user.service_time && user.service_time.init != null && user.service_time != undefined) {
+    			var hourTemp_init = new Date(user.service_time.init)
+                var hourTemp_finish = new Date(user.service_time.finish)
+			
+				$scope.service_time = {
+					init: date_temp.toISOString(date_temp.setHours(hourTemp_init.getHours(), hourTemp_init.getMinutes(), 0)),
+					finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
+				}
+				console.log($scope.service_time)
+			}else{
+				$scope.service_time = {
+					init: null,
+					finish: null
+				}
+			}
+				
 			if (user.kindServices === undefined || user.kindServices.length === 0) {
 				$scope.digdeeperProfile.kindServices = []
 			}else{
@@ -175,7 +250,6 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 		if ($scope.presencial == true) {
 			$scope.digdeeperProfile.kindServices.push("presencial")
 		}
-		console.log("actualizando " + $scope.digdeeperProfile)//
 		userService.updateDigdeeperProfile($scope.user._id, $scope.digdeeperProfile, $localStorage.token, function (user) {
 			console.log(user)
 			$rootScope.$emit("openAlertDigdeepModal",{

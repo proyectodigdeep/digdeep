@@ -36,17 +36,9 @@ function (                                        typePrice,  geocodeService,  S
     if ($scope.typeUser === "userNoLogin") {
         $scope.lockLogin.show()
     }
+
     var date_temp = new Date()
     var arrayHoursDefault = []
-
-    /*for (var i = 0; i < 24; i++) {
-        if ((i % 2) == 0) {
-            arrayHoursDefault.push(date_temp.toISOString(date_temp.setHours(i, 0, 0)))
-        }else{
-            arrayHoursDefault.push(date_temp.toISOString(date_temp.setHours(i, 30, 0)))
-        }
-    }*/
-    console.log(arrayHoursDefault)
     var arrayHoursDefault = [date_temp.toISOString(date_temp.setHours(0, 0, 0)),
                              date_temp.toISOString(date_temp.setHours(0, 30, 0)),
                              date_temp.toISOString(date_temp.setHours(1, 0, 0)),
@@ -101,7 +93,7 @@ function (                                        typePrice,  geocodeService,  S
                              date_temp.toISOString(date_temp.setHours(22, 30, 0)),
                              date_temp.toISOString(date_temp.setHours(23, 0, 0)),
                              date_temp.toISOString(date_temp.setHours(23, 30, 0))]
-                             console.log(arrayHoursDefault)
+    console.log($scope.arrayHoursInit)       
     $scope.arrayHoursInit = arrayHoursDefault
     $scope.arrayHoursFinal = arrayHoursDefault
     // tipo de precio que tiene activo el proveedor, segun el lugar donde será el servicio
@@ -354,8 +346,11 @@ function (                                        typePrice,  geocodeService,  S
         //$scope.optionsCalendar.dateDisabled = dates
         // Clasificar las fechas ya ocupadas
         for (var i = 0; i < noDisponiblesDates.length; i++) {
+            var dateTemp = new Date(noDisponiblesDates[i].date)
+            var dd = dateTemp.getDate() + 1
+            dateTemp = dateTemp.setDate(dd)
             var noDisponibleDateTemp = {
-                date: noDisponiblesDates[i].date,
+                date: dateTemp,
                 status: 'full'
             }
             $scope.events.push(noDisponibleDateTemp)
@@ -442,32 +437,54 @@ function (                                        typePrice,  geocodeService,  S
         $scope.orderService.coordinates.lat = $scope.deliveryMap.center.latitude
         $scope.orderService.coordinates.lng = $scope.deliveryMap.center.longitude
     }
-
+    function reloadHours(hinit,hfinish) {
+        console.log(hinit)
+        console.log(hfinish)
+        var arrayClean = []
+        for (var i = 0; i < arrayHoursDefault.length; i++) {
+            if(arrayHoursDefault[i] >= hinit && arrayHoursDefault[i] <= hfinish){
+                arrayClean.push(arrayHoursDefault[i])
+            }
+        }
+        arrayHoursDefault = arrayClean
+        console.log(arrayClean)
+    }
     this.nextForm = function () {
         calculateTotal()
         if ($scope.tabMenuCurrency === "infoService") {
-            userService.getUser(Service._digdeeper,function (digdeeper) {
+            userService.getUser(Service._digdeeper, function (digdeeper) {
                 if (digdeeper.kindServices.indexOf('athome') != -1 && digdeeper.kindServices.indexOf('presencial') != -1) {
                     $scope.athome = true
                     $scope.presencial = true
                     $scope.showAddressDD = true
                     $scope.addressDataDD = digdeeper
+                    $scope.service_time = digdeeper.service_time
                 }else{
                     if (digdeeper.kindServices.indexOf('presencial') != -1) {
                         $scope.presencial = true
                         $scope.showAddressDD = true
                         $scope.addressDataDD = digdeeper
                         $scope.orderService.placeService = "presencial"
+                        $scope.service_time = digdeeper.service_time
                     }else{
                         $scope.presencial = false
                     }
                     if (digdeeper.kindServices.indexOf('athome') != -1) {
                         $scope.athome = true
                         $scope.orderService.placeService = "athome"
+                        $scope.service_time = digdeeper.service_time
                     }else{
                         $scope.athome = false
                     }
                 }
+                var hourTemp_init = new Date($scope.service_time.init)
+                var hourTemp_finish = new Date($scope.service_time.finish)
+            
+                var timeTemp = {
+                    init: date_temp.toISOString(date_temp.setHours(hourTemp_init.getHours(), hourTemp_init.getMinutes(), 0)),
+                    finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
+                }
+                reloadHours(timeTemp.init,timeTemp.finish)
                 nextFormTrue()
                 return true
             },function (err) {
@@ -608,6 +625,7 @@ function (                                        typePrice,  geocodeService,  S
                         var hour_temp = new Date(arrayHoursDefault[i])
                             //console.log()
                         var fecha_default_v1 = hour_temp.toISOString(hour_temp.getHours(), hour_temp.getMinutes(), 0)
+                        
                         var fecha_temp = new Date(hourInitTemp)
                         var fecha_init_v1 = fecha_temp.toISOString(fecha_temp.getHours(), fecha_temp.getMinutes(), 0)
                         var fecha_temp = new Date(hourFinalTemp)
@@ -634,9 +652,7 @@ function (                                        typePrice,  geocodeService,  S
 
                     }
                 }
-                console.log(hoursOcuped)
             }
-            console.log(hoursOcuped)
             $scope.listHorarios = []
             for (var i = 0; i < arrayHoursDefault.length; i++) {
                 var datetmp = new Date(arrayHoursDefault[i])
@@ -655,7 +671,6 @@ function (                                        typePrice,  geocodeService,  S
                 }
                 
             }
-            console.log($scope.listHorarios)
         }, function (err) {
             $rootScope.$emit("openAlert", {textAlert:"Lo sentimos no se pudo agendar tu horario. intentaló más tarde."})
         }) 

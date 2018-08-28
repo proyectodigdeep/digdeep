@@ -37,7 +37,11 @@ var userSchema = new mongoose.Schema({
 	kindServices: 			[String],	
 	//services:    			[mongoose.Schema.Types.ObjectId]
 	postedServices: 		[mongoose.Schema.Types.ObjectId], // Servicios que el usuario digdeeper postea
-	myServicesRequested: 	[mongoose.Schema.Types.ObjectId] // Ordenes con los servicios que el usuario solicita
+	myServicesRequested: 	[mongoose.Schema.Types.ObjectId], // Ordenes con los servicios que el usuario solicita
+	service_time: {
+		init: Date,
+		finish: Date
+	}
 })
 
 // Métodos
