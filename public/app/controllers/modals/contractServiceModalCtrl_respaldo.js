@@ -313,43 +313,40 @@ function (                                        typePrice,  geocodeService,  S
     $scope.selectPlaceService = function (place) {
         $scope.orderService.placeService = place
     }
-    function getDatesOcuped() {
-        //Obtener las fechas y horarios disponibles del proveedor
-        ordersService.getDatesByDigdeeper(Service._digdeeper, function (orders_times) {
-            console.log(orders_times)
-            $scope.orders_times = orders_times
-            for (var i = 0; i < orders_times.length; i++) {
-                noDisponiblesDates.push(orders_times[i].date_init)
-                noDisponiblesDates.push(orders_times[i].date_finish)
-                if (orders_times[i].horarios.length == 0) {
-                    var noDisponibleDateTemp = {
-                        date: orders_times[i].date_init,
-                        status: 'allDayFull'
-                    }
-                    $scope.events.push(noDisponibleDateTemp)
-                    var noDisponibleDateTemp = {
-                        date: orders_times[i].date_finish,
-                        status: 'allDayFull'
-                    }
-                    $scope.events.push(noDisponibleDateTemp)
-                }else{
-                    var noDisponibleDateTemp = {
-                        date: orders_times[i].date_init,
-                        status: 'full'
-                    }
-                    $scope.events.push(noDisponibleDateTemp)
-                    var noDisponibleDateTemp = {
-                        date: orders_times[i].date_finish,
-                        status: 'full'
-                    }
-                    $scope.events.push(noDisponibleDateTemp)
-                }
+    //Obtener las fechas del proveedor dentro de digdeep
+    ordersService.getDatesByDigdeeper(Service._digdeeper, function (dates,ordersDates) {
+        noDisponiblesDates = dates
+        // Clasificar las fechas ya ocupadas
+        for (var i = 0; i < noDisponiblesDates.length; i++) {
+            var noDisponibleDateTemp = {
+                date: noDisponiblesDates[i],
+                status: 'full'
             }
-            $scope.optionsCalendar.customClass = getDayClass
-        },function (err) {
-            console.log(err)
-        })
-    }
+            $scope.events.push(noDisponibleDateTemp)
+        }
+        $scope.optionsCalendar.customClass = getDayClass
+    },function (err) {
+        console.log(err)
+    })
+
+    //Obtener las fechas del proveedor fuera de digdeep
+    calendarService.getEventsByDigdeeper(Service._digdeeper, $localStorage.token, function (eventsOut) {
+        noDisponiblesDates = eventsOut
+        // Clasificar las fechas ya ocupadas
+        for (var i = 0; i < noDisponiblesDates.length; i++) {
+            var dateTemp = new Date(noDisponiblesDates[i].date)
+            var dd = dateTemp.getDate() + 1
+            dateTemp = dateTemp.setDate(dd)
+            var noDisponibleDateTemp = {
+                date: dateTemp,
+                status: 'full'
+            }
+            $scope.events.push(noDisponibleDateTemp)
+        }
+        $scope.optionsCalendar.customClass = getDayClass
+    },function (err) {
+        console.log(err)
+    })
    
     this.getHourInit = function (hourinit) {
         $scope.orderService.hourFinal = hourinit
@@ -472,7 +469,6 @@ function (                                        typePrice,  geocodeService,  S
                     finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
                 }
                 reloadHours(timeTemp.init,timeTemp.finish)
-                getDatesOcuped()
                 nextFormTrue()
                 return true
             },function (err) {
@@ -503,8 +499,7 @@ function (                                        typePrice,  geocodeService,  S
                 $scope.alertError = "Debes seleccionar una fecha primero."
                 $scope.errAlert = true
             }else{
-                //reloadDatesOcuped()
-                getDisponiblesHoursByDay()
+                reloadDatesOcuped()
                 nextFormTrue()
                 return true
             }
@@ -539,7 +534,6 @@ function (                                        typePrice,  geocodeService,  S
 
                                 console.log(hourInitTemp.getHours())
                                 console.log(hourFinalTemp.getHours())
-                                
                                 console.log(hourInitTempNewOrder.getHours())
                                 console.log(hourFinalTempNewOrder.getHours())
                                 // Verificar que la hora inicial del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
@@ -593,25 +587,78 @@ function (                                        typePrice,  geocodeService,  S
     this.showFormFacturation = function () {
         $scope.tabMenuCurrency = "facturation"
     }
-    function getDisponiblesHoursByDay() {
-        var fecha_inicial = $scope.orderService.dateInit
-            fecha_inicial = fecha_inicial.toISOString(fecha_inicial.setHours(0, 0, 0))
-        var fecha_final = $scope.orderService.dateFinal
-            fecha_final = fecha_final.toISOString(fecha_final.setHours(0, 0, 0))
-        var fechas_disponibles = $scope.orders_times
+    function reloadDatesOcuped() {
+        var hoursOcuped = []
+        // Verificar que no interfiera con ningun horario
+        ordersService.getDatesAndHoursByRangeDate($scope.orderService.digdeeper, $scope.orderService.dateInit ,$scope.orderService.dateFinal, function (orders) {
+            if (orders.length > 0) {
+                for (var i = 0; i < orders.length; i++) {
+                    var hourInitTemp = new Date(orders[i].hourInit)
+                    var hourFinalTemp = new Date(orders[i].hourFinish)
 
-        for (var i = 0; i < fechas_disponibles.length; i++) {
-            if (String(fechas_disponibles[i].date_init) == String(fecha_inicial) || String(fechas_disponibles[i].date_finish) == String(fecha_final)) {
-                $scope.listHorarios = fechas_disponibles[i].horarios
-                console.log("Fecha Similar")
-                console.log(fechas_disponibles[i].horarios)
-                i = fechas_disponibles.length
-            }else{
-                $scope.listHorarios = arrayHoursDefault
+                    var date_temp = new Date(hourInitTemp)
+                    var initDate = date_temp.toISOString(date_temp.setHours(hourInitTemp.getHours(), hourInitTemp.getMinutes(), 0))
+                    hoursOcuped.push(initDate)
+
+                    var date_temp2 = new Date(hourFinalTemp)
+                    var initDate2 = date_temp2.toISOString(date_temp2.setHours(hourFinalTemp.getHours(), hourFinalTemp.getMinutes(), 0))
+                    hoursOcuped.push(initDate2)
+
+                    for (var i = 0; i < arrayHoursDefault.length; i++) {
+                        
+                        var hour_temp = new Date(arrayHoursDefault[i])
+                            //console.log()
+                        var fecha_default_v1 = hour_temp.toISOString(hour_temp.getHours(), hour_temp.getMinutes(), 0)
+                        
+                        var fecha_temp = new Date(hourInitTemp)
+                        var fecha_init_v1 = fecha_temp.toISOString(fecha_temp.getHours(), fecha_temp.getMinutes(), 0)
+                        var fecha_temp = new Date(hourFinalTemp)
+                        var fecha_final_v1 = fecha_temp.toISOString(fecha_temp.getHours(), fecha_temp.getMinutes(), 0)
+
+                        //hora_default_temp = hora_default_temp.toISOString(hora_default_temp.setHours(hora_default_temp.getHours(), hora_default_temp.getMinutes(), 0))
+                        //var fecha_def = hora_default_temp.getHours() + ":" + hora_default_temp.getMinutes()
+                        //var hora_temp1 = fecha1.getHours() + ":" + fecha1.getMinutes()
+                        //var hora_temp2 = fecha2.getHours() + ":" + fecha2.getMinutes()
+                        
+                        //fecha_default_v1 = fecha_default_v1.toISOString()
+                        console.log(fecha_default_v1)
+                        console.log(fecha_init_v1)
+                        console.log(fecha_final_v1)
+                            
+                            //format_default_temp = hora_default_temp.toISOString(hora_default_temp.setHours(hora_default_temp.getHours(), hora_default_temp.getMinutes(), 0))
+                        if (fecha_default_v1 > fecha_init_v1 && fecha_default_v1 < fecha_final_v1) {
+                            /*var fecha_ocupada = new Date()
+                                fecha_ocupada = fecha_ocupada.toISOString(hora_default_temp.setHours(hora_default_temp.getHours(), hora_default_temp.getMinutes(), 0))
+                              console.log(fecha_ocupada)*/
+                              hoursOcuped.push(fecha_default_v1)
+                              console.log(fecha_default_v1)
+                        }
+
+                    }
+                }
             }
-        }
+            $scope.listHorarios = []
+            for (var i = 0; i < arrayHoursDefault.length; i++) {
+                var datetmp = new Date(arrayHoursDefault[i])
+                var hora_temp = datetmp.getHours() + ":" +datetmp.getMinutes()
+                var insert = true
+                for (var j = 0; j < hoursOcuped.length; j++) {
+                    var datetmp = new Date(hoursOcuped[j])
+                    var hora_temp2 = datetmp.getHours() + ":" +datetmp.getMinutes()
+                    if (hora_temp == hora_temp2) {
+                       insert = false
+                       j = hoursOcuped.length + 1
+                    }  
+                }
+                if (insert) {
+                    $scope.listHorarios.push(arrayHoursDefault[i])
+                }
+                
+            }
+        }, function (err) {
+            $rootScope.$emit("openAlert", {textAlert:"Lo sentimos no se pudo agendar tu horario. intentaló más tarde."})
+        }) 
     }
-   
     // Poner estilos a los dias no disponibles en el calendario
     function getDayClass(data) {
         var date = data.date

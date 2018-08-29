@@ -36,8 +36,10 @@ function (                $rootScope,   $scope,   $uibModal,   $document) {
 function (                          dateSelected, userId, $rootScope,   $uibModalInstance,   $localStorage,   $scope,  $state, calendarService) {
     $scope.event = {}
     $scope.dateSelected = new Date(dateSelected)
-    $scope.event.date = $scope.dateSelected.setDate($scope.dateSelected.getDate())
-    var dd = $scope.dateSelected.getDate() + 1
+    $scope.dateSelected.setHours(0, 0, 0)
+    $scope.event.date = $scope.dateSelected.setDate($scope.dateSelected.getDate()+1)
+
+    var dd = $scope.dateSelected.getDate()
     $scope.dateSelected.setDate(dd)
     this.cancel = function () {
         $uibModalInstance.close()

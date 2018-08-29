@@ -36,7 +36,7 @@ function (                         $rootScope,   $scope,   $uibModal,   $documen
 function (                                  eventOut,   $rootScope,   $uibModalInstance,   $localStorage,   $scope,  $state, calendarService) {
     $scope.eventOut = eventOut
     var dateTemp = new Date($scope.eventOut.date)
-    var dd = dateTemp.getDate() + 1
+    var dd = dateTemp.getDate()
     dateTemp.setDate(dd)
     $scope.dateFormated = dateTemp
 

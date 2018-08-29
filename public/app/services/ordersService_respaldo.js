@@ -21,7 +21,7 @@ function(                  $http,   jwtHelper) {
         $http.get('v1/datesbydigdeeper/'+idDigdeeper)
         .then(function (response) {
             if(response.data.status === "success"){
-                onSucces(response.data.orders_times)
+                onSucces(response.data.dates, response.data.ordersDates)
             }
             else{
                 onError(response.data.message)
