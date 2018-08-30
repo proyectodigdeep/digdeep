@@ -316,12 +316,11 @@ function (                                        typePrice,  geocodeService,  S
     function getDatesOcuped() {
         //Obtener las fechas y horarios disponibles del proveedor
         ordersService.getDatesByDigdeeper(Service._digdeeper, function (orders_times) {
-            console.log(orders_times)
             $scope.orders_times = orders_times
             for (var i = 0; i < orders_times.length; i++) {
                 noDisponiblesDates.push(orders_times[i].date_init)
                 noDisponiblesDates.push(orders_times[i].date_finish)
-                if (orders_times[i].horarios.length == 0) {
+                if (orders_times[i].horarios.length == 0 || orders_times[i].horarios.length == 1) {
                     var noDisponibleDateTemp = {
                         date: orders_times[i].date_init,
                         status: 'allDayFull'
@@ -400,7 +399,6 @@ function (                                        typePrice,  geocodeService,  S
                     }else{
                         var deliveryCoordinates = {lat: 19.0342177, lng: -98.2464459}
                         $scope.orderService.deliveryData.address = autocmpleteAddress.formatted_address
-                        console.log($scope.orderService.deliveryData.address)
                         geocodeService.getLatLong(autocmpleteAddress, function(latlng) {
                             deliveryCoordinates = latlng
                             $scope.formDelivery = 2
@@ -466,7 +464,6 @@ function (                                        typePrice,  geocodeService,  S
                 }
                 var hourTemp_init = new Date($scope.service_time.init)
                 var hourTemp_finish = new Date($scope.service_time.finish)
-            
                 var timeTemp = {
                     init: date_temp.toISOString(date_temp.setHours(hourTemp_init.getHours(), hourTemp_init.getMinutes(), 0)),
                     finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
@@ -537,11 +534,6 @@ function (                                        typePrice,  geocodeService,  S
                                     hourFinalTempNewOrder.setHours($scope.orderService.hourFinal.getHours(), $scope.orderService.hourFinal.getMinutes(), 00)
                                 */
 
-                                console.log(hourInitTemp.getHours())
-                                console.log(hourFinalTemp.getHours())
-                                
-                                console.log(hourInitTempNewOrder.getHours())
-                                console.log(hourFinalTempNewOrder.getHours())
                                 // Verificar que la hora inicial del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
                                 if (hourInitTempNewOrder >= hourInitTemp && hourInitTempNewOrder <= hourFinalTemp) {
                                     $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
@@ -603,8 +595,6 @@ function (                                        typePrice,  geocodeService,  S
         for (var i = 0; i < fechas_disponibles.length; i++) {
             if (String(fechas_disponibles[i].date_init) == String(fecha_inicial) || String(fechas_disponibles[i].date_finish) == String(fecha_final)) {
                 $scope.listHorarios = fechas_disponibles[i].horarios
-                console.log("Fecha Similar")
-                console.log(fechas_disponibles[i].horarios)
                 i = fechas_disponibles.length
             }else{
                 $scope.listHorarios = arrayHoursDefault
