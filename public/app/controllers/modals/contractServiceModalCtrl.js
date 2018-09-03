@@ -462,16 +462,31 @@ function (                                        typePrice,  geocodeService,  S
                         $scope.athome = false
                     }
                 }
-                var hourTemp_init = new Date($scope.service_time.init)
+                if ($scope.service_time != undefined && $scope.service_time.init != null && $scope.service_time.finish != null) {
+                    var hourTemp_init = new Date($scope.service_time.init)
+                    var hourTemp_finish = new Date($scope.service_time.finish)
+                    var timeTemp = {
+                        init: date_temp.toISOString(date_temp.setHours(hourTemp_init.getHours(), hourTemp_init.getMinutes(), 0)),
+                        finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
+                    }
+                    reloadHours(timeTemp.init,timeTemp.finish)
+                    getDatesOcuped()
+                    nextFormTrue()
+                    return true
+                }else{
+                    getDatesOcuped()
+                    nextFormTrue()
+                    return true
+                }
+                /*var hourTemp_init = new Date($scope.service_time.init)
                 var hourTemp_finish = new Date($scope.service_time.finish)
                 var timeTemp = {
                     init: date_temp.toISOString(date_temp.setHours(hourTemp_init.getHours(), hourTemp_init.getMinutes(), 0)),
                     finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
                 }
                 reloadHours(timeTemp.init,timeTemp.finish)
-                getDatesOcuped()
-                nextFormTrue()
-                return true
+                */
+                
             },function (err) {
                 console.log("err")
             })
@@ -490,6 +505,7 @@ function (                                        typePrice,  geocodeService,  S
                 $scope.alertError = "Debes seleccionar una fecha primero."
                 $scope.errAlert = true
             }else{
+                $scope.orderService.dateFinal = $scope.orderService.dateInit
                 this.getDateInit($scope.orderService.dateInit)
                 nextFormTrue()
                 return true
@@ -512,59 +528,64 @@ function (                                        typePrice,  geocodeService,  S
                 $scope.errAlert = true
             }else{
                 if ($scope.orderService.hourInit === $scope.orderService.hourFinal) {
-                    $scope.alertError = "No puedes tener la misma hora de inicio que de finalización."
+                    $scope.alertError = "Horario invalido"
                     $scope.errAlert = true
                 }else{  
-                    // Verificar que no interfiera con ningun horario
-                    ordersService.getDatesAndHoursByRangeDate($scope.orderService.digdeeper, $scope.orderService.dateInit ,$scope.orderService.dateFinal, function (orders) {
-                        console.log(orders)
-                        if (orders.length > 0) {
-                            for (var i = 0; i < orders.length; i++) {
-                                var hourInitTemp = new Date(orders[i].hourInit)
-                                var hourFinalTemp = new Date(orders[i].hourFinish)
+                    if ($scope.orderService.hourFinal <= $scope.orderService.hourInit) {
+                        $scope.alertError = "Horario invalido"
+                        $scope.errAlert = true
+                    }else{
+                        // Verificar que no interfiera con ningun horario
+                        ordersService.getDatesAndHoursByRangeDate($scope.orderService.digdeeper, $scope.orderService.dateInit ,$scope.orderService.dateFinal, function (orders) {
+                            console.log(orders)
+                            if (orders.length > 0) {
+                                for (var i = 0; i < orders.length; i++) {
+                                    var hourInitTemp = new Date(orders[i].hourInit)
+                                    var hourFinalTemp = new Date(orders[i].hourFinish)
 
-                                var hourInitTempNewOrder = new Date($scope.orderService.hourInit)
-                                var hourFinalTempNewOrder = new Date($scope.orderService.hourFinal)
-                                
-                                /*console.log($scope.orderService.hourInit)
-                                console.log($scope.orderService.hourFinal)
-                                var hourInitTempNewOrder = new Date()
-                                    hourInitTempNewOrder.setHours($scope.orderService.hourInit.getHours(), $scope.orderService.hourInit.getMinutes(), 00)
-                                var hourFinalTempNewOrder = new Date()
-                                    hourFinalTempNewOrder.setHours($scope.orderService.hourFinal.getHours(), $scope.orderService.hourFinal.getMinutes(), 00)
-                                */
+                                    var hourInitTempNewOrder = new Date($scope.orderService.hourInit)
+                                    var hourFinalTempNewOrder = new Date($scope.orderService.hourFinal)
+                                    
+                                    /*console.log($scope.orderService.hourInit)
+                                    console.log($scope.orderService.hourFinal)
+                                    var hourInitTempNewOrder = new Date()
+                                        hourInitTempNewOrder.setHours($scope.orderService.hourInit.getHours(), $scope.orderService.hourInit.getMinutes(), 00)
+                                    var hourFinalTempNewOrder = new Date()
+                                        hourFinalTempNewOrder.setHours($scope.orderService.hourFinal.getHours(), $scope.orderService.hourFinal.getMinutes(), 00)
+                                    */
 
-                                // Verificar que la hora inicial del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
-                                if (hourInitTempNewOrder >= hourInitTemp && hourInitTempNewOrder <= hourFinalTemp) {
-                                    $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
-                                    $scope.errAlert = true
-                                    return false
-                                }else{
-                                    // Verificar que la hora final del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
-                                    if (hourFinalTempNewOrder >= hourInitTemp && hourFinalTempNewOrder <=  hourFinalTemp) {
+                                    // Verificar que la hora inicial del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
+                                    if (hourInitTempNewOrder >= hourInitTemp && hourInitTempNewOrder <= hourFinalTemp) {
                                         $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
                                         $scope.errAlert = true
                                         return false
                                     }else{
-                                        // Verificar que la hora inicial y final del nuevo servicio no abarquen el rango de horas de los servicios apartados
-                                        if (hourInitTempNewOrder <= hourInitTemp && hourFinalTempNewOrder >= hourFinalTemp) {
+                                        // Verificar que la hora final del nuevo servicio no se encuentre en el rango de horas de los servicios apartados
+                                        if (hourFinalTempNewOrder >= hourInitTemp && hourFinalTempNewOrder <=  hourFinalTemp) {
                                             $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
                                             $scope.errAlert = true
                                             return false
-                                        }
-                                    }   
+                                        }else{
+                                            // Verificar que la hora inicial y final del nuevo servicio no abarquen el rango de horas de los servicios apartados
+                                            if (hourInitTempNewOrder <= hourInitTemp && hourFinalTempNewOrder >= hourFinalTemp) {
+                                                $scope.alertError = "El horario que seleccionaste ya ha sido apartado, intentaló con otro horario por favor."
+                                                $scope.errAlert = true
+                                                return false
+                                            }
+                                        }   
+                                    }
                                 }
+                                nextFormTrue()
+                                return true
+                            }else{
+                                nextFormTrue()
+                                return true  
                             }
-                            nextFormTrue()
-                            return true
-                        }else{
-                            nextFormTrue()
-                            return true  
-                        }
-                    }, function (err) {
-                        $rootScope.$emit("openAlert", {textAlert:"Lo sentimos no se pudo agendar tu horario. intentaló más tarde."})
-                        return false
-                    }) 
+                        }, function (err) {
+                            $rootScope.$emit("openAlert", {textAlert:"Lo sentimos no se pudo agendar tu horario. intentaló más tarde."})
+                            return false
+                        }) 
+                    }
                 }
             }
         }
@@ -591,17 +612,29 @@ function (                                        typePrice,  geocodeService,  S
         var fecha_final = $scope.orderService.dateFinal
             fecha_final = fecha_final.toISOString(fecha_final.setHours(0, 0, 0))
         var fechas_disponibles = $scope.orders_times
-
+        $scope.listHorarios_init = arrayHoursDefault
+        $scope.listHorarios_finish = []
         for (var i = 0; i < fechas_disponibles.length; i++) {
             if (String(fechas_disponibles[i].date_init) == String(fecha_inicial) || String(fechas_disponibles[i].date_finish) == String(fecha_final)) {
-                $scope.listHorarios = fechas_disponibles[i].horarios
+                $scope.listHorarios_init = fechas_disponibles[i].horarios
+                $scope.listHorarios_finish = []
                 i = fechas_disponibles.length
             }else{
-                $scope.listHorarios = arrayHoursDefault
+                $scope.listHorarios_init = arrayHoursDefault
+                $scope.listHorarios_finish = []
             }
         }
+        //console.log($scope.listHorarios_init)
     }
-   
+    $scope.reloadHoursFinal = function (hinit) {
+       var arrayClean = []
+        for (var i = 0; i < arrayHoursDefault.length; i++) {
+            if(arrayHoursDefault[i] > hinit){
+                arrayClean.push(arrayHoursDefault[i])
+            }
+        }
+        $scope.listHorarios_finish = arrayClean
+    }
     // Poner estilos a los dias no disponibles en el calendario
     function getDayClass(data) {
         var date = data.date

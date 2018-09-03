@@ -206,9 +206,9 @@
 					<label class="formRegister">Horario de servicios</label><br>
 					<div>
 				        <div class="text-left" style="padding-top: 10px">
-				            <select class="form-control selectHoursContract" ng-model="service_time.init">
+				            <select class="form-control selectHoursContract" ng-model="service_time.init" ng-change="selectHourInit(service_time.init)">
 				                <option value="">Inicio</option>
-				                <option ng-repeat="opt_hr_init in arrayHoursDefault" value="{{opt_hr_init}}">{{opt_hr_init | date:'hh:mm a'}}</option>
+				                <option ng-repeat="opt_hr_init in arrayHoursDefault_init" value="{{opt_hr_init}}">{{opt_hr_init | date:'hh:mm a'}}</option>
 				            </select>
 				            <!--span class="labelSelectsHours">Inicio</span>
 				            <div uib-timepicker ng-model="orderService.hourInit" hour-step="1" minute-step="1" show-meridian="ismeridian" ng-change="$ctrl.getHourInit(orderService.hourInit)"></div-->
@@ -216,7 +216,7 @@
 				        <div class="text-left" style="padding-top: 10px">
 				            <select class="form-control selectHoursContract" ng-model="service_time.finish">
 				                <option value="">Final</option>
-				                <option ng-repeat="opt_hr_final in arrayHoursDefault" value="{{opt_hr_final}}">{{opt_hr_final | date:'hh:mm a'}}</option>
+				                <option ng-repeat="opt_hr_final in arrayHoursDefault_finish" value="{{opt_hr_final}}">{{opt_hr_final | date:'hh:mm a'}}</option>
 				            </select>
 				            <!--span class="labelSelectsHours">Final</span>
 				            <div uib-timepicker ng-model="orderService.hourFinal" hour-step="1" minute-step="1" show-meridian="ismeridian" min="orderService.hourInit"></div-->
@@ -268,7 +268,7 @@
 			</div>
 			
 			<div class="row text-right" style="margin-top: 30px">
-				<button class="btn btnEditProfile" ng-click="openEditInfoUserModal(user._id,digdeeperProfile,digdeeperProfileTemp,'digdeeper',athome,presencial, service_time)">Guardar cambios</button>
+				<button class="btn btnEditProfile" ng-click="updateProfile(user._id,digdeeperProfile,digdeeperProfileTemp,'digdeeper',athome,presencial, service_time)">Guardar cambios</button>
 			</div>
 		</div>
 	</div>

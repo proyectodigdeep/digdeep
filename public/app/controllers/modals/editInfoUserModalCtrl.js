@@ -35,8 +35,23 @@ function (                             $rootScope,   $scope,   $uibModal,   $doc
         })     
     }
 
-    // Abrir modal si es que se pide desde fuera a traves del evento "openDeleteServiceModal"
-    $rootScope.$on('openEditInfoUserModal', function(idUser,dataUsr,userTemp,rol,size, parentSelectora) {
+    $rootScope.$on('openEditInfoUserModal', function(event,data) {
+        console.log(data.rol)
+        data.dataUsr.kindServices = []
+        if (data.athome == true) {
+            data.dataUsr.kindServices.push("athome")
+        }
+        console.log(data.service_time)
+        if (data.presencial == true) {
+            data.dataUsr.kindServices.push("presencial")
+        }
+        data.dataUsr.service_time = data.service_time
+        if (data.service_time) {
+            data.dataUsr.service_time.init = data.service_time.init
+            data.dataUsr.service_time.finish = data.service_time.finish
+        }
+        
+        console.log(data.dataUsr)
         $uibModal.open({
             animation: true,
             templateUrl: '/app/templates/modals/editInfoUserModal.html',
@@ -44,10 +59,10 @@ function (                             $rootScope,   $scope,   $uibModal,   $doc
             controllerAs: '$ctrl',
             size: 'sm',
             resolve: {
-                idUser: function() {return idUser},
-                dataUsr: function() {return dataUsr},
-                userTemp: function () {return userTemp},
-                rol: function (){return rol}, 
+                idUser: function() {return data.idUser},
+                dataUsr: function () {return data.dataUsr},
+                userTemp: function () {return data.userTemp},
+                rol: function (){return data.rol}, 
                 done: function() {}
             }
         })     
@@ -81,6 +96,7 @@ function (                                     userTemp,  $rootScope,   $uibModa
         }
         // Actualizar un usuario con rol 'digdeeper'
         if (rol === "digdeeper") {
+            console.log(dataUsr)
             if (userTemp) {
                 dataUsr.birthdate = userTemp.dayDate+"/"+userTemp.monthDate+"/"+userTemp.yearDate   
             }

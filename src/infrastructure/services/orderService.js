@@ -1207,8 +1207,10 @@ exports.getDatesByDigdeeper = function(req, res) {
 						message: "No se ha´podido obtener las fechas."
 					})
 			    }else{
-			    	console.log("process finish***************"+fechas_result[0].horarios.length)
-			    	console.log("process finish***************"+fechas_result[1].horarios.length)
+			    	if (fechas_result.length > 0) {
+			    		//console.log("process finish***************"+fechas_result[0].horarios.length)
+			    		//console.log("process finish***************"+fechas_result[1].horarios.length)
+			    	}
 			    	res.status(201)
 			 		res.json({
 			 			status: "success",

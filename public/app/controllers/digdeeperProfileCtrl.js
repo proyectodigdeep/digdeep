@@ -48,8 +48,8 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
         console.log("Algo salio mal")
     })
     var date_temp = new Date()
-    console.log(date_temp.toISOString(date_temp.setHours(0, 0, 0)))
-    $scope.arrayHoursDefault = [date_temp.toISOString(date_temp.setHours(0, 0, 0)),
+    //console.log(date_temp.toISOString(date_temp.setHours(0, 0, 0)))
+    var arrayHoursDefault = [date_temp.toISOString(date_temp.setHours(0, 0, 0)),
                              date_temp.toISOString(date_temp.setHours(0, 30, 0)),
                              date_temp.toISOString(date_temp.setHours(1, 0, 0)),
                              date_temp.toISOString(date_temp.setHours(1, 30, 0)),
@@ -103,14 +103,16 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
                              date_temp.toISOString(date_temp.setHours(22, 30, 0)),
                              date_temp.toISOString(date_temp.setHours(23, 0, 0)),
                              date_temp.toISOString(date_temp.setHours(23, 30, 0))]
-                            	console.log($scope.arrayHoursDefault)
+                           	//console.log($scope.arrayHoursDefault)
+    $scope.arrayHoursDefault_init = arrayHoursDefault
+    $scope.arrayHoursDefault_finish = arrayHoursDefault
                              
     $scope.initDataProfileUser = function () {
 		$scope.athome = false
     	$scope.presencial = false
     	$scope.service_time = {}
 		userService.getUser($scope.user._id, function (user) {
-			console.log(user)
+			//console.log(user)
 			$scope.digdeeperProfile = {
 				fullname: 			user.fullname,
 				address: 			user.address,
@@ -145,6 +147,7 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 					finish: date_temp.toISOString(date_temp.setHours(hourTemp_finish.getHours(), hourTemp_finish.getMinutes(), 0))
 				}
 				console.log($scope.service_time)
+				reloadHoursFinal($scope.service_time.init)
 			}else{
 				$scope.service_time = {
 					init: null,
@@ -174,9 +177,12 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 					}
 				}
 			}
-			// Separar la fecha de nacimiento para poder mostrarla en formulario 
-			var arrayDate 	= user.birthdate.split("/")
-
+			var arrayDate = []
+			// Separar la fecha de nacimiento para poder mostrarla en formulario
+			if (user.birthdate != undefined) {
+				var arrayDate 	= user.birthdate.split("/")
+			} 
+			
 			$scope.digdeeperProfileTemp = {
 				address: 	user.address,
 				colony: 	user.colony,
@@ -194,6 +200,19 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 				$state.go("home")
 			}
 		})
+	}
+	function reloadHoursFinal(hinit) {
+        var arrayClean = []
+        for (var i = 0; i < arrayHoursDefault.length; i++) {
+            if(arrayHoursDefault[i] > hinit){
+                arrayClean.push(arrayHoursDefault[i])
+            }
+        }
+        $scope.arrayHoursDefault_finish = arrayClean
+    }
+	$scope.selectHourInit = function (hour_init) {
+		reloadHoursFinal(hour_init)
+		$scope.service_time.finish = hour_init
 	}
 	// Enviar un correo para configurar tu contraseña
 	$scope.changePasswordAuth0 = function (email) {
@@ -242,25 +261,26 @@ angular.module('digdeepApp.digdeeperProfileCtrl', [])
 			}
 		}
 	}
-	$scope.updateDDProfile = function () {
-		$scope.digdeeperProfile.birthdate = $scope.digdeeperProfileTemp.dayDate+"/"+$scope.digdeeperProfileTemp.monthDate+"/"+$scope.digdeeperProfileTemp.yearDate
-		if ($scope.athome == true) {
-			$scope.digdeeperProfile.kindServices.push("athome")
+	$scope.updateProfile = function (idUser,dataUsr,userTemp,rol,athome,presencial,service_time) {
+		if (service_time.init != null && service_time.init != undefined) {
+			if (service_time.finish != null && service_time.finish != undefined) {
+				if (service_time.finish > service_time.init) {
+					$rootScope.$emit('openEditInfoUserModal', {idUser,dataUsr,userTemp,rol,athome,presencial,service_time})
+				}else{
+					$rootScope.$emit("openAlert",{
+                    	textAlert: "Horario de servicio invalido."
+                	})
+				}
+			}else{
+				$rootScope.$emit("openAlert",{
+                    textAlert: "Debés seleccionar los dos horarios de servicio."
+                })
+			}
+		}else{
+			$rootScope.$emit("openAlert",{
+            	textAlert: "Horario de servicio invalido."
+        	})
 		}
-		if ($scope.presencial == true) {
-			$scope.digdeeperProfile.kindServices.push("presencial")
-		}
-		userService.updateDigdeeperProfile($scope.user._id, $scope.digdeeperProfile, $localStorage.token, function (user) {
-			console.log(user)
-			$rootScope.$emit("openAlertDigdeepModal",{
-				textAlert: "Tus datos se actualizaron correctamente"
-			})
-			// Recargar los datos del usuario para obtener los actualizados
-			$scope.initDataProfileUser()
-		}, function (err) {
-			console.log(err)
-			alert("Algo salio mal, usuario no actualizado: "+err.data.message)
-		})
 	}
 	// Configuración del dropzone
     $scope.dropzoneConfig = {
