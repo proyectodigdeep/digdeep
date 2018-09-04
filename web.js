@@ -47,10 +47,9 @@ app.use("/v1", apiRouterProtected())
 app.use(function(req, res){
 	res.status(404)
 
-	if (req.header('x-forwarded-proto') !== 'https') {
-	    res.redirect("https://${req.header('digdeep.mx')}${req.url}")
-	  } else {
-	    next();
+	if(req.headers['x-forwarded-proto'] !== 'https') {
+	   var sslUrl = ['https://digdeep.mx', req.url].join('');
+	   return res.redirect(sslUrl);
 	}
 	// respond with html page
 	if (req.accepts('html')) {
