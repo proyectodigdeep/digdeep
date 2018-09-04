@@ -45,6 +45,11 @@ app.use("/v1", apiRouterProtected())
 app.use(function(req, res){
 	res.status(404)
 
+	if (req.header('x-forwarded-proto') !== 'https')
+      	res.redirect('https://${req.header("host")}${req.url}')
+    else
+      next()
+
 	// respond with html page
 	if (req.accepts('html')) {
 		return res.send("Página no encontrada")
