@@ -26,6 +26,12 @@ var commentService 	= require("../services/commentService")  // Este es un servi
 var orderService 	= require("../services/orderService") 	 // Este es un servicio especifico para ordenes de los usuarios
 var calendarService = require("../services/calendarService") 	// Este es un servicio especifico para calendario
 
+router.get('*',function(req,res,next){
+  if(req.headers['x-forwarded-proto']!='https')
+    res.redirect('https://digdeep.mx'+req.url)
+  else
+    next() /* Continue to other routes if we're not redirecting */
+})
 /****USUARIOS****/
 	//[ok] Crear nuevo usuario despues de registrarlo en auth0
 	router.post("/users_register", userService.registerUser)
