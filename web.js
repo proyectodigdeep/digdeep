@@ -42,15 +42,27 @@ app.use(securityService.setUser)
 
 app.use("/v1", apiRouterProtected())
 
+app.use(function (req, res, next) {
+  var sslUrl;
+
+  if (process.env.NODE_ENV === 'production' &&
+    req.headers['x-forwarded-proto'] !== 'https') {
+
+    sslUrl = ['https://digdeep.mx', req.url].join('');
+    return res.redirect(sslUrl);
+  }
+
+  return next();
+});
 
 // Error 404
 app.use(function(req, res){
 	res.status(404)
 
-	if(req.headers['x-forwarded-proto'] !== 'https') {
+	/*if(req.headers['x-forwarded-proto'] !== 'https') {
 	   var sslUrl = ['https://digdeep.mx', req.url].join('');
 	   return res.redirect(sslUrl);
-	}
+	}*/
 	// respond with html page
 	if (req.accepts('html')) {
 		return res.send("Página no encontrada")
