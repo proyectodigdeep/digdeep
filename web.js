@@ -47,8 +47,8 @@ app.use(function (req, res, next) {
   console.log("************SSLURL****************")
   console.log(req.headers)
   if (req.headers.origin == 'http://digdeep.mx') {
-    sslUrl = ['https://digdeep.mx', req.url].join('');
-    return res.redirect(sslUrl);
+    //sslUrl = ['https://digdeep.mx', req.url].join('');
+    return res.redirect('https://digdeep.mx');
   }
 
   return next();
