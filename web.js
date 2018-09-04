@@ -42,18 +42,16 @@ app.use(securityService.setUser)
 
 app.use("/v1", apiRouterProtected())
 
-app.use(express.static('build'));
-app.use((req, res, next) => {
-  if (req.header('x-forwarded-proto') !== 'https') {
-    res.redirect("https://${req.header('host')}${req.url}")
-  } else {
-    next();
-  }
-});
+
 // Error 404
 app.use(function(req, res){
 	res.status(404)
 
+	if (req.header('x-forwarded-proto') !== 'https') {
+	    res.redirect("https://${req.header('digdeep.mx')}${req.url}")
+	  } else {
+	    next();
+	}
 	// respond with html page
 	if (req.accepts('html')) {
 		return res.send("Página no encontrada")
