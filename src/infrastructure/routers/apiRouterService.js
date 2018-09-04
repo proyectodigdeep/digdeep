@@ -13,6 +13,8 @@ router.get("/services/:id",servicesService.getService)
 router.get("/servicesbydigdeeper/:id",servicesService.getServicesByDigdeeper)
 // Obtener todos los servicios con los dos ultimos comentarios de un proveedor
 router.get("/servicesbydigdeepercomments/:id",servicesService.getServicesByDigdeeperComments)
+// Obtener el precio con el valor mayor de todos los servicios de un proveedor
+router.get("/higherprice/:id",servicesService.getHigherPriceOfServices)
 // Eliminar un servicio
 router.delete("/services:id",servicesService.deleteService)
 // Exportar el módulo de rutas para API

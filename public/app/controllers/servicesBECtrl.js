@@ -51,6 +51,12 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
     },function (err) {
         console.log(err)
     })
+    serviceService.getHigherPriceOfServices($localStorage.idDigdeeper, function (higher_price) {
+        $scope.higher_price = higher_price
+        $scope.rangePrice = higher_price
+    }, function (err) {
+        console.log(err)
+    })
     userService.getUser($localStorage.idDigdeeper,function (digdeeper) {
         $scope.digdeeperData = digdeeper
         // Obtener el tipo de costos que debe de tener el usuario
@@ -125,8 +131,29 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
             serviceService.getServicesByDigdeeperComments($localStorage.idDigdeeper,function (services) {
                 $scope.services = []
                 for (var i = 0; i < services.length; i++) {
-                    if (services[i].service.price_presencial <= $scope.rangePrice) {
-                        $scope.services.push(services[i])   
+                    // Si costo tipo adomicilio y presencial
+                    if ($scope.typePrice == 1) {
+                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                            $scope.services.push(services[i])
+                        }else{
+                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                $scope.services.push(services[i])   
+                            }
+                        }
+                    }else{
+                        // Si costo tipo adomicilio 
+                        if ($scope.typePrice == 2) {
+                            if (services[i].service.price_athome <= $scope.rangePrice) {
+                                $scope.services.push(services[i])
+                            }
+                        }else{
+                            // Si costo tipo presencial
+                            if ($scope.typePrice == 3) {
+                                if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                    $scope.services.push(services[i])   
+                                }
+                            }
+                        }
                     }
                 }
             },function (err) {
@@ -144,9 +171,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if ($scope.filters.decorations === true) {
                             position = services[i].service.filters.indexOf("decorations");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -155,9 +205,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if ($scope.filters.fashion === true) {
                             position = services[i].service.filters.indexOf("fashion");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -167,9 +240,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if($scope.filters.cocktails === true){
                             position = services[i].service.filters.indexOf("cocktails");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -178,9 +274,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if($scope.filters.nutrition    === true){
                             position = services[i].service.filters.indexOf("nutrition");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -189,9 +308,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if($scope.filters.concerts     === true){
                             position = services[i].service.filters.indexOf("concerts");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -200,9 +342,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if ($scope.filters.parties     === true) {
                             position = services[i].service.filters.indexOf("parties");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -211,9 +376,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if ($scope.filters.culture     === true) {
                             position = services[i].service.filters.indexOf("culture");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -222,9 +410,32 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
                         if ($scope.filters.food        === true) {
                             position = services[i].service.filters.indexOf("food");
                             if (position >= 0) {
-                                if (services[i].service.price_presencial <= $scope.rangePrice) {
-                                    $scope.services.push(services[i])
-                                    blocked = true   
+                                if ($scope.typePrice == 1) {
+                                    if (services[i].service.price_athome <= $scope.rangePrice) {
+                                        $scope.services.push(services[i])
+                                        blocked = true
+                                    }else{
+                                        if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                            $scope.services.push(services[i]) 
+                                            blocked = true  
+                                        }
+                                    }
+                                }else{
+                                    // Si costo tipo adomicilio 
+                                    if ($scope.typePrice == 2) {
+                                        if (services[i].service.price_athome <= $scope.rangePrice) {
+                                            $scope.services.push(services[i])
+                                            blocked = true
+                                        }
+                                    }else{
+                                        // Si costo tipo presencial
+                                        if ($scope.typePrice == 3) {
+                                            if (services[i].service.price_presencial <= $scope.rangePrice) {
+                                                $scope.services.push(services[i]) 
+                                                blocked = true  
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -2699,3 +2699,12 @@ and (orientation : portrait) {
     font-family: "Ubuntu-Regular";
     font-size: 17px;
 }
+.rangePriceLabel{
+    font-family: Ubuntu-Bold;
+    font-size: 15px;
+    color: white;
+    background-color: #04456B;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

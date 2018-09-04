@@ -124,11 +124,12 @@
 								$0.00
 							</div>
 							<div class="col-md-6 text-right costRangeText" style="padding-right: 10px">
-								$10,000.00									
+								{{higher_price | currency}}									
 							</div>
 
 							<div class="text-center" style="padding:10px;padding-top: 35px">
-								<input type="range" class="sliderRangeLS" min="0" max="10000" ng-model="rangePrice" ng-change="choosePrice()">
+								<span class="rangePriceLabel" ng-if="rangePrice < higher_price">{{rangePrice | currency}}</span>
+								<input type="range" class="sliderRangeLS" min="0" max="{{higher_price}}" ng-model="rangePrice" ng-change="choosePrice()">
 							</div>
 						</div>
 					</div>

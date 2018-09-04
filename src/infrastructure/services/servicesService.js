@@ -1,5 +1,6 @@
 var express 	= require("express")
 var serviceApp 	= require("../../application/serviceApp")
+var userApp 	= require("../../application/userApp")
 var commentApp 	= require("../../application/commentApp")
 var cloudinary 	= require('cloudinary');
 
@@ -92,6 +93,118 @@ exports.getServicesByDigdeeper = function (req,res) {
 			services: services
 		})
 	},function (err) {
+		res.status(400)
+		res.json({
+			status: "failure",
+			message: err
+		})
+	})
+}
+exports.getHigherPriceOfServices = function (req,res) {
+	var id = req.params.id
+	userApp.getUser(id , function (user) {
+		if (user) {
+			serviceApp.getServicesByDigdeeper(id, function(services) {
+				if (services.length > 0) {
+					if (user.kindServices.length == 1) {
+						var tipo_servicio = user.kindServices[0]
+						if (tipo_servicio == 'athome') {
+							var items_athome = services
+							items_athome.sort(function (a, b) {
+							  if (a.price_athome < b.price_athome) {
+							    return 1;
+							  }
+							  if (a.price_athome > b.price_athome) {
+							    return -1;
+							  }
+							  // a must be equal to b
+							  return 0;
+							});
+							console.log("****Precios a athome****")
+							res.status(201)
+							res.json({
+								status: "success",
+								higher_price: items_athome[0].price_athome
+							})
+						}else{
+							if (tipo_servicio == 'presencial') {
+								var items_presencial = services
+								items_presencial.sort(function (a, b) {
+								  if (a.price_presencial < b.price_presencial) {
+								    return 1;
+								  }
+								  if (a.price_presencial > b.price_presencial) {
+								    return -1;
+								  }
+								  // a must be equal to b
+								  return 0;
+								});
+								console.log("****Precios presencial****")
+								res.status(201)
+								res.json({
+									status: "success",
+									higher_price: items_presencial[0].price_presencial
+								})
+							}
+						}
+					}else{
+						if (user.kindServices.length == 2) {
+							var items_athome = services
+							items_athome.sort(function (a, b) {
+							  if (a.price_athome < b.price_athome) {
+							    return 1;
+							  }
+							  if (a.price_athome > b.price_athome) {
+							    return -1;
+							  }
+							  // a must be equal to b
+							  return 0;
+							});
+
+							var items_presencial = services
+							items_presencial.sort(function (a, b) {
+							  if (a.price_presencial < b.price_presencial) {
+							    return 1;
+							  }
+							  if (a.price_presencial > b.price_presencial) {
+							    return -1;
+							  }
+							  // a must be equal to b
+							  return 0;
+							});
+							console.log("****Ambos Precios****")
+							if (items_athome[0].price_athome > items_presencial[0].price_presencial) {
+								res.status(201)
+								res.json({
+									status: "success",
+									higher_price: items_athome[0].price_athome
+								})
+							}else{
+								res.status(201)
+								res.json({
+									status: "success",
+									higher_price: items_presencial[0].price_presencial
+								})
+							}
+
+						}
+					}
+				}else{
+					res.status(201)
+					res.json({
+						status: "success",
+						higher_price: 50000000
+					})
+				}
+			},function (err) {
+				res.status(400)
+				res.json({
+					status: "failure",
+					message: err
+				})
+			})
+		}
+	}, function (err) {
 		res.status(400)
 		res.json({
 			status: "failure",

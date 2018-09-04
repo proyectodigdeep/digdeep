@@ -15,11 +15,23 @@ function(                    $http,   jwtHelper) {
         }, onError)
     }
 
-     this.getService = function (id,onSuccess, onError) {
+    this.getService = function (id,onSuccess, onError) {
         $http.get('v1/services/'+id).
         then(function (response) {
             if(response.data.status === "success"){
                 onSuccess(response.data.service)
+            }
+            else{
+                onError(response.data.message)
+            }
+        }, onError)
+    }
+
+    this.getHigherPriceOfServices = function (id,onSuccess, onError) {
+        $http.get('v1/higherprice/'+id).
+        then(function (response) {
+            if(response.data.status === "success"){
+                onSuccess(response.data.higher_price)
             }
             else{
                 onError(response.data.message)
