@@ -46,7 +46,7 @@ app.use(function (req, res, next) {
   var sslUrl;
   console.log("************SSLURL****************")
   console.log(req.headers)
-  if (req.headers['x-forwarded-proto'] !== 'https') {
+  if (req.headers.origin == 'http://digdeep.mx') {
     sslUrl = ['https://digdeep.mx', req.url].join('');
     return res.redirect(sslUrl);
   }
