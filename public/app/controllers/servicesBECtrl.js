@@ -43,39 +43,42 @@ function (                       $scope,   $state,   $rootScope,   serviceServic
     $scope.rangePrice = 10000
     if ($state.params.idDigdeeper) {
         $localStorage.idDigdeeper = $state.params.idDigdeeper
+        // Obtener los ultimos dos comentarios de un servicio
+        initializar()
     }
-    // Obtener los ultimos dos comentarios de un servicio
-    serviceService.getServicesByDigdeeperComments($localStorage.idDigdeeper,function (services) {
-        $scope.services = services
-        console.log(services)
-    },function (err) {
-        console.log(err)
-    })
-    serviceService.getHigherPriceOfServices($localStorage.idDigdeeper, function (higher_price) {
-        $scope.higher_price = higher_price
-        $scope.rangePrice = higher_price
-    }, function (err) {
-        console.log(err)
-    })
-    userService.getUser($localStorage.idDigdeeper,function (digdeeper) {
-        $scope.digdeeperData = digdeeper
-        // Obtener el tipo de costos que debe de tener el usuario
-        var userTemp = digdeeper
-        if ((userTemp.kindServices.indexOf('athome') != -1) && (userTemp.kindServices.indexOf('presencial') != -1)) {
-            $scope.typePrice = 1
-        }else{
-            if (userTemp.kindServices.indexOf('athome') != -1) {
-                $scope.typePrice = 2
+    initializar()
+    function initializar() {
+        serviceService.getServicesByDigdeeperComments($localStorage.idDigdeeper,function (services) {
+            $scope.services = services
+        },function (err) {
+            console.log(err)
+        })
+        serviceService.getHigherPriceOfServices($localStorage.idDigdeeper, function (higher_price) {
+            $scope.higher_price = higher_price
+            $scope.rangePrice = higher_price
+        }, function (err) {
+            console.log(err)
+        })
+        userService.getUser($localStorage.idDigdeeper,function (digdeeper) {
+            $scope.digdeeperData = digdeeper
+            // Obtener el tipo de costos que debe de tener el usuario
+            var userTemp = digdeeper
+            if ((userTemp.kindServices.indexOf('athome') != -1) && (userTemp.kindServices.indexOf('presencial') != -1)) {
+                $scope.typePrice = 1
             }else{
-                if (userTemp.kindServices.indexOf('presencial') != -1) {
-                    $scope.typePrice = 3
+                if (userTemp.kindServices.indexOf('athome') != -1) {
+                    $scope.typePrice = 2
+                }else{
+                    if (userTemp.kindServices.indexOf('presencial') != -1) {
+                        $scope.typePrice = 3
+                    }
                 }
             }
-        }
-        
-    },function (err) {
-        console.log(err)
-    })
+            
+        },function (err) {
+            console.log(err)
+        })
+    }
 
     $scope.cleanFilters = function () {
         $scope.filters        = {
