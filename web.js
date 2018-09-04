@@ -44,10 +44,9 @@ app.use("/v1", apiRouterProtected())
 
 app.use(function (req, res, next) {
   var sslUrl;
-
-  if (process.env.NODE_ENV === 'production' &&
-    req.headers['x-forwarded-proto'] !== 'https') {
-
+  console.log("************SSLURL****************")
+  console.log(req.headers)
+  if (req.headers['x-forwarded-proto'] !== 'https') {
     sslUrl = ['https://digdeep.mx', req.url].join('');
     return res.redirect(sslUrl);
   }
