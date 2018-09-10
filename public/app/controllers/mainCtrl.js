@@ -114,7 +114,7 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 				console.log(profile)
 			})
 		}*/
-		 
+		
 		if ($localStorage.token) {
 			console.log("**************RELOAD***********")
 			$scope.user = userService.getUserFromToken($localStorage.token)
