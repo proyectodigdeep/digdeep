@@ -161,13 +161,14 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	/// LOK PARA LOGIN
 	$rootScope.lockLogin = new Auth0Lock('cClzTGh4UG8urrvPOJzVqvaPMxnk3Ntl', 'digdeepproyecto.auth0.com', options);
  	$rootScope.lockLogin.on("authenticated", function(authResult) {
- 		alert(authResult)
+ 		//alert(authResult)
 		lock.getUserInfo(authResult.accessToken, function(error, profile) {
 		    if (error) {
 		    	alert(error)
 		      	// Handle error
 		      	return;
 		    }
+		    alert(profile)
 		    //console.log(profile)
 		 	localStorage.setItem("accessToken", authResult.accessToken);
 		    localStorage.setItem("profile", JSON.stringify(profile));
@@ -196,6 +197,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 		 						}
 							}, function (err) {
+
 								console.log(err)
 							})
 		 				}, function (err) {
