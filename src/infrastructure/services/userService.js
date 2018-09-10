@@ -475,7 +475,9 @@ exports.updateUserToDigdeeper = function(req, res, next) {
 		req.body.myServicesRequested    ? userData.myServicesRequested 	= req.body.myServicesRequested: null
 		userData.roles				= ['user','digdeeper']	
 
-		
+		if (req.body.email_verified) {
+			userData.email_verified = req.body.email_verified
+		}
 		userApp.update(req.params.id, userData, function(user) {
 			res.json({status: 'success', user: user})
 			//console.log(user.roles)
@@ -506,6 +508,9 @@ exports.updateUser = function(req, res, next) {
 		req.body.state 		? userData.state		= req.body.state:null		
 		req.body.fcmToken 	? userData.fcmToken 	= req.body.fcmToken : null
 		req.body.myServicesRequested    ? userData.myServicesRequested 	= req.body.myServicesRequested: null
+		if (req.body.email_verified) {
+			userData.email_verified = req.body.email_verified
+		}
 		userApp.update(req.params.id, userData, function(user) {
 			res.json({status: 'success', user: user})
 		}, function(err) {
@@ -549,6 +554,9 @@ exports.updateUserDDiper = function(req, res, next) {
 		req.body.logo 			? userData.logo = req.body.logo : null
 		req.body.service_time 	? userData.service_time = req.body.service_time : null
 		
+		if (req.body.email_verified) {
+			userData.email_verified = req.body.email_verified
+		}
 		userApp.update(req.params.id, userData, function(user) {
 			res.status(201)
 			res.json({status: 'success', user: user})

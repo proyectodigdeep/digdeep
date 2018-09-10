@@ -162,6 +162,9 @@ exports.update = function(id, data, onSuccess, onError) {
 			data.kindServices 		? user.kindServices 		= data.kindServices : null
 			user.service_time 		= data.service_time
 
+			if (data.email_verified) {
+				user.email_verified = data.email_verified
+			}
 			userRepository.update(user,false, onSuccess, onError)
 		}	
 	},onError)

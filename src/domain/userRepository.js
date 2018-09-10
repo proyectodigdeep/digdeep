@@ -45,6 +45,7 @@ exports.create = function (data, onSuccess, onError){
 					user.myServicesRequested= data.myServicesRequested
 					user.auth0Id 			= data.auth0Id
 					user.service_time 		= data.service_time
+					user.email_verified 	= data.email_verified
 			    // Persistir al usuario
 			    user.save(function (err, user) {
 					if(err)
@@ -89,6 +90,7 @@ exports.registerUser = function (data, onSuccess, onError){
 		user.myServicesRequested= data.myServicesRequested
 		user.auth0Id 			= data.auth0Id
 		user.service_time 		= data.service_time
+		user.email_verified 	= data.email_verified
     // Persistir al usuario
     user.save(function (err, user) {
 		if(err)

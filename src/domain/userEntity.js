@@ -41,7 +41,8 @@ var userSchema = new mongoose.Schema({
 	service_time: {
 		init: Date,
 		finish: Date
-	}
+	},
+	email_verified: Boolean
 })
 
 // Métodos
