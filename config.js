@@ -19,7 +19,7 @@ module.exports = {
 	email_digdeep: "managerdigeep@gmail.com",
 	//email_digdeep: "j.lpumas@hotmail.com",
 	
-	hostPath: 'http://digdeep.mx/',
+	hostPath: 'https://digdeep.mx/',
 	conekta: {
 		apiKey: 'key_RbynxeQNr9WAh7JPXyyxkw',
 		locale: 'es',
