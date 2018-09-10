@@ -164,11 +164,9 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
  		//alert(authResult)
 		lock.getUserInfo(authResult.accessToken, function(error, profile) {
 		    if (error) {
-		    	alert(error)
-		      	// Handle error
+		    	// Handle error
 		      	return;
 		    }
-		    alert(profile)
 		    //console.log(profile)
 		 	localStorage.setItem("accessToken", authResult.accessToken);
 		    localStorage.setItem("profile", JSON.stringify(profile));
