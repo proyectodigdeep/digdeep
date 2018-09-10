@@ -8,9 +8,9 @@ angular.module('digdeepApp.prehomeCtrl', [])
 	})
 }])
 
-.controller('prehomeCtrl', [ '$scope', '$state', '$rootScope', '$interval', '$localStorage', 'userService', 'lock',
-function (                    $scope,   $state,   $rootScope,   $interval, $localStorage,  userService, lock) {
-	if (localStorage.accessToken) {
+.controller('prehomeCtrl', [ '$scope', '$state', '$rootScope', '$interval', '$localStorage', 'userService',
+function (                    $scope,   $state,   $rootScope,   $interval, $localStorage,  userService) {
+	/*if (localStorage.accessToken) {
 	    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 	    	console.log("verificando cuenta")
 		    if (profile && profile.email_verified == true) {
@@ -27,7 +27,7 @@ function (                    $scope,   $state,   $rootScope,   $interval, $loca
 		    }
 			console.log(profile)
 		})	
-	}
+	}*/
 	//verificar el tipo de usuario para mostrar la barra de navegación acorde a el
 	$rootScope.$emit('checkRollUser',{done: function() {
    	}})
