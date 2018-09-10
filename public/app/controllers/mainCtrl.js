@@ -37,7 +37,7 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
     $scope.tab = 0
     $scope.tabRol = 0
     
-    if (localStorage.accessToken) {
+    /*if (localStorage.accessToken) {
 	    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 	    	console.log(error)
 		    if (profile && profile.email_verified == true) {
@@ -52,7 +52,7 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 		    }
 			console.log(profile)
 		})	
-	}
+	}*/
 
     $scope.selecTabTop = function (numTab) {
     	$scope.tab = numTab
@@ -92,34 +92,37 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 	}
 
 	$rootScope.$on('reloadUser', function(event) {
-		/*if ($localStorage.token) {
-			$scope.user = userService.getUserFromToken($localStorage.token)
-			userService.getUser($scope.user._id, function (user) {
-				$scope.user.urlImg = user.urlImg
-			},function (err) {
-				console.log(err)
-			})	
-		}*/
-		if (localStorage.accessToken) {
-		    lock.getUserInfo(localStorage.accessToken, function(error, profile) {
+		/*if (localStorage.accessToken) {
+			lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 				console.log(error)
 			    if (profile && profile.email_verified == true) {
 			    	var id_auth0 = profile.sub
 			    	localStorage.setItem("profile", JSON.stringify(profile));
 			    	userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 						$localStorage.token = token
+						//$state.go("https://digdeep.mx/#/home")
 						$scope.user = userService.getUserFromToken($localStorage.token)
 						userService.getUser($scope.user._id, function (user) {
 							$scope.user.urlImg = user.urlImg
 						},function (err) {
 							console.log(err)
 						})	
-						//$state.go("https://digdeep.mx/#/home")
 					}, function (err) {
 						$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 					})
 			    }
 				console.log(profile)
+			})
+		}*/
+		 
+		if ($localStorage.token) {
+			console.log("**************RELOAD***********")
+			$scope.user = userService.getUserFromToken($localStorage.token)
+			userService.getUser($scope.user._id, function (user) {
+				$scope.user.urlImg = user.urlImg
+				//location.reload()
+			},function (err) {
+				console.log(err)
 			})	
 		}
 	})
