@@ -2,8 +2,7 @@ angular.module('digdeepApp.mainCtrl', [])
 
 .controller('mainCtrl', [ '$scope', '$state','$controller', '$rootScope', '$localStorage', 'userService', 'ordersService', '$interval', 'lock',
 function (                 $scope,   $state,  $controller,	 $rootScope,   $localStorage,   userService,   ordersService,   $interval,   lock) {
-	console.log("main")
-	
+
 	// Cargar controladores para los modales
     angular.extend(this, $controller('contractServiceModalCtrl', {$scope: $scope}))
     angular.extend(this, $controller('registerDigdeeperModalCtrl', {$scope: $scope}))
@@ -47,8 +46,6 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 		    	userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 					$localStorage.token = token
 					//$state.go("https://digdeep.mx/#/home")
-					$rootScope.$emit('reloadUser',{done: function() {
-					}})
 				}, function (err) {
 					$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 				})
@@ -111,6 +108,12 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 			    	localStorage.setItem("profile", JSON.stringify(profile));
 			    	userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 						$localStorage.token = token
+						$scope.user = userService.getUserFromToken($localStorage.token)
+						userService.getUser($scope.user._id, function (user) {
+							$scope.user.urlImg = user.urlImg
+						},function (err) {
+							console.log(err)
+						})	
 						//$state.go("https://digdeep.mx/#/home")
 					}, function (err) {
 						$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
