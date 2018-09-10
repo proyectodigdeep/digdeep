@@ -357,12 +357,14 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 							})
  						}else{
  							userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								$localStorage.token = token	
-		 						//$state.go('userprofile')
+								if (profile.email_verified == true) {
+									$localStorage.token = token	
+		 							$state.go('userprofile')
+								}
 							}, function (err) {
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 							})
- 							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
+ 							//console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
  							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 						}
@@ -486,8 +488,10 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 					if (usr) {
 						if (profile.email_verified == true) {
 							userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								$localStorage.token = token	
-		 						$state.go('digdeeperprofile')
+								if (profile.email_verified == true) {
+									$localStorage.token = token	
+		 							$state.go('digdeeperprofile')
+								}
 							}, function (err) {
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 							})
@@ -498,7 +502,6 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 							}, function (err) {
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 							})*/
-							console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 						}
