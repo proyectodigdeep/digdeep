@@ -364,9 +364,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 							}, function (err) {
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 							})
- 							//console.log("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
- 							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
-							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+ 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 						}
  					}
  				}, function (err) {
@@ -423,15 +421,13 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 			 				}
 			 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
 			 				userService.registerUserBySocialRed(data_user, function (usr) {
-			 					//console.log(usr)
 			 					// Obtener el token del usuario registrado
 			 					userService.getTokenByIdAuth0(String(id_auth0), function (token) {
 									if (token != null) {
 			 							$localStorage.token = token	
 			 							$state.go('userprofile')
 			 						}else{
-			 							//alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
-		 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos intentaló nuevamente porfavor."})
+			 							$rootScope.$emit("openAlert", {textAlert:"Lo sentimos intentaló nuevamente porfavor."})
 		 							}
 								}, function (err) {
 									console.log(err)
@@ -462,18 +458,18 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	$rootScope.lockRegister2.on("authenticated", function(authResult) {
 		console.log(authResult)
 	  	lock.getUserInfo(authResult.accessToken, function(error, profile) {
-	    if (error) {
-	      // Handle error
-	      return;
-	    }
-	    console.log(profile)
-	 	localStorage.setItem("accessToken", authResult.accessToken);
-	    localStorage.setItem("profile", JSON.stringify(profile));
-	    id_auth0 = profile.sub
-	    profile = profile
+		    if (error) {
+		      // Handle error
+		      return;
+		    }
+		    console.log(profile)
+		 	localStorage.setItem("accessToken", authResult.accessToken);
+		    localStorage.setItem("profile", JSON.stringify(profile));
+		    id_auth0 = profile.sub
+		    profile = profile
 
-	    // Registrar usuario en la db que fue registrado en auth0 por correo y contraseña.
-	    if (id_auth0.indexOf('auth0') != -1) {
+	    	// Registrar usuario en la db que fue registrado en auth0 por correo y contraseña.
+	    	if (id_auth0.indexOf('auth0') != -1) {
 				var data_user = {
 					name: String(profile.name),
 				email: String(profile.email),
@@ -481,7 +477,6 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 				auth0Id: id_auth0,
 				urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
 				}
-				//console.log("registrando")
 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
 				userService.registerUserBySocialRed(data_user, function (usr) {
 					//console.log("registrando usuario "+usr)
@@ -496,13 +491,6 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 							})
 						}else{
-							/*userService.getTokenByIdAuth0(String(id_auth0), function (token) {
-								$localStorage.token = token	
-		 						//$state.go('userprofile')
-							}, function (err) {
-								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
-							})*/
-							//alert("Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.")
 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 						}
 					}
@@ -535,13 +523,11 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 		 							$localStorage.token = token	
 		 							$state.go('digdeeperprofile')
 		 						}else{
-		 							//alert('Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado.')
-	 								$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
+		 							$rootScope.$emit("openAlert", {textAlert:"Bienvenido a DigDeep, verifica tu cuenta para continuar con el correo que te hemos enviado."})
 	 							}
 							}, function (err) {
 								console.log(err)
 								$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
-
 							})
 		 				}, function (err) {
 		 					console.log(err)
@@ -592,8 +578,8 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 				$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 
 		 	})
-			}
-	  });
+		}
+	});
 	});
 });
 
