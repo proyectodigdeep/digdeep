@@ -3,6 +3,7 @@ var express 	= require("express")
 var mongoose 	= require("mongoose")
 var cors 		= require("cors")
 var bodyParser 	= require("body-parser")
+var sslRedirect = require('heroku-ssl-redirect');
 
 // Librería interno
 var apiRouterOpen 		= require("./src/infrastructure/routers/apiRouterOpen")
@@ -21,6 +22,7 @@ app.set('view engine', 'swig')
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(sslRedirect());
 
 // Conectar a mongodb
 mongoose.Promise = global.Promise
