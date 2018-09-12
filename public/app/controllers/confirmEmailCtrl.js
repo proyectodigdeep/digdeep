@@ -12,7 +12,6 @@ angular.module('digdeepApp.confirmEmailCtrl', [])
 	function (             $scope,   $state,   userService,	  $localStorage,  $rootScope,   $interval, lock) {
 	$scope.state = ""
 	$scope.wordSearch = ""
-	console.log("******************Home******************")
 	if (localStorage.accessToken) {
 		lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 			console.log(error)
@@ -36,6 +35,8 @@ angular.module('digdeepApp.confirmEmailCtrl', [])
 		    }
 			console.log(profile)
 		})	
+	}else{
+		$state.go('home')
 	}
 		
 	//verificar el tipo de usuario para mostrar la barra de navegación acorde a el
@@ -46,4 +47,5 @@ angular.module('digdeepApp.confirmEmailCtrl', [])
 	$rootScope.$emit('checkRollUser',{done: function() {
    	}})
    	$scope.typeUser = $rootScope.typeUser
+	}
 }])
