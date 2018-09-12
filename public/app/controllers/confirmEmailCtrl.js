@@ -3,14 +3,14 @@ angular.module('digdeepApp.confirmEmailCtrl', [])
 .config(['$stateProvider', function ($stateProvider) {
 	$stateProvider.state('confirmemail', {
 		url: '/confirmemail',
-		//templateUrl: '/app/templates/confirmemail.html',
+		templateUrl: '/app/templates/confirmemail.html',
 		controller: 'confirmEmailCtrl'
 	})
 }])
 
 .controller('confirmEmailCtrl', [ '$scope', '$state', 'userService', '$localStorage','$rootScope', '$interval', 'lock',
 	function (             $scope,   $state,   userService,	  $localStorage,  $rootScope,   $interval, lock) {
-	$state.go('prehome')
+	//$state.go('prehome')
 	//widow.location.href="https://digdeep.mx"
 	$scope.state = ""
 	$scope.wordSearch = ""
