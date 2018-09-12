@@ -10,8 +10,8 @@ angular.module('digdeepApp.confirmEmailCtrl', [])
 
 .controller('confirmEmailCtrl', [ '$scope', '$state', 'userService', '$localStorage','$rootScope', '$interval', 'lock',
 	function (             $scope,   $state,   userService,	  $localStorage,  $rootScope,   $interval, lock) {
-	//$state.go('home')
-	widow.location.href="https://digdeep.mx"
+	$state.go('prehome')
+	//widow.location.href="https://digdeep.mx"
 	$scope.state = ""
 	$scope.wordSearch = ""
 	console.log("******************Home******************")
