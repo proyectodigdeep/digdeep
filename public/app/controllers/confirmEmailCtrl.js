@@ -12,6 +12,7 @@ angular.module('digdeepApp.confirmEmailCtrl', [])
 	function (             $scope,   $state,   userService,	  $localStorage,  $rootScope,   $interval, lock) {
 	$scope.state = ""
 	$scope.wordSearch = ""
+	console.log("******************Home******************")
 	if (localStorage.accessToken) {
 		lock.getUserInfo(localStorage.accessToken, function(error, profile) {
 			console.log(error)
@@ -47,5 +48,4 @@ angular.module('digdeepApp.confirmEmailCtrl', [])
 	$rootScope.$emit('checkRollUser',{done: function() {
    	}})
    	$scope.typeUser = $rootScope.typeUser
-	}
 }])
