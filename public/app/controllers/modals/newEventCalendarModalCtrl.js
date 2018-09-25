@@ -122,7 +122,9 @@ function (                             dateSelected,   userId, $rootScope,   $ui
             if (String(fechas_disponibles[i].date_init) == String(fecha_inicial) || String(fechas_disponibles[i].date_finish) == String(fecha_final)) {
                 $scope.listHorarios = fechas_disponibles[i].horarios
                 i = fechas_disponibles.length + 1
+                console.log("here1")
             }else{
+                console.log("here2")
                 $scope.listHorarios = arrayHoursDefault
             }
         }
@@ -135,6 +137,7 @@ function (                             dateSelected,   userId, $rootScope,   $ui
             }
         }
         arrayHoursDefault = arrayClean
+        $scope.listHorarios = arrayHoursDefault
     }
     function getDatesOcuped() {
         //Obtener las fechas y horarios disponibles del proveedor
