@@ -4,11 +4,6 @@ var userApp 	= require("../../application/userApp")
 var commentApp 	= require("../../application/commentApp")
 var cloudinary 	= require('cloudinary');
 
-/*cloudinary.config ({ 
-   cloud_name: 	'digdeep-ci', 
-   api_key: 	'915899137598222', 
-   api_secret: 	'S44w1I3EYff13XDhpHhbBw73y0E'  
-})*/
 // Configuración para cloudinary(repositorio de imagenes)
 cloudinary.config ({ 
    cloud_name : 'dclbqwg59', 
@@ -49,8 +44,8 @@ exports.createService= function(req,res){
 				// Ajusta el tamaño de la imagen y le asigna un id unico
 				//	public_id: req.body.idUserProfile, 
 				crop: 'fill',
-				width: 426,
-				height: 266
+				//width: 426,
+				//height: 266
 			})
 		}
  	}else{
@@ -372,8 +367,8 @@ exports.updateService = function (req,res) {
 				// Ajusta el tamaño de la imagen y le asigna un id unico
 				//public_id: req.body.idUserProfile, 
 				crop: 'fill',
-				width: 426,
-				height: 266
+				//width: 426,
+				//height: 266
 			})
 		}
 	}

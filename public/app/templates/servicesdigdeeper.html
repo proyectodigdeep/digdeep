@@ -86,6 +86,7 @@
 					<div class="row" style="margin-top: 10px">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<label class="labelSendS">Imagen para tu servicio</label><br>
+							<span style="color: #8e8383; font-size: 12px">Te recomendamos el siguiente tamaño de tus imagenes, para una mejor adaptación a la pagína: 426 pixeles X 266 pixeles. </span>
 							<form ng-model="myDropzone" class="dropzone" method="post" enctype="multipart/form-data" ng-dropzone dropzone-config="dropzoneConfig" dropzone="dropzone" event-handlers="{'error':dzError }" role="form">
 								<div class="fallback">
 									<input name="source_file[]" type="file" multiple />
@@ -142,7 +143,7 @@
 							</span>
 						</div>
 					</div>
-					<label class="labelSendS">Filtros de busqueda para tu servicio</label>
+					<!--label class="labelSendS">Filtros de busqueda para tu servicio</label>
 					<div class="row">
 						<div class="col-md-10 col-sm-10 col-xs-12">
 							
@@ -184,7 +185,7 @@
 								<i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Nota: Estos filtros son importantes para que tus clientes, te encuentren fácilmente.
 							</span>
 						</div>
-					</div>
+					</div-->
 					<div class="row text-right" style="margin-top: 30px">
 						<button class="btn btnEditCS" ng-click="saveService()">Guardar servicio</button>
 					</div>

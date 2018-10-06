@@ -144,7 +144,7 @@ function (                 $scope,   $state,  $controller,	 $rootScope,   $local
 						$rootScope.$emit("openAlert", {textAlert:"Lo sentimos tenemos problemas con nuestros servicios intentalo más tarde."})
 					})
 			    }
-				console.log(profile)
+				//console.log(profile)
 			})	
 		}
     	if ($localStorage.token === undefined) {
