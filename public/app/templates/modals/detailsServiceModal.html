@@ -12,9 +12,7 @@
     <div>
         <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
             <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                <a>
-                    <img ng-src="{{slide.image}}" class="pictureDetailModal">
-                </a>
+                <img ng-src="{{slide.image}}" class="pictureDetailModal">
                 <div class="carousel-caption">
                     <p>{{slide.text}}</p>
                 </div>
