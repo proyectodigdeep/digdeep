@@ -415,7 +415,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 			 			if (id_auth0.indexOf('facebook') != -1) {
 			 				console.log(profile)
 							console.log("#" + profile.name + "# #" + profile.email + "# #" + profile.picture + "#");
-							$rootScope.$emit("openAlert", {textAlert:"#" + profile.name + "# #" + profile.email + "# #" + profile.picture + "#"})
+							//$rootScope.$emit("openAlert", {textAlert:"#" + profile.name + "# #" + profile.email + "# #" + profile.picture + "#"})
 			 				var data_user = {
 			 					name: String(profile.name),
 								email: String(profile.email),
