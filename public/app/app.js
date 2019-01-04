@@ -587,7 +587,8 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 
 app.constant('APP_SETTINGS',  {
 	CONEKTA: {
-		CONEKTA_API_KEY: 'key_ETHz2nziQpiTmZhqTQBAzjw',
+		//CONEKTA_API_KEY: 'key_ETHz2nziQpiTmZhqTQBAzjw',
+		CONEKTA_API_KEY: 'key_YifkBQVqDsu4KfEv8EpjivQ',
 		LANGUAGE: 'es' 
 	}
 });

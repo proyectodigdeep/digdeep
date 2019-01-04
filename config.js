@@ -21,7 +21,8 @@ module.exports = {
 	
 	hostPath: 'https://digdeep.mx/',
 	conekta: {
-		apiKey: 'key_RbynxeQNr9WAh7JPXyyxkw',
+		//apiKey: 'key_RbynxeQNr9WAh7JPXyyxkw',
+		apiKey: 'key_L9LVpJLSZ7q6USykrKgeoA',
 		locale: 'es',
 		currency: 'MXN'
 	},
