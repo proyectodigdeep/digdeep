@@ -210,7 +210,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 							email: String(profile.email),
 							roll: "user",
 							auth0Id: id_auth0,
-							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+							urlImg: profile.picture
 		 				}
 		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
 		 				userService.registerUserBySocialRed(data_user, function (usr) {
@@ -415,7 +415,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 			 			if (id_auth0.indexOf('facebook') != -1) {
 			 				console.log(profile)
 							console.log("#" + profile.name + "# #" + profile.email + "# #" + profile.picture + "#");
-							$rootScope.$emit("openAlert", {textAlert:"#" + profile.name + "# #" + profile.email + "# #" + profile.picture + "#"})
+							//$rootScope.$emit("openAlert", {textAlert:"#" + profile.name + "# #" + profile.email + "# #" + profile.picture + "#"})
 			 				var data_user = {
 			 					name: String(profile.name),
 								email: String(profile.email),
@@ -547,7 +547,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 							email: String(profile.email),
 							roll: "digdeeper",
 							auth0Id: id_auth0,
-							urlImg: "http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png"
+							urlImg: profile.picture
 		 				}
 		 				// Registrar el usuario que ya ha sido registrado en auth0 con una red social
 		 				userService.registerUserBySocialRed(data_user, function (usr) {
