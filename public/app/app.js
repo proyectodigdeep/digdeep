@@ -155,7 +155,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	          state:"some thing I need to preserve"
 	        }
 	    },
-	    allowSignUp: false
+	    allowSignUp: false,
 	    autoclose: true 
 	}
 	var id_auth0 = ""
@@ -319,7 +319,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    },
 	    allowLogin: false,
 	    loginAfterSignup: false,
-	    auto_login: false
+	    auto_login: false,
 	    autoclose: true 
 	}
 
