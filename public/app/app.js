@@ -607,6 +607,6 @@ app.constant('APP_MESSAGES', {
 
 app.filter('capitalize', function() {
     return function(s) {
-	  return s.toUpperCase() == s ? ((angular.isString(s) && s.length > 0) ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s) : s;
+	  return s.toUpperCase() == s ? ((angular.isString(s) && s.length > 0) ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s) : s[0].toUpperCase() + s.substr(1);
     }
 });
