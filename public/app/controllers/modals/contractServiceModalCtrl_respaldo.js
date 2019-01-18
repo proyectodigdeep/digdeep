@@ -357,7 +357,7 @@ function (                                        typePrice,  geocodeService,  S
     
     this.cancel = function () {
         $uibModalInstance.close()
-        location.reload()
+        //location.reload()
     }
 
     this.putCard = function (card) {
