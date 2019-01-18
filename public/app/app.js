@@ -604,3 +604,9 @@ app.constant('APP_MESSAGES', {
 		TITULAR_REQUERIDO: 'El nombre del titular no puede ser vacío'
 	}
 });
+
+app.filter('capitalize', function() {
+    return function(input) {
+	  return (angular.isString(s) && s.length > 0) ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s;
+    }
+});
