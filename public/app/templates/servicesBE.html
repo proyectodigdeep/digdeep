@@ -149,7 +149,7 @@
 									<img class="img-responsive" src="{{service.service.pictures[0]}}" style="border-radius: 5px;margin: 0 auto">
 								</div>
 							</div>
-							<div class="text-center contentCardServiceESLS">
+							<div class="text-center contentCardServiceESLS contentCardServiceESLS2">
 								<p>
 									<span class="textTitleCard">{{service.service.title}}</span><br>
 									<!--<span class="textContentCard">Servicio {{$index + 1}}</span>-->
@@ -169,8 +169,8 @@
 									<!--<i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i>--><span style="font-size: 14px">On site: </span>{{service.service.price_presencial | currency }}
 								</p>
 							</div>
-							<div class="text-center" ng-click="openDetailsServiceModal(service.service,typePrice)" style="cursor: pointer">
-								<i class="fa fa-info" style="color: white;font-size: 14px;"></i><span style="font-size: 14px; text-decoration: underline;">Ver más</span>
+							<div class="text-center" ng-click="openDetailsServiceModal(service.service,typePrice)" style="cursor: pointer;padding-bottom: 10px;">
+								<i class="fa fa-info" style="color: white;font-size: 14px;"></i><span style="font-size: 14px; text-decoration: underline;padding-left: 5px;">Ver más</span>
 							</div>
 						</div>
 						<div class="text-center">

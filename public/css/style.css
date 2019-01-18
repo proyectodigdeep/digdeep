@@ -259,6 +259,9 @@ a,
     height: 140px;
     overflow: hidden;
 }
+.contentCardServiceESLS2{
+	height: 80px;
+}
 .dropzone {
     border: 1px solid #04456b !important;
     background: transparent !important;
