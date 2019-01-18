@@ -29,12 +29,13 @@
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <p>
-                    <i class="fa fa-home" style="color: white;font-size: 14px"></i><span class="text2ModalInfo">A domicilio</span><br>{{service.price_athome | currency }}
+                    <!--<i class="fa fa-home" style="color: white;font-size: 14px"></i>--><span style="font-size: 14px">At home: </span>
+					{{service.service.price_athome | currency }}
                 </p>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <p>
-                    <i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i><span class="text2ModalInfo">En establecimiento</span><br>{{service.price_presencial | currency }}
+                    <!--<i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i>--><span style="font-size: 14px">On site: </span>{{service.service.price_presencial | currency }}
                 </p>
             </div>
         </div>
