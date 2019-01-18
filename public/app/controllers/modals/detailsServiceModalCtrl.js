@@ -3,8 +3,9 @@ angular.module('digdeepApp.detailsServiceModalCtrl', ['ui.bootstrap'])
 .controller('detailsServiceModalCtrl', ['$rootScope', '$scope', '$uibModal', '$document',
 function (                               $rootScope,   $scope,   $uibModal,   $document) {
     
-    $scope.openDetailsServiceModal = function (Service,typePrice,size, parentSelector) {
-        $uibModal.open({
+    $scope.openDetailsServiceModal = function (Service,typePrice,size, parentSelector, $event) {
+        $event.stopPropagation();
+		$uibModal.open({
             animation: true,
             templateUrl: '/app/templates/modals/detailsServiceModal.html',
             controller: 'detailsServiceModalInstanceCtrl',
@@ -19,7 +20,8 @@ function (                               $rootScope,   $scope,   $uibModal,   $d
     }
 
     // Abrir modal si es que se pide desde fuera a traves del evento "openDeleteServiceModal"
-    $rootScope.$on('openDetailsServiceModal', function(Service,size, parentSelectora) {
+    $rootScope.$on('openDetailsServiceModal', function(Service,size, parentSelectora, $event) {
+		$event.stopPropagation();
         $uibModal.open({
             animation: true,
             templateUrl: '/app/templates/modals/detailsServiceModal.html',
