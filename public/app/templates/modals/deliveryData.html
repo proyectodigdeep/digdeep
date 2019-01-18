@@ -30,14 +30,14 @@
                 <i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Es necesario completar este campo
             </span>
         </div>
-        <div ng-if="orderService.placeService == 'presencial'" class="divFormDeliveryData" style="padding-bottom: 5px;height: 100px">
+        <div ng-if="orderService.placeService == 'athome'" class="divFormDeliveryData" style="padding-bottom: 5px;height: 100px">
             <span  class="labelFormDeliveryData">Ubicación</span>
             <input type="text" class="form-control inputFormDeliveryData" g-places-autocomplete ng-model="autocmpleteAddress" placeholder="Colonia Centro 2pte. #1234 Puebla, Pue. C.P. 7200" options="autocompleteOptions"/>
             <span class="formInvalidText" ng-if="deliveryaddressFailed">
                 <i class="fa fa-asterisk asterikformInvalid" aria-hidden="true"></i>Este campo no es valido
             </span>
         </div>
-        <div ng-if="orderService.placeService == 'presencial'" class="row text-center">
+        <div ng-if="orderService.placeService == 'athome'" class="row text-center">
             <button class="btn btnModalOk" ng-click="$ctrl.putDeliveryData(autocmpleteAddress,false)">Ajustar Dirección</button>
         </div>
         <div class="row text-center" style="margin-top: 5px">
