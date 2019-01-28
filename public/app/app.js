@@ -156,7 +156,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	        }
 	    },
 	    allowSignUp: false,
-	    autoclose: true 
+	    autoclose: false 
 	}
 	var id_auth0 = ""
 	var profile = {}
@@ -320,7 +320,7 @@ app.run(function(lock, $rootScope, userService, $localStorage, $state) {
 	    allowLogin: false,
 	    loginAfterSignup: false,
 	    auto_login: false,
-	    autoclose: true 
+	    autoclose: false 
 	}
 
 	// LOK PARA REGISTRO USUARIO
