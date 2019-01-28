@@ -142,37 +142,38 @@
 			<div class="row">
 				<div class="col-md-4 col-sm-6 col-xs-12 cardContainer" ng-repeat="service in services">
 					<div class="cardSubContainerES" >
-						<div ng-click="openDetailsServiceModal(service.service,typePrice)" style="cursor: pointer">
+						<!--<div ng-click="openDetailsServiceModal(service.service,typePrice)" style="cursor: pointer">-->
+						<div ng-click="openContractServiceModal(service.service,user,typePrice)" style="cursor: pointer">
 							<div style="padding: 10px">
 								<div style="width: 213px;height: 133px;display: block;margin: 0 auto;">
 									<img class="img-responsive" src="{{service.service.pictures[0]}}" style="border-radius: 5px;margin: 0 auto;">
 								</div>
 							</div>
-							<div class="text-center contentCardServiceESLS">
+							<div class="text-center contentCardServiceESLS contentCardServiceESLS2">
 								<p>
 									<span class="textTitleCard">{{service.service.title}}</span><br>
-									<span class="textContentCard">Servicio {{$index + 1}}</span>
+									<!--<span class="textContentCard">Servicio {{$index + 1}}</span>-->
 								</p>
-								<p>
+								<!--<p>
 									<span class="textSubTitleCard">
 										Descripción
 									</span><br>
 									<span class="textDescriptionCard">
 										{{service.service.description}}
 									</span>
-								</p>
+								</p>-->
 							</div>
 							<div class="text-center">
 								<p class="textCostCard" ng-if="typePrice === 1 || typePrice ===2">
-									<i class="fa fa-home" style="color: white;font-size: 14px"></i>
-									<span style="font-size: 14px">A domicilio</span><br>
+									<!--<i class="fa fa-home" style="color: white;font-size: 14px"></i>--><span style="font-size: 14px">At home: </span>
 									{{service.service.price_athome | currency }}
 								</p>
 								<p class="textCostCard" ng-if="typePrice === 1 || typePrice ===3">
-									<i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i>
-									<span style="font-size: 14px">En establecimiento</span><br>
-									{{service.service.price_presencial | currency }}
+									<!--<i class="fa fa-location-arrow" style="color: white;font-size: 14px"></i>--><span style="font-size: 14px">On site: </span>{{service.service.price_presencial | currency }}
 								</p>
+							</div>
+							<div class="text-center" ng-click="openDetailsServiceModal(service.service,typePrice,'md','parentSelector',$event);" style="cursor: pointer;padding-bottom: 10px;">
+								<i class="fa fa-info" style="color: white;font-size: 14px;"></i><span style="font-size: 14px; text-decoration: underline;padding-left: 5px;">Ver más</span>
 							</div>
 						</div>
 						<div class="text-center">
@@ -182,9 +183,9 @@
 								</strong>
 							</p>
 						</div>
-						<div class="text-center" ng-click="openContractServiceModal(service.service,user,typePrice)">
+						<!--<div class="text-center" ng-click="openContractServiceModal(service.service,user,typePrice)">
 							<button class="btn btn-block buttonContractCardES">CONTRATAR</button>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>			

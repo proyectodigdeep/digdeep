@@ -80,17 +80,18 @@
 			<div class="row">
 				<div class="col-md-4 col-sm-6 col-xs-12 cardContainer" ng-repeat="digdeeper in digdeepers">
 					<div class="cardSubContainerLS">
-						<div ng-click="openDetailsDigdeeperModal(digdeeper)" style="cursor: pointer">
+						<!--<div ng-click="openDetailsDigdeeperModal(digdeeper)" style="cursor: pointer">-->
+						<div ng-click="goServicesToDigdeeper(digdeeper._id)" style="cursor: pointer">
 							<div style="padding: 10px">
-								<img class="img-responsive imgprofileCard" src="{{digdeeper.urlImg}}" >
+								<img class="img-responsive imgprofileCard" src="{{digdeeper.urlImg}}" onerror="this.src='http://res.cloudinary.com/dclbqwg59/image/upload/v1529014920/user_default.png';" >
 							</div>
 							<div class="text-center contentCardServiceESLS">
 								<p>
-									<span class="textTitleCard">{{digdeeper.fullname}}</span><br>
+									<span class="textTitleCard">{{digdeeper.fullname | capitalize}}</span><br>
 									<span class="textContentCard">{{digdeeper.state}}</span><br>
 									<span class="textContentCard">{{digdeeper.specialty}}</span><br>
 								</p>
-								<p>
+								<!--<p>
 									<span uib-rating ng-model="digdeeper.calf" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['servicio cumplido','servicio regular','buen servicio','eficiente servicio','exelente servicio']" aria-labelledby="default-rating"></span><br>
 									<span>({{digdeeper.values.length}})</span>
 								</p>
@@ -101,15 +102,15 @@
 									<span class="textDescriptionCard">
 										{{digdeeper.descriptionCompany}}
 									</span>
-								</p>
+								</p>-->
 							</div>
 							<div class="text-center">
 								<p class="textCostCard"></p>
 							</div>
 						</div>
-						<div class="text-center" ng-click="goServicesToDigdeeper(digdeeper._id)">
+						<!--<div class="text-center" ng-click="goServicesToDigdeeper(digdeeper._id)">
 							<button class="btn btn-block buttonContractCardLS">IR A SERVICIOS</button>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
