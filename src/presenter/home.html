@@ -78,7 +78,7 @@
 
 	  });
 	  
-	  alert("pre pwa");
+	  alert("pre pwa " + $(".pwa-install-prompt__container").size());
 	  
 	  new pwaInstallPrompt(".pwa-install-prompt__container", {
 			active_class: "is-active",
@@ -88,19 +88,25 @@
 			show_after: 90,
 			on: {
 				beforeOpen: function () {
+					alert("pwa before open");
 					console.log("before open!");
 				},
 				afterOpen: function () {
+					alert("pwa after open");
 					console.log("after open!");
 				},
 				beforeClose: function () {
+					alert("pwa before close");
 					console.log("before close!");
 				},
 				afterClose: function () {
+					alert("pwa after close");
 					console.log("after close!");
 				},
 			}
 		});
+		
+		alert("post pwa");
 	</script>
 	<script src="/bower_components/angular/angular.min.js"></script>
 	<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
