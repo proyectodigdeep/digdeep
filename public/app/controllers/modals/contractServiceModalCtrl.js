@@ -408,12 +408,14 @@ function (                                        typePrice,  geocodeService,  S
                             
                         }, function(err) {
                             //coordsReady()
-                            $scope.deliveryaddressFailed = true
+                            //$scope.deliveryaddressFailed = true
+							$scope.deliveryaddressFailed = false
                             console.log("Error ("+err+") al geocodificar delivery address: ")
                         })
                     }
                 }else{
-                    $scope.deliveryaddressFailed = true
+                    //$scope.deliveryaddressFailed = true
+					$scope.deliveryaddressFailed = false
                 }    
             }else{
                 console.log("Formulario invalido")
@@ -677,7 +679,8 @@ function (                                        typePrice,  geocodeService,  S
                     
                 }, function(err) {
                     //coordsReady()
-                    $scope.deliveryaddressFailed = true
+                    //$scope.deliveryaddressFailed = true
+					$scope.deliveryaddressFailed = false
                     console.log("Error ("+err+") al geocodificar delivery address: ")
                 })
             }
