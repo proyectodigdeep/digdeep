@@ -410,7 +410,7 @@ function (                                        typePrice,  geocodeService,  S
                             //coordsReady()
                             //$scope.deliveryaddressFailed = true
 							$scope.deliveryaddressFailed = false
-                            console.log("Error ("+err+") al geocodificar delivery address: ")
+                            console.log("Error1 ("+err+") al geocodificar delivery address: ")
                         })
                     }
                 }else{
@@ -681,7 +681,7 @@ function (                                        typePrice,  geocodeService,  S
                     //coordsReady()
                     //$scope.deliveryaddressFailed = true
 					$scope.deliveryaddressFailed = false
-                    console.log("Error ("+err+") al geocodificar delivery address: ")
+                    console.log("Error2 ("+err+") al geocodificar delivery address: ")
                 })
             }
         }else{
