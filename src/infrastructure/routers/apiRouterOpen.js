@@ -150,6 +150,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 
 // procesa las peticiones de conekta para la validacion de ordenes por spei
 router.post('/whconekta', function (req, res) {
+	alert("hola");
 	console.log("wh ejecutado");
 	var data = req.body.data;	
 	
