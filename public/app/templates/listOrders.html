@@ -86,7 +86,10 @@
 								<div ng-if="order.status === 2">
 									<button class="btn btnFinish" ng-click="openFinishOrderModal(order._id)">Finalizar</button>		
 								</div>
-								<div ng-if="order.status === 3 || order.status ===5">
+								<div ng-if="order.status === 3">
+									<button class="btn btnFinish" ng-click="openPayTotalServiceModal(order._id,user._id,order)">PAGAR</button>	
+								</div>
+								<div ng-if="order.status === 333 || order.status ===5">
 									<span class="digdeperSubTitleCard">Calificación</span><br>
 									<span uib-rating ng-model="order.value" max = 5 read-only="true" titles="['servicio cumplido','servicio regular','buen servicio','eficiente servicio','exelente servicio']" aria-labelledby="default-rating"></span>
 								</div>
