@@ -148,7 +148,7 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 /****ORDENES****/
 	// Obtener ordenes para conekta
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
-	router.post("/whconekta2", whService.whConekta)
+	router.post("/webhookConekta", userService.webhookConekta)
 
 // procesa las peticiones de conekta para la validacion de ordenes por spei
 /*router.post('/whconekta', function (req, res) {
