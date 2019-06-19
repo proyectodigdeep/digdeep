@@ -25,6 +25,7 @@ var emailService 	= require("../services/emailService") 	 // Este es un servicio
 var commentService 	= require("../services/commentService")  // Este es un servicio especifico para comentarios
 var orderService 	= require("../services/orderService") 	 // Este es un servicio especifico para ordenes de los usuarios
 var calendarService = require("../services/calendarService") 	// Este es un servicio especifico para calendario
+var whService = require("../services/whService") 	// Este es un servicio especifico para calendario
 
 /****USUARIOS****/
 	//[ok] Crear nuevo usuario despues de registrarlo en auth0
@@ -147,7 +148,7 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 /****ORDENES****/
 	// Obtener ordenes para conekta
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
-	router.post("whconekta", orderService.whConekta)
+	router.post("whconekta", whService.whConekta)
 
 // procesa las peticiones de conekta para la validacion de ordenes por spei
 /*router.post('/whconekta', function (req, res) {
