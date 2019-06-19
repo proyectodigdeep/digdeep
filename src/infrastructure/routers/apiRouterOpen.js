@@ -149,10 +149,8 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
 
 // procesa las peticiones de conekta para la validacion de ordenes por spei
-router.post('/whconekta', function (req, res) {
+router.get('/whconekta', function (req, res) {
 	var data = req.body.data;
-	alert(JSON.stringify(data));
-	return;
 	
 	// si existe una orden de conekta en el body request
 	if (data && data.object && data.object.order_id) {
