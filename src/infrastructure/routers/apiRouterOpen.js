@@ -217,9 +217,10 @@ router.post('/whconekta', function (req, res) {
 									digdeeper_name: order.dataService.nameDD,
 									digdeeper_picture: order.dataService.imgDD
 								}
-								emailService.notificacionServicioPagado(clientData, orderData, function (result) {
+								res.status(200);
+								/*emailService.notificacionServicioPagado(clientData, orderData, function (result) {
 									res.status(result.status).json(result.body);
-								})
+								})*/
 							}else {
 								res.status(400);
 							}
@@ -233,6 +234,7 @@ router.post('/whconekta', function (req, res) {
 			}
 		},function(err){
 			console.log(err)
+			res.status(400);
 		})
 	}else {
 		res.status(400);
