@@ -25,7 +25,7 @@ var emailService 	= require("../services/emailService") 	 // Este es un servicio
 var commentService 	= require("../services/commentService")  // Este es un servicio especifico para comentarios
 var orderService 	= require("../services/orderService") 	 // Este es un servicio especifico para ordenes de los usuarios
 var calendarService = require("../services/calendarService") 	// Este es un servicio especifico para calendario
-var whService = require("../services/whService") 	// Este es un servicio especifico para calendario
+var whService 		= require("../services/whService") 	// Este es un servicio especifico para calendario
 
 /****USUARIOS****/
 	//[ok] Crear nuevo usuario despues de registrarlo en auth0
