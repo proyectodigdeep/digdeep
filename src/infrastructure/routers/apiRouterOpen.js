@@ -147,15 +147,10 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 /****ORDENES****/
 	// Obtener ordenes para conekta
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
-	
-	router.post('/whconekta1', function(req, res){
-		res.status(200);
-	});
+	router.post("whconekta", orderService.whConekta)
 
 // procesa las peticiones de conekta para la validacion de ordenes por spei
-router.post('/whconekta', function (req, res) {
-	res.status(200);
-	/*return;
+/*router.post('/whconekta', function (req, res) {
 	var data = typeof req.body == 'string' ? JSON.parse(req.body.data) : req.body.data;
 	
 	// si existe una orden de conekta en el body request
@@ -224,10 +219,10 @@ router.post('/whconekta', function (req, res) {
 									digdeeper_picture: order.dataService.imgDD
 								}
 								res.status(200);
-								/*emailService.notificacionServicioPagado(clientData, orderData, function (result) {
+								emailService.notificacionServicioPagado(clientData, orderData, function (result) {
 									res.status(result.status).json(result.body);
-								})*/
-							/*}else {
+								})
+							}else {
 								res.status(400);
 							}
 						}
@@ -244,8 +239,10 @@ router.post('/whconekta', function (req, res) {
 		})
 	}else {
 		res.status(400);
-	}*/
-})
+	}
+})*/
+
+
 // Obtener el més segun un número
     function getMonth(monthNumber) {
         if (monthNumber === 0) {
