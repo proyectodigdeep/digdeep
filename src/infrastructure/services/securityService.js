@@ -96,7 +96,7 @@ exports.verifyToken = function(req, res, next) {
 		// return an error
 		return res.status(403).json({ 
 		    success: false, 
-		    message: 'No token provided. It is mandatory to be authenticated in order to use this API.' 
+		    message: 'No token provided. It is mandatory to be authenticated in order to use this API..' 
 		})
 
 	}
