@@ -147,6 +147,10 @@ var calendarService = require("../services/calendarService") 	// Este es un serv
 /****ORDENES****/
 	// Obtener ordenes para conekta
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
+	
+	router.post('/whconekta1', functin(req, res){
+		res.status(200);
+	});
 
 // procesa las peticiones de conekta para la validacion de ordenes por spei
 router.post('/whconekta', function (req, res) {
