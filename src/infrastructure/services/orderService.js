@@ -670,7 +670,11 @@ exports.verifyOrderConekta = function(req, res) {
 
 // ordenes pendientes
 exports.getOrdersPending = function(req, res) {
-	if (true/*req.user.hasRole('digdeeper') || req.user.hasRole('root')*/){
+	res.status(200)
+	res.json({
+		message: "Test"
+	})
+	/*if (req.user.hasRole('digdeeper') || req.user.hasRole('root')){
 		orderApp.getOrdersPending(function(orders) {
 			res.status(201)
 			res.json({
@@ -691,7 +695,7 @@ exports.getOrdersPending = function(req, res) {
 		res.json({
 			message: "No tienes el rol necesario para esta solicitud"
 		})
-	}
+	}*/
 }
 // ordenes en proceso
 exports.getOrdersInprocess = function(req, res) {
