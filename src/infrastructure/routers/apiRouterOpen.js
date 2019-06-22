@@ -252,6 +252,9 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 			})
 		}else {
 			res.status(200);
+			res.json({
+				test : "No se encontraron datos para procesar"
+			})
 		}
 	})
 
