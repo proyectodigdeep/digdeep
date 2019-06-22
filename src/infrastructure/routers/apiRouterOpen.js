@@ -150,9 +150,11 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
 	
 	router.get("/webhookTest",function(req, res){
+		var data = req.body.data;
+		
 		res.status(200)
 		res.json({
-			test : "hola"
+			test : data
 		})
 	})
 	
