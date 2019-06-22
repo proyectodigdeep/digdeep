@@ -2,7 +2,6 @@ var express 	= require("express")
 var commentApp = require("../../application/commentApp")
 
 exports.createComment= function(req,res){
- 	var data = req.body
  	commentApp.create(data, function(comment) {
 		res.status(200)
 		res.json({
