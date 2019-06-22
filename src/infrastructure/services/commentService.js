@@ -20,6 +20,7 @@ exports.createComment= function(req,res){
 }
 
 exports.getComments = function(req, res) {
+	res.send("Comments bien");
 	commentApp.getComments(function(comments) {
 		res.status(200)
 		res.json({
