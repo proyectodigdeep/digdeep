@@ -164,12 +164,12 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 	})
 	
 	router.post("/webhookConekta", function (req, res) {
-		var data = req.body.data;
+		var data = req.body;
 		
 		// si existe una orden de conekta en el body request
-		if (data && data.object && data.object.order_id) {
-			var idOrdenConekta = data.object.order_id;
-			var estatusOrden = data.object.status;// paid
+		if (data && data.object && data.object.id) {
+			var idOrdenConekta = data.object.id;
+			var estatusOrden = data.object.payment_status;// paid
 
 			// Se busca la orden de conekta en la bd	
 			orderApp.getOrderByIdConkta(String(idOrdenConekta), function(order){
