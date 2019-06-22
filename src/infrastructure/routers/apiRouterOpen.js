@@ -154,7 +154,7 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 		
 		res.status(200);
 		res.json({
-			test : "Test#" + JSON.stringify(data)
+			test : "Test#" + data.object.id
 		})
 		
 		/*if(data && data.object && data.object.id){
