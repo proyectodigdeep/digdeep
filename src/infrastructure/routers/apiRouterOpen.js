@@ -170,14 +170,9 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 		if (data && data.object && data.object.id) {
 			var idOrdenConekta = data.object.id;
 			var estatusOrden = data.object.payment_status;// paid
-			
-			res.status(200);
-			res.json({
-				test : "Test " + data.object.id
-			})
 
 			// Se busca la orden de conekta en la bd	
-			/*orderApp.getOrderByIdConkta(String(idOrdenConekta), function(order){
+			orderApp.getOrderByIdConkta(String(idOrdenConekta), function(order){
 				if(order){
 					// Checa si el estatus de la orden esta en proceso de pago(6),
 					// y que no este ya pagada(5), para evitar reenviar el correo.
@@ -254,9 +249,9 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 			},function(err){
 				console.log(err)
 				res.status(400);
-			})*/
+			})
 		}else {
-			res.status(400);
+			res.status(200);
 		}
 	})
 
