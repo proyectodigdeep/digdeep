@@ -148,12 +148,13 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 /****ORDENES****/
 	// Obtener ordenes para conekta
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
+	
 	router.get("/webhookTest",function(req, res){
-		res.status(200);
+		res.send("Hola")
 	})
 	
 	router.post("/webhookConekta", function (req, res) {
-		var data = typeof req.body == 'string' ? JSON.parse(req.body.data) : req.body.data;
+		var data = req.body.data;
 		
 		// si existe una orden de conekta en el body request
 		if (data && data.object && data.object.order_id) {
