@@ -199,6 +199,7 @@ module.exports = function() {
 	//[OK] Obtener todas las ordenes
 	router.get('/orders',orderService.getOrders)
 	//[OK] Obtener todas las ordenes pendientes
+	router.get('/orderstest',orderService.getOrdersTest)
 	router.get('/orderspending',orderService.getOrdersTest)
 	//[OK] Obtener todas las ordenes en proceso
 	router.get('/ordersinprocess',orderService.getOrdersInprocess)
