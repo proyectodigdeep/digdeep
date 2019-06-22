@@ -152,12 +152,7 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 	router.post("/webhookTest",function(req, res){
 		var data = req.body;
 		
-		res.status(200);
-		res.json({
-			test : "Test#" + data.object.id
-		})
-		
-		/*if(data && data.object && data.object.id){
+		if(data && data.object && data.object.id){
 			res.status(200);
 			res.json({
 				test : "Test " + data.object.id
@@ -165,7 +160,7 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 		}
 		else{
 			res.status(400);
-		}*/
+		}
 	})
 	
 	router.post("/webhookConekta", function (req, res) {
