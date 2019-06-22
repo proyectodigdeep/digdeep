@@ -149,15 +149,15 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 	// Obtener ordenes para conekta
 	router.get("/orderverifyconekta/:id", orderService.verifyOrderConekta)
 	
-	router.get("/webhookTest",function(req, res){
+	router.post("/webhookTest",function(req, res){
 		var data = req.body;
 		
 		res.status(200);
 		res.json({
-			test : "Test#" + data + "#" + data.object + "#" + data.object.id
+			test : "Test#" + JSON.stringify(data)
 		})
 		
-		if(data && data.object && data.object.id){
+		/*if(data && data.object && data.object.id){
 			res.status(200);
 			res.json({
 				test : "Test " + data.object.id
@@ -165,7 +165,7 @@ var whService 		= require("../services/whService") 	// Este es un servicio espec
 		}
 		else{
 			res.status(400);
-		}
+		}*/
 	})
 	
 	router.post("/webhookConekta", function (req, res) {
