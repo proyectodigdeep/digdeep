@@ -666,7 +666,12 @@ exports.verifyOrderConekta = function(req, res) {
 	})
 }
 
-
+exports.getOrderTest = function(req, res){
+	res.status(200)
+	res.json({
+		message: "Test"
+	})
+}
 
 // ordenes pendientes
 exports.getOrdersPending = function(req, res) {
