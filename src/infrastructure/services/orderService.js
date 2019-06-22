@@ -670,13 +670,8 @@ exports.verifyOrderConekta = function(req, res) {
 
 // ordenes pendientes
 exports.getOrdersPending = function(req, res) {
-	if (req.user.hasRole('digdeeper') || req.user.hasRole('root')){
-		res.status(201)
-			res.json({
-				status: "success",
-				message: "ordenes obtenidas correctamente"
-			})
-		/*orderApp.getOrdersPending(function(orders) {
+	if (true/*req.user.hasRole('digdeeper') || req.user.hasRole('root')*/){
+		orderApp.getOrdersPending(function(orders) {
 			res.status(201)
 			res.json({
 				status: "success",
@@ -689,7 +684,7 @@ exports.getOrdersPending = function(req, res) {
 				status: "failure",
 				message: err
 			})
-		})*/
+		})
 	}
 	else {
 		res.status(403)
